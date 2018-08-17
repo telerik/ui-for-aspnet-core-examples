@@ -1,0 +1,31 @@
+D:\Demos\.net core  setup\dropdown-datasource\src\WebApplication3\bin\Debug\netcoreapp1.0\WebApplication3.deps.json
+D:\Demos\.net core  setup\dropdown-datasource\src\WebApplication3\bin\Debug\netcoreapp1.0\WebApplication3.runtimeconfig.json
+D:\Demos\.net core  setup\dropdown-datasource\src\WebApplication3\bin\Debug\netcoreapp1.0\WebApplication3.runtimeconfig.dev.json
+D:\Demos\.net core  setup\dropdown-datasource\src\WebApplication3\bin\Debug\netcoreapp1.0\WebApplication3.dll
+D:\Demos\.net core  setup\dropdown-datasource\src\WebApplication3\bin\Debug\netcoreapp1.0\WebApplication3.pdb
+D:\Demos\.net core  setup\dropdown-datasource\src\WebApplication3\obj\Debug\netcoreapp1.0\WebApplication3.csprojResolveAssemblyReference.cache
+D:\Demos\.net core  setup\dropdown-datasource\src\WebApplication3\obj\Debug\netcoreapp1.0\WebApplication3.AssemblyInfo.cs
+D:\Demos\.net core  setup\dropdown-datasource\src\WebApplication3\obj\Debug\netcoreapp1.0\WebApplication3.dll
+D:\Demos\.net core  setup\dropdown-datasource\src\WebApplication3\obj\Debug\netcoreapp1.0\WebApplication3.pdb
+D:\Demos\.net core  setup\template\src\WebApplication3\bin\Debug\netcoreapp1.0\WebApplication3.deps.json
+D:\Demos\.net core  setup\template\src\WebApplication3\bin\Debug\netcoreapp1.0\WebApplication3.runtimeconfig.json
+D:\Demos\.net core  setup\template\src\WebApplication3\bin\Debug\netcoreapp1.0\WebApplication3.runtimeconfig.dev.json
+D:\Demos\.net core  setup\template\src\WebApplication3\bin\Debug\netcoreapp1.0\WebApplication3.dll
+D:\Demos\.net core  setup\template\src\WebApplication3\bin\Debug\netcoreapp1.0\WebApplication3.pdb
+D:\Demos\.net core  setup\template\src\WebApplication3\obj\Debug\netcoreapp1.0\WebApplication3.csprojResolveAssemblyReference.cache
+D:\Demos\.net core  setup\template\src\WebApplication3\obj\Debug\netcoreapp1.0\WebApplication3.AssemblyInfo.cs
+D:\Demos\.net core  setup\template\src\WebApplication3\obj\Debug\netcoreapp1.0\WebApplication3.dll
+D:\Demos\.net core  setup\template\src\WebApplication3\obj\Debug\netcoreapp1.0\WebApplication3.pdb
+D:\Demos\.net core  setup\template\src\WebApplication3\obj\Debug\netcoreapp1.0\WebApplication3.csproj.CoreCompileInputs.cache
+D:\Demos\.net core  setup\template\src\WebApplication3\obj\Debug\netcoreapp1.0\WebApplication3.AssemblyInfoInputs.cache
+D:\core-examples\aspnet-core-examples\grid\ajax-binding\src\WebApplication3\obj\Debug\netcoreapp1.0\WebApplication3.csprojAssemblyReference.cache
+D:\core-examples\aspnet-core-examples\grid\ajax-binding\src\WebApplication3\obj\Debug\netcoreapp1.0\WebApplication3.csproj.CoreCompileInputs.cache
+D:\core-examples\aspnet-core-examples\grid\ajax-binding\src\WebApplication3\obj\Debug\netcoreapp1.0\WebApplication3.AssemblyInfoInputs.cache
+D:\core-examples\aspnet-core-examples\grid\ajax-binding\src\WebApplication3\obj\Debug\netcoreapp1.0\WebApplication3.AssemblyInfo.cs
+D:\core-examples\aspnet-core-examples\grid\ajax-binding\src\WebApplication3\obj\Debug\netcoreapp1.0\WebApplication3.dll
+D:\core-examples\aspnet-core-examples\grid\ajax-binding\src\WebApplication3\obj\Debug\netcoreapp1.0\WebApplication3.pdb
+D:\core-examples\aspnet-core-examples\grid\ajax-binding\src\WebApplication3\bin\Debug\netcoreapp1.0\WebApplication3.deps.json
+D:\core-examples\aspnet-core-examples\grid\ajax-binding\src\WebApplication3\bin\Debug\netcoreapp1.0\WebApplication3.runtimeconfig.json
+D:\core-examples\aspnet-core-examples\grid\ajax-binding\src\WebApplication3\bin\Debug\netcoreapp1.0\WebApplication3.runtimeconfig.dev.json
+D:\core-examples\aspnet-core-examples\grid\ajax-binding\src\WebApplication3\bin\Debug\netcoreapp1.0\WebApplication3.dll
+D:\core-examples\aspnet-core-examples\grid\ajax-binding\src\WebApplication3\bin\Debug\netcoreapp1.0\WebApplication3.pdb
