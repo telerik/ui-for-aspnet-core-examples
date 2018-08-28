@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - ListBoxAsEditor</title>
+
+    <link href="https://kendo.cdn.telerik.com/2018.2.516/styles/kendo.common-material.min.css" rel="stylesheet" type="text/css" />
+    <link href="https://kendo.cdn.telerik.com/2018.2.516/styles/kendo.mobile.all.min.css" rel="stylesheet" type="text/css" />
+    <link href="https://kendo.cdn.telerik.com/2018.2.516/styles/kendo.material.min.css" rel="stylesheet" type="text/css" />
+
+    <script src="https://kendo.cdn.telerik.com/2018.2.516/js/jquery.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2018.2.516/js/jszip.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2018.2.516/js/kendo.all.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2018.2.516/js/kendo.aspnetmvc.min.js"></script>
+
+    <environment names="Development">
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="~/css/site.css" />
+    </environment>
+    <environment names="Staging,Production">
+        <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.6/css/bootstrap.min.css"
+              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
+        <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
+    </environment>
+
+</head>
+<body>
+    <div class="k-header">
+        <div class="container">
+            <div class="row">
+                <h1><a asp-controller="Home" asp-action="Index">Your .NET Core Application</a></h1>
+            </div>
+        </div>
+    </div>
+    <div class="container menu-content">
+            <div id="responsive-panel">
+                @(Html.Kendo().Menu()
+                    .Name("Menu")
+                    .Items(items =>
+                    {
+                        items.Add()
+                            .Text("Home")
+                            .Action("Index", "Home");
+                        items.Add()
+                            .Text("About")
+                            .Action("About", "Home");
+                        items.Add()
+                            .Text("Contact")
+                            .Action("Contact", "Home");
+                        items.Add().Text("Disabled item").Enabled(false);
+                    })
+                )
+            </div>
+            <button id="configure" class="k-rpanel-toggle k-button k-primary btn-toggle"><span class="k-icon k-i-hbars"></span></button>
+        </div>
+    <div class="container body-content">
+        @RenderBody()
+        <footer class="footer">
+            <span class="text-muted">Copyright © @DateTime.Now.Year Progress Software Corporation and/or its subsidiaries or affiliates.</span>
+            <span class="text-muted">All rights reserved.</span>
+        </footer>
+    </div>
+
+    @RenderSection("scripts", required: false)
+    <script>
+        $(document).ready(function () {
+            $("#responsive-panel").kendoResponsivePanel({
+                breakpoint: 768,
+                autoClose: false,
+                orientation: "top"
+            });
+        });
+        function onclick(e) {
+            $("#responsive-panel").getKendoResponsivePanel().toggle();
+        }
+    </script>
+</body>
+</html>
