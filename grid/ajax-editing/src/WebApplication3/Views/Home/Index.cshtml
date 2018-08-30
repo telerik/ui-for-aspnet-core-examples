@@ -9,6 +9,13 @@
           .DataSource(dataSource => dataSource
               .Ajax()
               .Read(read => read.Action("Read", "Home"))
+              .Update(update => update.Action("Update", "Home"))
+              .Create(create => create.Action("Create", "Home"))
+              .Destroy(destroy => destroy.Action("Destroy", "Home"))
+              .Model(m => {
+                  m.Id(id => id.ProductID);
+                  m.Field(f => f.ProductID).Editable(false);
+              })
            )
           .ToolBar(t => t.Create())
           .Columns(columns =>

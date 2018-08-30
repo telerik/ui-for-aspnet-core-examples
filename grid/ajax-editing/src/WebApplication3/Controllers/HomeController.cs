@@ -58,5 +58,34 @@ namespace WebApplication3.Controllers
         {
             return Json(products.ToDataSourceResult(request));
         }
+        
+
+        [AcceptVerbs("Post")]
+        public ActionResult Create([DataSourceRequest] DataSourceRequest request, Product product)
+        {
+            //save item to database
+            return Json(new[] { product }.ToDataSourceResult(request, ModelState));
+        }
+
+        [AcceptVerbs("Post")]
+        public ActionResult Update([DataSourceRequest] DataSourceRequest request, Product product)
+        {
+            //save item to database
+            products.Add(product);
+            return Json(new[] { product }.ToDataSourceResult(request, ModelState));
+        }
+
+        [AcceptVerbs("Post")]
+        public ActionResult Destroy([DataSourceRequest] DataSourceRequest request, Product product)
+        {
+            //remove item from database
+            products.Remove(product);
+            return Json(new[] { product }.ToDataSourceResult(request, ModelState));
+        }
+
+       
+
+
+
     }
 }
