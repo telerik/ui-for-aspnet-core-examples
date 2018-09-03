@@ -1,0 +1,72 @@
+﻿@page
+@model RazorPageGridTest.Pages.Customer.IndexModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Xsrf
+@Html.AntiForgeryToken()
+
+@using Kendo.Mvc.UI
+@{
+    var culture111 = System.Globalization.CultureInfo.CurrentCulture.ToString();
+}
+
+
+<h2>Index</h2>
+
+<div id="grid">
+
+</div>
+
+@(Html.Kendo().Grid<RazorPageGridTest.Customer>().Name("grid")
+            .AutoBind(false)
+            .Columns(x =>
+            {
+                x.Bound(p => p.Address);
+                x.Bound(p => p.ClockOut).EditorTemplateName("TimePicker").Format("{0:hh:mm tt}");
+                x.Command(c => c.Edit());
+            })
+            .Editable(editable => editable.Mode(GridEditMode.InLine))
+            .DataSource(d =>
+                d.Custom()
+                .Transport(t =>
+                {
+                    t.Read(r => r.Action("Customer", "Index", new { handler = "ReadRecords" }).Type(HttpVerbs.Post));
+                    t.Update(r => r.Action("Customer", "Index", new { handler = "UpdateRecord" }).Type(HttpVerbs.Post));
+                    t.ParameterMap("parameterMap");
+                })
+                .Schema(s => s.Model(m =>
+                {
+                    m.Id(i => i.CustomerId);
+                    m.Field("ClockOut", typeof(DateTime?));
+                }))
+                .PageSize(10)                
+            )
+            .Pageable()
+)
+
+<script>
+    function parameterMap(options, operation) {
+        if (operation === "update") {            
+            options.ClockOut = options.ClockOut.toUTCString();
+            return options;
+        }
+    }
+</script>
+
+<script>
+    $(function () {
+        var grid = $("#grid").data("kendoGrid");
+
+        grid.dataSource.transport.options.read.beforeSend = function (req) {
+            req.setRequestHeader('RequestVerificationToken', $('input:hidden[name="__RequestVerificationToken"]').val());
+        };
+
+        grid.dataSource.transport.options.update.beforeSend = function (req) {
+            req.setRequestHeader('RequestVerificationToken', $('input:hidden[name="__RequestVerificationToken"]').val());
+        };
+
+        grid.dataSource.read();
+    });
+</script>
