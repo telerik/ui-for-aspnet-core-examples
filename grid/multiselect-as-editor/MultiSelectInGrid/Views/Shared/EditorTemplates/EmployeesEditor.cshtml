@@ -1,0 +1,12 @@
+﻿@model List<MultiSelectInGrid.Models.EmployeeViewModel>
+
+@(
+        Html.Kendo().MultiSelectFor(m => m)
+            .DataTextField("Name")
+            .DataValueField("Name")
+            .AutoBind(false)
+            .TagMode(MultiSelectTagMode.Single)
+            .DataSource(d=> {
+                d.Read(read => read.Action("GetEmployees", "Grid"));
+            })
+)
