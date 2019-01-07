@@ -28,10 +28,9 @@
                     });
                 })
                  .Excel(excel => excel
-                            .FileName("ProxyExport.xlsx")
+                            .FileName("Export.xlsx")
                             .Filterable(true)
                             .ProxyURL("/Index?handler=Save")
-                            .ForceProxy(true)
                         )
                 .DataSource(ds => ds.Ajax()
                        .Read(r => r.Url("/Index?handler=Read").Data("forgeryToken"))

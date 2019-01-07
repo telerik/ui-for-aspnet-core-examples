@@ -24,7 +24,6 @@ namespace GridRazorPagesApp.Pages
                 {
                     OrderID = i + 1,
                     Freight = i * 10,
-                    OrderDate = new DateTime(2016, 9, 15).AddDays(i % 7),
                     ShipName = "ShipName " + i,
                     ShipCity = "ShipCity " + i
                 }));
