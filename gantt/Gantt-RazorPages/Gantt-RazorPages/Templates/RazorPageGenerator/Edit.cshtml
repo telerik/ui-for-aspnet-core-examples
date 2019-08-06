@@ -1,0 +1,194 @@
+﻿@inherits Microsoft.VisualStudio.Web.CodeGeneration.Templating.RazorTemplateBase
+@using Microsoft.VisualStudio.Web.CodeGeneration.EntityFrameworkCore
+@using System.Collections.Generic
+@using System.Linq
+@@page
+@@model @Model.NamespaceName.@Model.PageModelClassName
+
+@{
+    if (Model.IsPartialView)
+    {
+    }
+    else if (Model.IsLayoutPageSelected)
+    {
+@:@@{
+    @:ViewData["Title"] = "@Model.RazorPageName";
+        if (!string.IsNullOrEmpty(Model.LayoutPageFile))
+        {
+    @:Layout = "@Model.LayoutPageFile";
+        }
+@:}
+@:
+@:<h1>@Model.RazorPageName</h1>
+@:
+    }
+    else
+    {
+@:@@{
+    @:Layout = null;
+@:}
+@:
+@:<!DOCTYPE html>
+@:
+@:<html>
+@:<head>
+    @:<meta name="viewport" content="width=device-width" />
+    @:<title>@Model.RazorPageName</title>
+@:</head>
+@:<body>
+@:
+        //    PushIndent("    ");
+    }
+@:<h4>@Model.ViewDataTypeShortName</h4>
+@:<hr />
+@:<div class="row">
+    @:<div class="col-md-4">
+        string formId = Model.ViewDataTypeShortName + "Form";
+        @:<form method="post" id="@formId">
+            @:<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        foreach (PropertyMetadata property in Model.ModelMetadata.Properties)
+        {
+            if (property.IsPrimaryKey)
+            {
+            @:<input type="hidden" asp-for="@(Model.ModelTypeName).@property.PropertyName" />
+                continue;
+            }
+
+            if (property.Scaffold)
+            {
+                if (property.IsReadOnly)
+                {
+                    continue;
+                }
+
+                if (property.IsForeignKey)
+                {
+            @:<div class="form-group">
+                @:<label asp-for="@(Model.ModelTypeName).@property.PropertyName"></label>
+                @:<select asp-for="@(Model.ModelTypeName).@property.PropertyName" asp-items="ViewBag.@property.PropertyName"></select>
+                @:<span asp-validation-for="@(Model.ModelTypeName).@property.PropertyName" class="text-danger k-invalid-msg" data-for="@property.PropertyName"></span>
+            @:</div>
+                    continue;
+                }
+
+                bool isCheckbox = property.TypeName.Equals("System.Boolean");
+                bool isDatetime = property.TypeName.Contains("System.DateTime");
+                if (isCheckbox)
+                {
+            @:<div class="form-group">
+                    @:@@Html.Kendo().CheckBoxFor(m => m.@(Model.ModelTypeName).@property.PropertyName)
+                    @:<label asp-for="@(Model.ModelTypeName).@property.PropertyName" class="control-label"></label>
+                    @:<span asp-validation-for="@(Model.ModelTypeName).@property.PropertyName" class="text-danger k-invalid-msg" data-for="@property.PropertyName"></span>
+            @:</div>
+                }
+                else if (isDatetime)
+                {
+            @:<div class="form-group">
+                @:<label asp-for="@(Model.ModelTypeName).@property.PropertyName"></label>
+                @:<kendo-datetimepicker for="@(Model.ModelTypeName).@property.PropertyName" />
+                @:<span asp-validation-for="@(Model.ModelTypeName).@property.PropertyName" class="text-danger k-invalid-msg" data-for="@property.PropertyName"></span>
+            @:</div>
+                }
+                else if (IsNumericType(property))
+                {
+            @:<div class="form-group">
+                @:<label asp-for="@(Model.ModelTypeName).@property.PropertyName" ></label>
+                @:<kendo-numerictextbox for="@(Model.ModelTypeName).@property.PropertyName" />
+                @:<span asp-validation-for="@(Model.ModelTypeName).@property.PropertyName" class="text-danger k-invalid-msg" data-for="@property.PropertyName"></span>
+            @:</div>
+                }
+                else if (property.IsEnum && !property.IsEnumFlags)
+                {
+            @:<div class="form-group">
+                @:<label asp-for="@(Model.ModelTypeName).@property.PropertyName"></label>
+                @:<select asp-for="@(Model.ModelTypeName).@property.PropertyName"></select>
+                @:<span asp-validation-for="@(Model.ModelTypeName).@property.PropertyName" class="text-danger k-invalid-msg" data-for="@property.PropertyName"></span>
+            @:</div>
+                }
+                else if (property.IsMultilineText)
+                {
+            @:<div class="form-group">
+                @:<label asp-for="@(Model.ModelTypeName).@property.PropertyName"></label>
+                @:<textarea asp-for="@(Model.ModelTypeName).@property.PropertyName" class="k-textbox"></textarea>
+                @:<span asp-validation-for="@(Model.ModelTypeName).@property.PropertyName" class="text-danger k-invalid-msg" data-for="@property.PropertyName"></span>
+            @:</div>
+                }
+                else
+                {
+            @:<div class="form-group">
+                @:<label asp-for="@(Model.ModelTypeName).@property.PropertyName" ></label>
+                @:<input asp-for="@(Model.ModelTypeName).@property.PropertyName" class="k-textbox"/>
+                @:<span asp-validation-for="@(Model.ModelTypeName).@property.PropertyName" class="text-danger k-invalid-msg" data-for="@property.PropertyName"></span>
+            @:</div>
+                }
+            }
+            // Ideally we shouldn't be here  but if the user marks the foreign key as [ScaffoldColumn(false)], we want to atleast try to make it work.
+            else if (property.IsForeignKey)
+            {
+        @:<input type="hidden" asp-for="@(Model.ModelTypeName).@property.PropertyName" />
+                continue;
+            }
+        }
+    }
+            <div class="form-group">
+                <input type="submit" value="Save" class="k-button k-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index" class="k-button">Back to List</a>
+</div>
+
+@{
+    if (Model.ReferenceScriptLibraries)
+    {
+    @:<script>
+        @:$(document).ready(function () {
+            @:$("#@formId").kendoValidator({
+                @:// You can define your custom rules here:
+                @://rules: {}
+            @:});
+        @:})
+    @:</script>
+    }
+    // The following code closes the tag used in the case of a view using a layout page and the body and html tags in the case of a regular view page
+    if (!Model.IsPartialView && !Model.IsLayoutPageSelected)
+    {
+@:</body>
+@:</html>
+    }
+}
+@functions
+{
+    string GetAssociationName(IPropertyMetadata property)
+    {
+        //Todo: Implement properly.
+        return property.PropertyName;
+    }
+
+    string GetValueExpression(IPropertyMetadata property)
+    {
+        return property.PropertyName;
+    }
+
+    bool IsNumericType(IPropertyMetadata property)
+    {
+        var types = new[] {
+            "System.Byte",
+            "System.SByte",
+            "System.UInt16",
+            "System.UInt32",
+            "System.UInt64",
+            "System.Int16",
+            "System.Int32",
+            "System.Int64",
+            "System.Decimal",
+            "System.Double",
+            "System.Single"
+        };
+
+        return types.Any(property.TypeName.Contains);
+    }
+}
