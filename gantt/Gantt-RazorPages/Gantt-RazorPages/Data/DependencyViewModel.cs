@@ -10,8 +10,8 @@ namespace Gantt_RazorPages.Data
     {
         public int DependencyID { get; set; }
 
-        public int PredecessorID { get; set; }
-        public int SuccessorID { get; set; }
+        public string PredecessorID { get; set; }
+        public string SuccessorID { get; set; }
         public DependencyType Type { get; set; }
     }
 }

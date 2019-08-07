@@ -35,8 +35,12 @@
             m.Id(f => f.TaskID);
             m.ParentId(f => f.ParentID);
             m.Field(f => f.Expanded).DefaultValue(true);
+            m.Field("TaskID", typeof(String));
         })
         .Read(r => r.Url("/Index?handler=Read").Data("forgeryToken"))
+        .Create(r => r.Url("/Index?handler=Create").Data("forgeryToken"))
+        .Update(r => r.Url("/Index?handler=Update").Data("forgeryToken"))
+        .Destroy(r => r.Url("/Index?handler=Destroy").Data("forgeryToken"))
     )
     .DependenciesDataSource(d => d
         .Model(m =>
@@ -46,6 +50,9 @@
             m.SuccessorId(f => f.SuccessorID);
         })
         .Read(r => r.Url("/Index?handler=DependenciesRead").Data("forgeryToken"))
+        .Create(r => r.Url("/Index?handler=DependenciesCreate").Data("forgeryToken"))
+        .Update(r => r.Url("/Index?handler=DependenciesUpdate").Data("forgeryToken"))
+        .Destroy(r => r.Url("/Index?handler=DependenciesDestroy").Data("forgeryToken"))
     )
 )
 

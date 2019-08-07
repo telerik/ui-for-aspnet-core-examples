@@ -9,8 +9,8 @@ namespace Gantt_RazorPages.Data
 {
     public class TaskViewModel : IGanttTask
     {
-        public int TaskID { get; set; }
-        public int? ParentID { get; set; }
+        public string TaskID { get; set; }
+        public string ParentID { get; set; }
 
         public string Title { get; set; }
 
