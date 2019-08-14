@@ -1,6 +1,8 @@
 # CRUD operations
 
-### This project demonstrates how we can add, read, edit and delete text data using a local database and the Editor component
+### This project demonstrates how you can add, read, edit and delete text data using a local database and the Editor component
+
+> Please note that the current project doesn't have any XSS attack preventions applied. It is a developer's responsibility to manage these security risks. For more information, please refer to this [Preventing Cross-Site Scripting](https://docs.telerik.com/kendo-ui/controls/editors/editor/preventing-xss) article.
 
 ## In order to run the project please do the following:
 1. Open the Package manager console in Visual Studio
