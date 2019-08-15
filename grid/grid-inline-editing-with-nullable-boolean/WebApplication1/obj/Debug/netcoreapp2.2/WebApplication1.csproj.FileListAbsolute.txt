@@ -1,0 +1,60 @@
+C:\Users\npenev\Desktop\Core templete from scratch\WebApplication1\WebApplication1\bin\Debug\netcoreapp2.2\WebApplication1.deps.json
+C:\Users\npenev\Desktop\Core templete from scratch\WebApplication1\WebApplication1\bin\Debug\netcoreapp2.2\WebApplication1.runtimeconfig.json
+C:\Users\npenev\Desktop\Core templete from scratch\WebApplication1\WebApplication1\bin\Debug\netcoreapp2.2\WebApplication1.runtimeconfig.dev.json
+C:\Users\npenev\Desktop\Core templete from scratch\WebApplication1\WebApplication1\bin\Debug\netcoreapp2.2\WebApplication1.dll
+C:\Users\npenev\Desktop\Core templete from scratch\WebApplication1\WebApplication1\obj\Debug\netcoreapp2.2\WebApplication1.csprojAssemblyReference.cache
+C:\Users\npenev\Desktop\Core templete from scratch\WebApplication1\WebApplication1\obj\Debug\netcoreapp2.2\WebApplication1.csproj.CoreCompileInputs.cache
+C:\Users\npenev\Desktop\Core templete from scratch\WebApplication1\WebApplication1\obj\Debug\netcoreapp2.2\WebApplication1.RazorAssemblyInfo.cache
+C:\Users\npenev\Desktop\Core templete from scratch\WebApplication1\WebApplication1\obj\Debug\netcoreapp2.2\WebApplication1.RazorAssemblyInfo.cs
+C:\Users\npenev\Desktop\Core templete from scratch\WebApplication1\WebApplication1\obj\Debug\netcoreapp2.2\WebApplication1.AssemblyInfoInputs.cache
+C:\Users\npenev\Desktop\Core templete from scratch\WebApplication1\WebApplication1\obj\Debug\netcoreapp2.2\WebApplication1.AssemblyInfo.cs
+C:\Users\npenev\Desktop\Core templete from scratch\WebApplication1\WebApplication1\obj\Debug\netcoreapp2.2\WebApplication1.TagHelpers.input.cache
+C:\Users\npenev\Desktop\Core templete from scratch\WebApplication1\WebApplication1\obj\Debug\netcoreapp2.2\WebApplication1.TagHelpers.output.cache
+C:\Users\npenev\Desktop\Core templete from scratch\WebApplication1\WebApplication1\obj\Debug\netcoreapp2.2\WebApplication1.RazorCoreGenerate.cache
+C:\Users\npenev\Desktop\Core templete from scratch\WebApplication1\WebApplication1\obj\Debug\netcoreapp2.2\Razor\Views\Home\Index.g.cshtml.cs
+C:\Users\npenev\Desktop\Core templete from scratch\WebApplication1\WebApplication1\obj\Debug\netcoreapp2.2\Razor\Views\Home\Privacy.g.cshtml.cs
+C:\Users\npenev\Desktop\Core templete from scratch\WebApplication1\WebApplication1\obj\Debug\netcoreapp2.2\Razor\Views\Shared\Error.g.cshtml.cs
+C:\Users\npenev\Desktop\Core templete from scratch\WebApplication1\WebApplication1\obj\Debug\netcoreapp2.2\Razor\Views\Shared\_CookieConsentPartial.g.cshtml.cs
+C:\Users\npenev\Desktop\Core templete from scratch\WebApplication1\WebApplication1\obj\Debug\netcoreapp2.2\Razor\Views\Shared\_Layout.g.cshtml.cs
+C:\Users\npenev\Desktop\Core templete from scratch\WebApplication1\WebApplication1\obj\Debug\netcoreapp2.2\Razor\Views\Shared\_ValidationScriptsPartial.g.cshtml.cs
+C:\Users\npenev\Desktop\Core templete from scratch\WebApplication1\WebApplication1\obj\Debug\netcoreapp2.2\Razor\Views\_ViewImports.g.cshtml.cs
+C:\Users\npenev\Desktop\Core templete from scratch\WebApplication1\WebApplication1\obj\Debug\netcoreapp2.2\Razor\Views\_ViewStart.g.cshtml.cs
+C:\Users\npenev\Desktop\Core templete from scratch\WebApplication1\WebApplication1\obj\Debug\netcoreapp2.2\WebApplication1.RazorTargetAssemblyInfo.cache
+C:\Users\npenev\Desktop\Core templete from scratch\WebApplication1\WebApplication1\obj\Debug\netcoreapp2.2\WebApplication1.RazorTargetAssemblyInfo.cs
+C:\Users\npenev\Desktop\Core templete from scratch\WebApplication1\WebApplication1\bin\Debug\netcoreapp2.2\WebApplication1.pdb
+C:\Users\npenev\Desktop\Core templete from scratch\WebApplication1\WebApplication1\bin\Debug\netcoreapp2.2\WebApplication1.Views.dll
+C:\Users\npenev\Desktop\Core templete from scratch\WebApplication1\WebApplication1\bin\Debug\netcoreapp2.2\WebApplication1.Views.pdb
+C:\Users\npenev\Desktop\Core templete from scratch\WebApplication1\WebApplication1\obj\Debug\netcoreapp2.2\WebApplication1.Views.pdb
+C:\Users\npenev\Desktop\Core templete from scratch\WebApplication1\WebApplication1\obj\Debug\netcoreapp2.2\WebApplication1.dll
+C:\Users\npenev\Desktop\Core templete from scratch\WebApplication1\WebApplication1\obj\Debug\netcoreapp2.2\WebApplication1.pdb
+C:\Users\npenev\Desktop\Core templete from scratch\WebApplication1\WebApplication1\obj\Debug\netcoreapp2.2\WebApplication1.csproj.CopyComplete
+C:\Work\examples\examples-core\grid-inline-editing-with-nullable-boolean\WebApplication1\bin\Debug\netcoreapp2.2\WebApplication1.deps.json
+C:\Work\examples\examples-core\grid-inline-editing-with-nullable-boolean\WebApplication1\bin\Debug\netcoreapp2.2\WebApplication1.runtimeconfig.json
+C:\Work\examples\examples-core\grid-inline-editing-with-nullable-boolean\WebApplication1\bin\Debug\netcoreapp2.2\WebApplication1.runtimeconfig.dev.json
+C:\Work\examples\examples-core\grid-inline-editing-with-nullable-boolean\WebApplication1\bin\Debug\netcoreapp2.2\WebApplication1.dll
+C:\Work\examples\examples-core\grid-inline-editing-with-nullable-boolean\WebApplication1\bin\Debug\netcoreapp2.2\WebApplication1.pdb
+C:\Work\examples\examples-core\grid-inline-editing-with-nullable-boolean\WebApplication1\bin\Debug\netcoreapp2.2\WebApplication1.Views.dll
+C:\Work\examples\examples-core\grid-inline-editing-with-nullable-boolean\WebApplication1\bin\Debug\netcoreapp2.2\WebApplication1.Views.pdb
+C:\Work\examples\examples-core\grid-inline-editing-with-nullable-boolean\WebApplication1\obj\Debug\netcoreapp2.2\WebApplication1.csprojAssemblyReference.cache
+C:\Work\examples\examples-core\grid-inline-editing-with-nullable-boolean\WebApplication1\obj\Debug\netcoreapp2.2\WebApplication1.csproj.CoreCompileInputs.cache
+C:\Work\examples\examples-core\grid-inline-editing-with-nullable-boolean\WebApplication1\obj\Debug\netcoreapp2.2\WebApplication1.RazorAssemblyInfo.cache
+C:\Work\examples\examples-core\grid-inline-editing-with-nullable-boolean\WebApplication1\obj\Debug\netcoreapp2.2\WebApplication1.RazorAssemblyInfo.cs
+C:\Work\examples\examples-core\grid-inline-editing-with-nullable-boolean\WebApplication1\obj\Debug\netcoreapp2.2\WebApplication1.AssemblyInfoInputs.cache
+C:\Work\examples\examples-core\grid-inline-editing-with-nullable-boolean\WebApplication1\obj\Debug\netcoreapp2.2\WebApplication1.AssemblyInfo.cs
+C:\Work\examples\examples-core\grid-inline-editing-with-nullable-boolean\WebApplication1\obj\Debug\netcoreapp2.2\WebApplication1.TagHelpers.input.cache
+C:\Work\examples\examples-core\grid-inline-editing-with-nullable-boolean\WebApplication1\obj\Debug\netcoreapp2.2\WebApplication1.TagHelpers.output.cache
+C:\Work\examples\examples-core\grid-inline-editing-with-nullable-boolean\WebApplication1\obj\Debug\netcoreapp2.2\WebApplication1.RazorCoreGenerate.cache
+C:\Work\examples\examples-core\grid-inline-editing-with-nullable-boolean\WebApplication1\obj\Debug\netcoreapp2.2\Razor\Views\Home\Index.g.cshtml.cs
+C:\Work\examples\examples-core\grid-inline-editing-with-nullable-boolean\WebApplication1\obj\Debug\netcoreapp2.2\Razor\Views\Home\Privacy.g.cshtml.cs
+C:\Work\examples\examples-core\grid-inline-editing-with-nullable-boolean\WebApplication1\obj\Debug\netcoreapp2.2\Razor\Views\Shared\Error.g.cshtml.cs
+C:\Work\examples\examples-core\grid-inline-editing-with-nullable-boolean\WebApplication1\obj\Debug\netcoreapp2.2\Razor\Views\Shared\_CookieConsentPartial.g.cshtml.cs
+C:\Work\examples\examples-core\grid-inline-editing-with-nullable-boolean\WebApplication1\obj\Debug\netcoreapp2.2\Razor\Views\Shared\_Layout.g.cshtml.cs
+C:\Work\examples\examples-core\grid-inline-editing-with-nullable-boolean\WebApplication1\obj\Debug\netcoreapp2.2\Razor\Views\Shared\_ValidationScriptsPartial.g.cshtml.cs
+C:\Work\examples\examples-core\grid-inline-editing-with-nullable-boolean\WebApplication1\obj\Debug\netcoreapp2.2\Razor\Views\_ViewImports.g.cshtml.cs
+C:\Work\examples\examples-core\grid-inline-editing-with-nullable-boolean\WebApplication1\obj\Debug\netcoreapp2.2\Razor\Views\_ViewStart.g.cshtml.cs
+C:\Work\examples\examples-core\grid-inline-editing-with-nullable-boolean\WebApplication1\obj\Debug\netcoreapp2.2\WebApplication1.RazorTargetAssemblyInfo.cache
+C:\Work\examples\examples-core\grid-inline-editing-with-nullable-boolean\WebApplication1\obj\Debug\netcoreapp2.2\WebApplication1.RazorTargetAssemblyInfo.cs
+C:\Work\examples\examples-core\grid-inline-editing-with-nullable-boolean\WebApplication1\obj\Debug\netcoreapp2.2\WebApplication1.Views.pdb
+C:\Work\examples\examples-core\grid-inline-editing-with-nullable-boolean\WebApplication1\obj\Debug\netcoreapp2.2\WebApplication1.dll
+C:\Work\examples\examples-core\grid-inline-editing-with-nullable-boolean\WebApplication1\obj\Debug\netcoreapp2.2\WebApplication1.pdb
+C:\Work\examples\examples-core\grid-inline-editing-with-nullable-boolean\WebApplication1\obj\Debug\netcoreapp2.2\WebApplication1.csproj.CopyComplete
