@@ -1,0 +1,56 @@
+﻿@model SampleCoreApp.Models.sampleModel
+
+@{
+	ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<h4>sampleModel</h4>
+<hr />
+<div class="row">
+	<div class="col-md-4">
+		<form asp-action="Index" id="sampleModelForm">
+			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+			<div class="form-group">
+				<label asp-for="SomeField"></label>
+				<input asp-for="SomeField" class="k-textbox" />
+				<span asp-validation-for="SomeField" class="text-danger k-invalid-msg" data-for="SomeField"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="ChosenItems"></label>
+				@(Html.Kendo().MultiSelectFor(m => m.ChosenItems)
+						.DataTextField("TheText")
+						.DataValueField("TheValue")
+						.DataSource(source =>
+						{
+							source.Read(read =>
+							{
+								read.Action("GetData", "MultiSelectPost");
+							});
+						})
+						.Height(400)
+				)
+
+				<span asp-validation-for="ChosenItems" class="text-danger k-invalid-msg" data-for="ChosenItems"></span>
+			</div>
+			<div class="form-group">
+				<input type="button" id="useOwnPost" value="Get Item On Client" class="k-button k-primary" />
+				<script>
+					$(document).ready(function () {
+						$("#useOwnPost").click(function () {
+							var items = $("#ChosenItems").data("kendoMultiSelect").value();
+							alert(items);
+							//use the data in your own request something like $.ajax({url: "myController", data: items}); which must, of course, match what the controller will expect
+						});
+					});
+				</script>
+			</div>
+			<div class="form-group">
+				<input type="submit" value="Create" class="k-button k-primary" />
+			</div>
+		</form>
+	</div>
+</div>
+
+

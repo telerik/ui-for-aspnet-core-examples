@@ -1,0 +1,34 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+@using WebApplication3.Models
+
+@(Html.Kendo().Grid<Product>()
+          .Name("grid")
+          .DataSource(dataSource => dataSource
+              .Ajax()
+              .Read(read => read.Action("Read", "Home"))
+              .Update(update => update.Action("Update", "Home"))
+              .Create(create => create.Action("Create", "Home"))
+              .Destroy(destroy => destroy.Action("Destroy", "Home"))
+              .Model(m => {
+                  m.Id(id => id.ProductID);
+                  m.Field(f => f.ProductID).Editable(false);
+              })
+           )
+          .ToolBar(t => t.Create())
+          .Columns(columns =>
+          {
+              columns.Bound(product => product.ProductID);
+              columns.Bound(product => product.ProductName);
+              columns.Bound(product => product.UnitsInStock);
+              columns.Bound(product => product.Discontinued);
+              columns.Command(command => command.Edit());
+          })
+          .Pageable()
+          .Sortable()
+          .Filterable()
+          .Groupable()
+          .Editable()
+)

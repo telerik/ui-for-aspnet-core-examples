@@ -1,0 +1,3 @@
+﻿@model WebApplication3.Models.Category
+
+@(Html.Kendo().DropDownListFor(x=> x).DataSource(x=> x.Read(y=> y.Action("AllCategories", "Home"))).DataTextField("CategoryName").DataValueField("CategoryID").HtmlAttributes(new {data_bind="value: Category" }))

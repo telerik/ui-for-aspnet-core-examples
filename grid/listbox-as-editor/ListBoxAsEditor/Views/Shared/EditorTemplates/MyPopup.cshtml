@@ -1,0 +1,74 @@
+﻿@model ListBoxAsEditor.Models.OrderViewModel
+<style>
+    .k-textbox {
+        width: 100%;
+    }
+
+    .my-container {
+        margin-left: 10%;
+    }
+
+    .k-edit-form-container {
+        width: 400px;
+    }
+
+   
+    .lb-text {
+        margin: 5px;
+        font-weight: bold;
+        display: inline-block;
+    }
+
+    .available {
+        margin-left: 50px;
+    }
+    .k-listbox {
+        width: 136px;
+        height: 310px;
+    }
+
+    .k-listbox:first-of-type {
+        width: 170px;
+        margin-right: 1px;
+    }
+</style>
+
+<div class="my-container">
+
+    @Html.HiddenFor(model => model.OrderID)
+    <br />
+    @Html.LabelFor(model => model.ShipName)
+    <br />
+    @Html.Kendo().TextBoxFor(model => model.ShipName)
+    <br />
+    <span class="lb-text">Model Locations</span> <span class="lb-text available">Available Locations</span>
+    <br />
+    @(Html.Kendo().ListBox()
+             .Name("Locations")
+             .DataValueField("Id")
+             .DataTextField("Name")
+             .ConnectWith("Available")
+             .HtmlAttributes(new { data_bind = "source:Locations" })
+             .Selectable(ListBoxSelectable.Multiple)
+             .Toolbar(toolbar =>
+            {
+                toolbar.Position(ListBoxToolbarPosition.Right);
+                toolbar.Tools(tools => tools
+                    .TransferTo()
+                    .TransferFrom()
+                    .TransferAllTo()
+                    .TransferAllFrom()
+                    );
+            })
+    )
+
+    @(Html.Kendo().ListBox()
+            .Name("Available")
+            .DataValueField("Id")
+            .DataTextField("Name")
+            .DataSource(ds => ds.Ajax().Read("GetLocations", "Grid"))
+            .ConnectWith("Locations")
+            .Selectable(ListBoxSelectable.Multiple)
+
+    )
+</div>
