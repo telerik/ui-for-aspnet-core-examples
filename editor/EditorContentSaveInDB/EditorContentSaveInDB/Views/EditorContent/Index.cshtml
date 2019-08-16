@@ -1,0 +1,35 @@
+﻿@model IEnumerable<EditorContentSaveInDB.Models.EditorData>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create" class="k-button">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.EditorContent)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.EditorContent)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.ContentId" class="k-button k-primary">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.ContentId" class="k-button">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.ContentId" class="k-button">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
