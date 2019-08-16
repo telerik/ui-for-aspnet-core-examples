@@ -1,0 +1,50 @@
+﻿@model EditorContentSaveInDB.Models.EditorData
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+    <h4>EditorData</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Edit" id="EditorDataForm">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="ContentId" />
+                <div class="form-group">
+                    <label asp-for="EditorContent"></label>
+
+                    <kendo-editor for="EditorContent">
+                    </kendo-editor>
+
+                    <span asp-validation-for="EditorContent" class="text-danger k-invalid-msg" data-for="EditorContent"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Save" class="k-button k-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div>
+        <a asp-action="Index" class="k-button">Back to List</a>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            $("#EditorDataForm").kendoValidator({
+                // You can define your custom rules here:
+                //rules: {}
+            });
+        })
+    </script>
+
+    <style>
+
+        .k-editor {
+            width: 800px !important;
+            height: 400px !important;
+        }
+    </style>
