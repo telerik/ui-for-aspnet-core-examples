@@ -1,0 +1,65 @@
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="row">
+    <div class="col-xs-18 col-md-12">
+            @(Html.Kendo().Grid<ListBoxAsEditor.Models.OrderViewModel>()
+                   .Name("grid")
+                   .Columns(columns =>
+                   {
+                       columns.Bound(p => p.OrderID).Filterable(false);
+                       columns.Bound(p => p.Freight);
+                       columns.Bound(p => p.Locations).ClientTemplate("#= getTemplate(data) #");
+                       columns.Bound(p => p.ShipName);
+                       columns.Bound(p => p.ShipCity);
+                       columns.Command(c => c.Edit());
+                   })
+                  .Pageable()
+                  .Sortable()
+                  .Scrollable()
+                  .Filterable(filterable =>
+                  {
+                      filterable.Operators(operators =>
+                      {
+                          operators.ForDate(date => date.Clear()
+                            .IsGreaterThanOrEqualTo("Greater or Eq")
+                            .IsLessThanOrEqualTo("Is Less than or Eq")
+                          );
+                      });
+                  })
+                  .HtmlAttributes(new { style = "height:550px;" })
+                 .Editable(editable => editable.Mode(GridEditMode.PopUp).TemplateName("MyPopup"))
+                  .DataSource(dataSource => dataSource
+                      .Ajax()
+                      .Model(model => model.Id(p => p.OrderID))
+                      .PageSize(20)
+                      .Read(read => read.Action("Orders_Read", "Grid"))
+                      .Update(update => update.Action("Orders_Update", "Grid").Data("sendAvailableLocations"))
+                  )
+            )
+    </div>
+</div>
+<script>
+    function sendAvailableLocations() { 
+        var items = $("#Available").data("kendoListBox").dataItems();
+        var locations = items.map(function (item) { return item.toJSON()});
+        return {
+            availableLocations: locations
+        }
+    }
+    function getTemplate(data) {
+        if (data.Locations.length) {
+            var template = "<ul>";
+            $.each(data.Locations, function (idx, location) {
+                template += "<li>" + location.Name + "</li>";
+            });
+
+            template += "</ul>";
+            return template;
+        }
+        return "";
+
+    }
+
+</script>

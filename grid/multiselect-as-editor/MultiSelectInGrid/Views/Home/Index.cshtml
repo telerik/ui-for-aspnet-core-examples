@@ -1,0 +1,53 @@
+@{
+	ViewData["Title"] = "Home Page";
+}
+
+<script>
+    function employeesTemplate(employees) {
+        var template = "<ul>";
+        for (var i = 0; i < employees.length; i++){
+            template += "<li>" + employees[i].Name + "</li>";
+        }
+
+        template += "</ul>";
+        return template;
+    }   
+</script>
+
+<div class="row">
+	<div class="col-xs-18 col-md-12">
+		@(Html.Kendo().Grid<MultiSelectInGrid.Models.OrderViewModel>()
+                .Name("grid")
+                .ToolBar(t=>t.Create())
+                .Columns(columns =>
+                {
+                    columns.Bound(p => p.OrderID).Filterable(false);
+                    columns.Bound(p => p.Freight);
+                    columns.Bound(p => p.ShipName);
+                    columns.Bound(p => p.ShipCity);
+                    columns.Bound(e => e.Employees).ClientTemplate("#=employeesTemplate(Employees)#");
+                    columns.Command(c => { c.Edit(); c.Destroy(); }).Width(300);
+                })
+                .Pageable()
+                .Sortable()
+                .Scrollable()
+                .Filterable()
+                .HtmlAttributes(new { style = "height:550px;" })
+                .Editable(e=>e.Mode(GridEditMode.InLine))
+                .DataSource(dataSource => dataSource
+                    .Ajax()
+                    .Model(m=>
+                    {
+                        m.Id("OrderID");
+                        m.Field(o => o.Employees).DefaultValue(new List<MultiSelectInGrid.Models.EmployeeViewModel>());
+                        m.Field(o => o.OrderID).Editable(false);
+                    })
+                    .PageSize(5)
+                    .Read(read => read.Action("Orders_Read", "Grid"))
+                    .Update(update => update.Action("Orders_Update", "Grid"))
+                    .Create(create => create.Action("Orders_Create", "Grid"))
+                    .Destroy(destroy => destroy.Action("Orders_Destroy", "Grid"))
+                )
+		)
+	</div>
+</div>
