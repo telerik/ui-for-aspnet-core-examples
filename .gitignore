@@ -1,0 +1,13 @@
+*.tmp
+*.gpState
+*.pdb
+*.suo
+*.swp
+*.user
+*.mdb
+*.suo
+obj/
+bin/
+packages/
+.DS_Store
+.vs/
