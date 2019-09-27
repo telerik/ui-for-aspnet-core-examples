@@ -1,0 +1,12 @@
+﻿@model WebApplication1.Models.Student
+
+<h1>Custom popup editor</h1>
+
+@(Html.LabelFor(x => x.FirstMidName))
+@(Html.Kendo().TextBoxFor(x => x.FirstMidName))
+
+@(Html.LabelFor(x => x.LastName))
+@(Html.Kendo().TextBoxFor(x => x.LastName))
+
+@(Html.LabelFor(x => x.EnrollmentDate))
+@(Html.Kendo().DatePickerFor(x => x.EnrollmentDate).ToClientTemplate())
