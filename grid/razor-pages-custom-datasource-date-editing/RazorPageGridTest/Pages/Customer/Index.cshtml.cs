@@ -9,27 +9,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 namespace RazorPageGridTest.Pages.Customer
 {
     public class IndexModel : PageModel
-    {
-        public List<RazorPageGridTest.Customer> Data { get; set; }
-
-        public void OnGet()
-        {
-            Data = new List<RazorPageGridTest.Customer>();
-
-            for (int i = 1; i <= 100; i++)
-            {
-                Data.Add(new RazorPageGridTest.Customer()
-                {
-                    CustomerId = i,
-                    Name = "Name " + i.ToString(),
-                    Address = "Address " + i.ToString(),
-                    ClockOut = DateTime.Now.AddDays(i)
-                });
-            }
-        }
-
-        
-
+    {     
         public JsonResult OnPostReadRecords()
         {
             List<RazorPageGridTest.Customer> data = new List<RazorPageGridTest.Customer>();
