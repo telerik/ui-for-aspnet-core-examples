@@ -16,10 +16,11 @@ namespace SqlServerDataBase.Models
 		{
 			db = context;
 		}
-        public virtual IQueryable<TaskViewModel> GetRange(DateTime start, DateTime end)
+        public virtual IEnumerable<TaskViewModel> GetRange(DateTime start, DateTime end)
         {
-            return GetAll().Where(t => (t.Start >= start || t.Start <= start) && t.Start <= end
-                && t.End >= start && (t.End >= end || t.End <= end) || t.RecurrenceRule != null);
+            var result = GetAll().ToList().Where(t => (t.RecurrenceRule != null || (t.Start >= start && t.Start <= end) || (t.End >= start && t.End <= end)));
+
+            return result;
         }
         public virtual IQueryable<TaskViewModel> GetAll()
 		{
