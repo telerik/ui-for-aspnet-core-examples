@@ -22,11 +22,8 @@ namespace SqlServerDataBase.Controllers
 
 		public virtual JsonResult Read([DataSourceRequest] DataSourceRequest request, FilterRange range)
 		{
-           //var t = taskService.GetAll();
            var data = taskService.GetRange(range.Start, range.End);
            return Json(data.ToDataSourceResult(request));
-            //return Json(taskService.GetAll().ToDataSourceResult(request));
-
 		}
 
 		public virtual JsonResult Destroy([DataSourceRequest] DataSourceRequest request, TaskViewModel task)
