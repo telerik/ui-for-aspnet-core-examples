@@ -1,6 +1,6 @@
-# Scheduler SQL Server Database Example
+# Scheduler Server-side Filtering Example
 
-To run projects properly, just before building it, execute the following command on the Package Manager console:
+To run the project properly, just before building it, execute the following command on the Package Manager console:
 
 ```sh
 Update-Database
