@@ -5,32 +5,32 @@ using System.Threading.Tasks;
 
 namespace ASPNet_Core_Scheduler_Server_Filtering.Controllers
 {
-public class FilterRange
-{
-    private DateTime start;
-    public DateTime Start
+    public class FilterRange
     {
-        get
+        private DateTime start;
+        public DateTime Start
         {
-            return start;
+            get
+            {
+                return start;
+            }
+            set
+            {
+                start = value.ToUniversalTime();
+            }
         }
-        set
-        {
-            start = value.ToUniversalTime();
-        }
-    }
 
-    private DateTime end;
-    public DateTime End
-    {
-        get
+        private DateTime end;
+        public DateTime End
         {
-            return end;
-        }
-        set
-        {
-            end = value.ToUniversalTime();
+            get
+            {
+                return end;
+            }
+            set
+            {
+                end = value.ToUniversalTime();
+            }
         }
     }
-}
 }
