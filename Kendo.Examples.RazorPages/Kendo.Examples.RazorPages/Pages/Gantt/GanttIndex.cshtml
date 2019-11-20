@@ -51,10 +51,10 @@
             m.PredecessorId(f => f.PredecessorID);
             m.SuccessorId(f => f.SuccessorID);
         })
-        .Read(r => r.Url("/Index?handler=DependenciesRead").Data("forgeryToken"))
-        .Create(r => r.Url("/Index?handler=DependenciesCreate").Data("forgeryToken"))
-        .Update(r => r.Url("/Index?handler=DependenciesUpdate").Data("forgeryToken"))
-        .Destroy(r => r.Url("/Index?handler=DependenciesDestroy").Data("forgeryToken"))
+        .Read(r => r.Url("/Gantt/GanttIndex?handler=DependenciesRead").Data("forgeryToken"))
+        .Create(r => r.Url("/Gantt/GanttIndex?handler=DependenciesCreate").Data("forgeryToken"))
+        .Update(r => r.Url("/Gantt/GanttIndex?handler=DependenciesUpdate").Data("forgeryToken"))
+        .Destroy(r => r.Url("/Gantt/GanttIndex?handler=DependenciesDestroy").Data("forgeryToken"))
     )
 )
 

@@ -9,4 +9,21 @@
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
 
-@(Html.Kendo().DatePicker().Name("picker"))
+<h2 class="text-center">Navigate to an example of your choice</h2>
+<ul>@{string directoryName = ""; }
+    @foreach (var item in Model.fileNames)
+    {
+        if (@item.EndsWith("cshtml"))
+        {
+            var name = @item.Split(".")[0];
+            var href = "/" + directoryName + "/" + name;
+
+            <li><a href="@href">@name</a>  </li>
+        }
+        else
+        {
+            directoryName = @item;
+            <li style="margin-top: 30px;"><h4>@item</h4></li>
+        }
+    }
+</ul>

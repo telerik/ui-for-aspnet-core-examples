@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Kendo.Examples.Mvc.Models;
+using System.IO;
 
 namespace Kendo.Examples.Mvc.Controllers
 {
@@ -20,7 +21,32 @@ namespace Kendo.Examples.Mvc.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            var foldersToExclude = new string[] { "Views", "Home", "Shared"};
+            var fileNames = new List<string>();
+            var directoryNames = new List<string>();
+            var txtPath = @".\Views";
+            string[] files = Directory.GetFiles(txtPath, "*.cshtml", SearchOption.AllDirectories);
+
+            foreach (var file in files)
+            {
+                var fileName = Path.GetFileName(file);
+                var parentDirectory = Path.GetFileName(Path.GetDirectoryName(file));
+                if (!foldersToExclude.Contains(parentDirectory) && !fileName.StartsWith("_"))
+                {
+                    if (!directoryNames.Contains(parentDirectory))
+                    {
+                        fileNames.Add(parentDirectory);
+                        fileNames.Add(fileName);
+                        directoryNames.Add(parentDirectory);
+                    }
+                    else
+                    {
+                        fileNames.Add(fileName);
+                    }
+                }
+            }
+
+            return View(fileNames);
         }
 
         public IActionResult Privacy()
