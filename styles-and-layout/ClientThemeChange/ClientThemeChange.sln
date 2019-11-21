@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29326.143
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClientThemeChange", "ClientThemeChange\ClientThemeChange.csproj", "{3ADB02FE-3138-46A3-87BE-A18AC80E7AF3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{11221587-F401-4CEE-B181-A9746141D0A0}"
+	ProjectSection(SolutionItems) = preProject
+		global.json = global.json
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3ADB02FE-3138-46A3-87BE-A18AC80E7AF3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3ADB02FE-3138-46A3-87BE-A18AC80E7AF3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3ADB02FE-3138-46A3-87BE-A18AC80E7AF3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3ADB02FE-3138-46A3-87BE-A18AC80E7AF3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A8D8DE8A-575D-4DEE-BEC9-70D3EC7FB507}
+	EndGlobalSection
+EndGlobal
