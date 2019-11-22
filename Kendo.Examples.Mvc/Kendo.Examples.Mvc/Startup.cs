@@ -40,6 +40,7 @@ namespace Kendo.Examples.Mvc
                 options.ViewLocationFormats.Add("/Views/Forms/{0}" + RazorViewEngine.ViewExtension);
                 options.ViewLocationFormats.Add("/Views/MultiSelect/{0}" + RazorViewEngine.ViewExtension);
                 options.ViewLocationFormats.Add("/Views/Scheduler/{0}" + RazorViewEngine.ViewExtension);
+                options.ViewLocationFormats.Add("/Views/StylesAndLayout/{0}" + RazorViewEngine.ViewExtension);
             });
 
             var connection = @"Server=(localdb)\mssqllocaldb;Database=Samples;Trusted_Connection=True;ConnectRetryCount=0";
