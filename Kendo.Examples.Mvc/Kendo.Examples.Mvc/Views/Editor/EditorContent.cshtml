@@ -1,0 +1,43 @@
+﻿@model IEnumerable<Kendo.Examples.Mvc.Models.EditorData>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>In order to run the project please do the following:</h1>
+<ol>
+    <li>Open the Package manager console in Visual Studio</li>
+    <li>Enter Add-Migration InitialCreate, press ENTER and wait until the command is being executed</li>
+    <li>After point 2, again in the Package manager console, enter Update-Database and press ENTER.</li>
+    <li>With the above commands, you should be able to run the current project</li>
+</ol>
+<p> Please note that the current project doesn't have any XSS attack preventions applied. It is a developer's responsibility to manage these security risks. For more information, please refer to this <a href="https://docs.telerik.com/kendo-ui/controls/editors/editor/preventing-xss">Preventing Cross-Site Scripting</a> article.</p>
+<br /><br />
+
+<p>
+    <a asp-action="Create" class="k-button">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.EditorContent)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.EditorContent)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.ContentId" class="k-button k-primary">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.ContentId" class="k-button">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.ContentId" class="k-button">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

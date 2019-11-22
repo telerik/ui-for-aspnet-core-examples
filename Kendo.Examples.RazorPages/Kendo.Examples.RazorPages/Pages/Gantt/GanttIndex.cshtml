@@ -1,0 +1,67 @@
+﻿@page
+@model Kendo.Examples.RazorPages.Pages.Gantt.GanttIndexModel
+@{
+    ViewData["Title"] = "GanttIndex";
+}
+
+<h1>GanttIndex</h1>
+
+@using Kendo.Examples.RazorPages.Models
+@using Kendo.Mvc.UI
+
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Xsrf
+@Html.AntiForgeryToken()
+
+@(Html.Kendo().Gantt<TaskViewModel, DependencyViewModel>()
+    .Name("gantt")
+    .Columns(columns =>
+    {
+        columns.Bound(c => c.TaskID).Title("ID").Width(50);
+        columns.Bound(c => c.Title).Editable(true).Sortable(true);
+        columns.Bound(c => c.Start).Width(100).Editable(true).Sortable(true);
+        columns.Bound(c => c.End).Width(100).Editable(true).Sortable(true);
+    })
+    .Views(views =>
+    {
+        views.DayView();
+        views.WeekView(weekView => weekView.Selected(true));
+        views.MonthView();
+    })
+    .Height(700)
+    .ShowWorkHours(false)
+    .ShowWorkDays(false)
+    .Snap(false)
+    .DataSource(d => d
+        .Model(m =>
+        {
+            m.Id(f => f.TaskID);
+            m.ParentId(f => f.ParentID);
+            m.Field(f => f.Expanded).DefaultValue(true);
+            m.Field("TaskID", typeof(String));
+        })
+        .Read(r => r.Url("/Gantt/GanttIndex?handler=Read").Data("forgeryToken"))
+        .Create(r => r.Url("/Gantt/GanttIndex?handler=Create").Data("forgeryToken"))
+        .Update(r => r.Url("/Gantt/GanttIndex?handler=Update").Data("forgeryToken"))
+        .Destroy(r => r.Url("/Gantt/GanttIndex?handler=Destroy").Data("forgeryToken"))
+    )
+    .DependenciesDataSource(d => d
+        .Model(m =>
+        {
+            m.Id(f => f.DependencyID);
+            m.PredecessorId(f => f.PredecessorID);
+            m.SuccessorId(f => f.SuccessorID);
+        })
+        .Read(r => r.Url("/Gantt/GanttIndex?handler=DependenciesRead").Data("forgeryToken"))
+        .Create(r => r.Url("/Gantt/GanttIndex?handler=DependenciesCreate").Data("forgeryToken"))
+        .Update(r => r.Url("/Gantt/GanttIndex?handler=DependenciesUpdate").Data("forgeryToken"))
+        .Destroy(r => r.Url("/Gantt/GanttIndex?handler=DependenciesDestroy").Data("forgeryToken"))
+    )
+)
+
+
+
+<script>
+    function forgeryToken() {
+        return kendo.antiForgeryTokens();
+    }
+</script>

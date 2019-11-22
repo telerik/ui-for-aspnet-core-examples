@@ -1,0 +1,36 @@
+﻿
+@{
+    ViewData["Title"] = "SchedulerSqlServerBinding";
+}
+
+<h1>SchedulerSqlServerBinding</h1>
+
+@(Html.Kendo().Scheduler<Kendo.Examples.Mvc.Models.TaskViewModel>()
+    .Name("scheduler")
+    .Date(new DateTime(2019, 11, 13))
+    .StartTime(new DateTime(2019, 11, 13, 7, 00, 00))
+    .Height(600)
+    .Views(views =>
+        {
+            views.DayView();
+            views.WorkWeekView(workWeekView => workWeekView.Selected(true));
+            views.WeekView();
+            views.MonthView();
+            views.AgendaView();
+            views.TimelineView();
+        })
+        .Timezone("Etc/UTC")
+        .DataSource(d => d
+            .Model(m =>
+            {
+                m.Id(f => f.TaskID);
+                m.Field(f => f.Title).DefaultValue("No title");
+                m.Field(f => f.Title).DefaultValue("No title");
+                m.RecurrenceId(f => f.RecurrenceID);
+            })
+            .Read("Read", "SchedulerSqlServerBinding")
+        .Create("Create", "SchedulerSqlServerBinding")
+        .Destroy("Destroy", "SchedulerSqlServerBinding")
+        .Update("Update", "SchedulerSqlServerBinding")
+    )
+)
