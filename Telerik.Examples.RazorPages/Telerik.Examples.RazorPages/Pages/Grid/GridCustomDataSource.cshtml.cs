@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Kendo.Examples.RazorPages.Models;
+using Telerik.Examples.RazorPages.Models;
 using Kendo.Mvc.UI;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace Kendo.Examples.RazorPages.Pages.Grid
+namespace Telerik.Examples.RazorPages.Pages.Grid
 {
     public class GridCustomDataSourceModel : PageModel
     {

@@ -10,7 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json.Serialization;
 
-namespace Kendo.Examples.RazorPages
+namespace Telerik.Examples.RazorPages
 {
     public class Startup
     {

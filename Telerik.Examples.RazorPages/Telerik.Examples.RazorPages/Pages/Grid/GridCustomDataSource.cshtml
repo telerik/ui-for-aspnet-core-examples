@@ -1,5 +1,5 @@
 ﻿@page
-@model Kendo.Examples.RazorPages.Pages.Grid.GridCustomDataSourceModel
+@model Telerik.Examples.RazorPages.Pages.Grid.GridCustomDataSourceModel
 @{
     ViewData["Title"] = "GridCustomDataSource";
 }
@@ -21,7 +21,7 @@
 <div id="grid">
 </div>
 
-@(Html.Kendo().Grid<Kendo.Examples.RazorPages.Models.Customer>().Name("grid")
+@(Html.Kendo().Grid<Telerik.Examples.RazorPages.Models.Customer>().Name("grid")
             .AutoBind(false)
             .Columns(x =>
             {

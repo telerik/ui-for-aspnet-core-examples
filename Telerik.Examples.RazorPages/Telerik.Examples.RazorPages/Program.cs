@@ -7,7 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace Kendo.Examples.RazorPages
+namespace Telerik.Examples.RazorPages
 {
     public class Program
     {

@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Kendo.Examples.RazorPages.Models
+namespace Telerik.Examples.RazorPages.Models
 {
     public class TaskViewModel : IGanttTask
     {
