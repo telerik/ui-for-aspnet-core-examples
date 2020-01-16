@@ -1,3 +1,0 @@
-﻿@model Kendo.Examples.Mvc.Models.Category
-
-@(Html.Kendo().DropDownListFor(x => x).DataSource(x => x.Read(y => y.Action("AllCategories", "EnableOperationsForObjectColumn"))).DataTextField("CategoryName").DataValueField("CategoryID").HtmlAttributes(new { data_bind = "value: Category" }))

@@ -1,0 +1,30 @@
+﻿
+@{
+    ViewData["Title"] = "CustomDataSource";
+}
+
+<h1>CustomDataSource</h1>
+
+@using Telerik.Examples.Mvc.Models
+
+@(Html.Kendo().Grid<Product>()
+          .Name("grid")
+          .DataSource(dataSource => dataSource
+              .Custom()
+              .Transport(t => t.Read(read => read.Action("Read", "CustomDataSource")))
+              .Schema(s => s.Data("DataCollection").Total("TotalRecords"))
+              .PageSize(10)
+          )
+          .Columns(columns =>
+          {
+              columns.Bound(product => product.ProductID);
+              columns.Bound(product => product.ProductName);
+              columns.Bound(product => product.UnitsInStock);
+              columns.Bound(product => product.Discontinued);
+          })
+          .Pageable()
+          .Sortable()
+          .Filterable()
+          .Groupable()
+          .Editable()
+)

@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29319.158
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Telerik.Examples.Mvc", "Telerik.Examples.Mvc\Telerik.Examples.Mvc.csproj", "{E903FFDA-356A-4095-940B-9A0BE8BB900E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E903FFDA-356A-4095-940B-9A0BE8BB900E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E903FFDA-356A-4095-940B-9A0BE8BB900E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E903FFDA-356A-4095-940B-9A0BE8BB900E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E903FFDA-356A-4095-940B-9A0BE8BB900E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E14EB5F6-89B7-48C6-8AC9-5FC1BA707BD8}
+	EndGlobalSection
+EndGlobal
