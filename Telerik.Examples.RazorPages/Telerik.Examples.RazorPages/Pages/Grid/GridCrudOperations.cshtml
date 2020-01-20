@@ -17,15 +17,18 @@
                 .Sortable()
                 .Editable()
                 .Scrollable()
-                .ToolBar(x => x.Excel())
+                .ToolBar(x => {
+                    x.Create();
+                    x.Excel();
+                })
                 .Columns(columns =>
+                {
+                    columns.Bound(column => column.Freight);
+                    columns.Bound(column => column.ShipName);
+                    columns.Bound(column => column.ShipCity);
+                    columns.Command(column =>
                     {
-                        columns.Bound(column => column.Freight);
-                        columns.Bound(column => column.ShipName);
-                        columns.Bound(column => column.ShipCity);
-                        columns.Command(column =>
-                        {
-                            column.Edit();
+                        column.Edit();
                         column.Destroy();
                     });
                 })
