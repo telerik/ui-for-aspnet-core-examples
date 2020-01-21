@@ -10,32 +10,36 @@ To run the projects from this repository:
 
 1. Clone the repo
 
-## Kendo.Examples.Mvc
+## Telerik.Examples.Mvc
 
-1. Open the Kendo.Examples.Mvc.sln file in VS2019 
+1. Open the Telerik.Examples.Mvc.sln file in VS2019 
 2. Clean the solution
 3. Build the solution and run the project.
 4. Navigate to a certain example by adding the ControllerName/ActionMethod to the URL, i.e https://localhost:44361/ajaxbinding/ajaxbinding
 
 > The project uses a local database which is created upon building the project based on the existent migrations.
 
-## Kendo.Examples.RazorPages
+## Telerik.Examples.RazorPages
 
-1. Open the Kendo.Examples.RazorPages.sln file in VS2019 
+1. Open the Telerik.Examples.RazorPages.sln file in VS2019 
 2. Clean the solution
 3. Build the solution and run the project.
 4. Navigate to a certain example by adding the PageFolder/ViewName to the URL, i.e https://localhost:44361/grid/gridcustomdatasource
 
 
-## Examples descriptions 
+## Additional Example Notes
 
-### Editor/EditorContent
+The following section aims to provide additional information or important notes regarding specific examples. 
 
-#### This project demonstrates how you can add, read, edit and delete text data using a local database and the Editor component
+### Telerik.Examples.Mvc
+
+##### Editor/EditorContent
+
+This project demonstrates how you can add, read, edit and delete text data using a local database and the Editor component
 
 > Please note that the current project doesn't have any XSS attack preventions applied. It is a developer's responsibility to manage these security risks. For more information, please refer to this [Preventing Cross-Site Scripting](https://docs.telerik.com/kendo-ui/controls/editors/editor/preventing-xss) article.
 
-### MultiSelect/GetPostData
+##### MultiSelect/GetPostData
 
 The MultiSelect is a `<select multiple>` element and behaves like one in a POST query - the browser will add a form data field with the name of the widget for each selected item, and the value of the form field will be the value of the item. This means that your model needs to expect a List of values for the given field.
 

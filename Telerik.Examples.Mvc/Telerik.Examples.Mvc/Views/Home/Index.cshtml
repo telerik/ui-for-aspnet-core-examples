@@ -3,7 +3,10 @@
 }
 
 @model IEnumerable<string>
-    <h2 class="text-center">Navigate to an example of your choice</h2>
+
+<h2 class="text-center">Navigate to an example of your choice</h2>
+<p>The Telerik.Examples.Mvc project is comprised of a number of pages that aim to depict a certain functionality or behavior of the different Telerik UI components.</p>
+
 <ul>
     @foreach (var item in Model)
     {
@@ -13,10 +16,11 @@
             var href = "/" + name + "/" + name;
 
             <li><a href="@href">@name</a>  </li>
-        } 
+        }
         else
-        {   
-            <li style="margin-top: 30px;"><h4>@item</h4></li> 
+        {
+            <li style="margin-top: 30px;"><h4>@item</h4></li>
+
         }
     }
 </ul>
