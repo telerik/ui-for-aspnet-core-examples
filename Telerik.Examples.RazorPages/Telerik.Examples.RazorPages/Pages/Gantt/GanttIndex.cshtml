@@ -16,10 +16,10 @@
     .Name("gantt")
     .Columns(columns =>
     {
-        columns.Bound(c => c.TaskID).Title("ID").Width(50);
-        columns.Bound(c => c.Title).Editable(true).Sortable(true);
-        columns.Bound(c => c.Start).Width(100).Editable(true).Sortable(true);
-        columns.Bound(c => c.End).Width(100).Editable(true).Sortable(true);
+        columns.Bound(c => c.TaskID).Title("ID").Width(80);
+        columns.Bound(c => c.Title).Width(250).Editable(true).Sortable(true);
+        columns.Bound(c => c.Start).Width(150).Editable(true).Sortable(true);
+        columns.Bound(c => c.End).Width(150).Editable(true).Sortable(true);
     })
     .Views(views =>
     {
@@ -37,7 +37,7 @@
             m.Id(f => f.TaskID);
             m.ParentId(f => f.ParentID);
             m.Field(f => f.Expanded).DefaultValue(true);
-            m.Field("TaskID", typeof(String));
+            m.Field<string>(f=>f.TaskID);
         })
         .Read(r => r.Url("/Gantt/GanttIndex?handler=Read").Data("forgeryToken"))
         .Create(r => r.Url("/Gantt/GanttIndex?handler=Create").Data("forgeryToken"))
@@ -57,8 +57,6 @@
         .Destroy(r => r.Url("/Gantt/GanttIndex?handler=DependenciesDestroy").Data("forgeryToken"))
     )
 )
-
-
 
 <script>
     function forgeryToken() {
