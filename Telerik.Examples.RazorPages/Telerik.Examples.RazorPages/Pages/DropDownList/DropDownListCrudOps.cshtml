@@ -1,0 +1,40 @@
+﻿@page
+@model Telerik.Examples.RazorPages.Pages.DropDownList.DropDownListCrudOps
+@{
+    ViewData["Title"] = "DropDownListCrudOps";
+}
+
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Xsrf
+@Html.AntiForgeryToken()
+
+<h1>DropDownList CrudOperations</h1>
+
+@(Html.Kendo().DropDownList()
+        .Name("products")
+        .DataTextField("ShipName")
+        .DataValueField("ShipCity")
+        .HtmlAttributes(new { style = "width:300px;" })
+        .AutoBind(false)
+        .Filter(FilterType.Contains)      
+        .DataSource(ds => ds
+            .Custom()
+            .Transport(transport => transport
+                .Read(r => r
+                    .Url("/DropDownList/DropDownListCrudOps?handler=Read").Data("dataFunction")
+                ))
+                .ServerFiltering(true)
+            )
+        )
+<script>
+    function onSelect(e) {
+        alert("You selected item: " + e.item.text());
+    }
+
+    function dataFunction() {
+        var value = $("#products").getKendoDropDownList().filterInput.val();
+        return {
+            __RequestVerificationToken: kendo.antiForgeryTokens().__RequestVerificationToken,
+            filterValue: value
+        };
+    }   
+</script>
