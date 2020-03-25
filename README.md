@@ -26,6 +26,22 @@ To run the projects from this repository:
 3. Build the solution and run the project.
 4. Navigate to a certain example by adding the PageFolder/ViewName to the URL, i.e https://localhost:44361/grid/gridcustomdatasource
 
+## Referencing the Commerial NuGet Package
+
+For all active license holders, access to the private Telerik NuGet Feed is granted. The `Telerik.Examples.Mvc` and `Telerik.Examples.RazorPages` reference a local NuGet package that is a Trial version of the Telerik UI for ASP.NET Core commercial NuGet. 
+
+In order to add a reference to the commercial NuGet Package follow the steps below:
+ 
+1. Navigate to **Dependencies > Packages** from the Solution explorer in Visual Studio.
+1. Right click on **Telerik.UI.for.AspNet.Core.Trial** and select Remove from the context menu.
+1. Go to Tools > NuGet Package Manager > Package Manager Settings, select Package Manager Sources and then click the + button.
+1. Choose feed Name, set the feed URL to: https://nuget.telerik.com/nuget and click OK.
+
+    ![KendoUIResources](images/add-nuget-package-source.png)
+
+1. Browse and Install the **Telerik.UI.for.AspNet.Core** NuGet package.
+
+For more information on how to add the private Telerik NuGet feed and install the package refer to the [NuGet Install in ASP.NET Core article](https://docs.telerik.com/aspnet-core/getting-started/installation/nuget-install)
 
 ## Additional Example Notes
 
