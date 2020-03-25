@@ -28,13 +28,13 @@ To run the projects from this repository:
 
 ## Referencing the Commerial NuGet Package
 
-For all active license holders, access to the private Telerik NuGet Feed is granted. The `Telerik.Examples.Mvc` and `Telerik.Examples.RazorPages` reference a local NuGet package that is a Trial version of the Telerik UI for ASP.NET Core commercial NuGet. 
+All active licence holders have access to the private Telerik NuGet Feed. The `Telerik.Examples.Mvc` and `Telerik.Examples.RazorPages` reference a local NuGet package that is a Trial version of the Telerik UI for ASP.NET Core NuGet. 
 
 In order to add a reference to the commercial NuGet Package follow the steps below:
  
 1. Navigate to **Dependencies > Packages** from the Solution explorer in Visual Studio.
 1. Right click on **Telerik.UI.for.AspNet.Core.Trial** and select Remove from the context menu.
-1. Go to Tools > NuGet Package Manager > Package Manager Settings, select Package Manager Sources and then click the + button.
+1. Go to **Tools > NuGet Package Manager > Package Manager Settings**, select **Package Manager Sources** and then click the + button.
 1. Choose feed Name, set the feed URL to: https://nuget.telerik.com/nuget and click OK.
 
     ![KendoUIResources](images/add-nuget-package-source.png)
