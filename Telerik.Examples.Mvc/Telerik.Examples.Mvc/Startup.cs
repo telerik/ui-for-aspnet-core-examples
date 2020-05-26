@@ -12,6 +12,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json.Serialization;
+using AutoMapper;
 
 namespace Telerik.Examples.Mvc
 {
@@ -29,6 +30,14 @@ namespace Telerik.Examples.Mvc
         {
             services.AddControllersWithViews();
 
+            var mappingConfig = new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new MappingProfile());
+            });
+
+            IMapper mapper = mappingConfig.CreateMapper();
+            services.AddSingleton(mapper);
+            services.AddTransient<CarsService>();
             services.AddMvc()
                 .AddNewtonsoftJson(options =>
                        options.SerializerSettings.ContractResolver =
@@ -48,6 +57,10 @@ namespace Telerik.Examples.Mvc
                 (options => options.UseSqlServer(connection));
 
             services.AddKendo();
+            services.Configure<IISServerOptions>(options =>
+            {
+                options.AllowSynchronousIO = true;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
