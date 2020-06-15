@@ -14,7 +14,7 @@ namespace Telerik.Examples.Mvc.Controllers.Grid
     {
         private readonly IMapper mapper;
         private readonly CarsService service;
-        public static IEnumerable<CarViewModel> cars;
+        public static IEnumerable<Car> cars;
 
         public DateTimeOffsetController(IMapper mapper, CarsService service)
         {
@@ -23,7 +23,7 @@ namespace Telerik.Examples.Mvc.Controllers.Grid
 
             if (cars == null)
             {
-                cars = service.GetAllCars().Select(car => mapper.Map<CarViewModel>(car));
+                cars = service.GetAllCars();
             }
         }
 
