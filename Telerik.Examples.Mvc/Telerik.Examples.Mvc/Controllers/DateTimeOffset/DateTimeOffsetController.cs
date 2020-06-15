@@ -8,7 +8,7 @@ using Kendo.Mvc.UI;
 using Microsoft.AspNetCore.Mvc;
 using Telerik.Examples.Mvc.Models;
 
-namespace Telerik.Examples.Mvc.Controllers.Grid
+namespace Telerik.Examples.Mvc.Controllers.DateTimeOffset
 {
     public class DateTimeOffsetController : Controller
     {
@@ -27,7 +27,7 @@ namespace Telerik.Examples.Mvc.Controllers.Grid
             }
         }
 
-        public IActionResult Index()
+        public IActionResult DateTimeOffset()
         {
             return View(mapper.Map<CarViewModel>(cars.FirstOrDefault()));
         }
