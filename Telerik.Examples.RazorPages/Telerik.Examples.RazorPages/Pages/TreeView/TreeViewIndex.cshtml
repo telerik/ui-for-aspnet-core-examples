@@ -1,0 +1,59 @@
+﻿@page
+@model Telerik.Examples.RazorPages.Pages.TreeView.TreeViewIndexModel
+@{
+    ViewData["Title"] = "TreeViewIndex";
+}
+
+@using Kendo.Mvc.UI
+
+@(Html.Kendo().TreeView()
+    .Name("treeview")
+    .DataTextField("Name")
+    .DataSource(dataSource => dataSource
+        .Custom()
+        .Transport(t => t
+            .Read(r => r.Url(Url.Page("TreeViewIndex", "TreeViewRead"))))
+        )
+    .Checkboxes(cbx => cbx
+        .CheckChildren(false)
+        .Name("ischecked")
+        )
+    .Events(ev => ev.Check("onCheck"))
+)
+<div style="padding-top: 2em;">
+    <h4>Status</h4>
+    <p id="result">No nodes checked.</p>
+</div>
+<script>
+
+    // function that gathers IDs of checked nodes
+    function checkedNodeIds(nodes, checkedNodes) {
+        for (var i = 0; i < nodes.length; i++) {
+            if (nodes[i].checked) {
+                checkedNodes.push(nodes[i].id);
+            }
+
+            if (nodes[i].hasChildren) {
+                checkedNodeIds(nodes[i].children.view(), checkedNodes);
+            }
+        }
+    };
+
+    // show checked node IDs on datasource change
+    function onCheck() {
+        var checkedNodes = [],
+            treeView = $("#treeview").data("kendoTreeView"),
+            message;
+
+        checkedNodeIds(treeView.dataSource.view(), checkedNodes);
+
+        if (checkedNodes.length > 0) {
+            message = "IDs of checked nodes: " + checkedNodes.join(",");
+        } else {
+            message = "No nodes checked.";
+        }
+
+        $("#result").html(message);
+    };
+</script>
+
