@@ -20,19 +20,19 @@ namespace Telerik.Examples.RazorPages.Models
             get;
             set;
         }
-
+        [Required]
         public DateTime? OrderDate
         {
             get;
             set;
         }
-
+        [Required]
         public string ShipCity
         {
             get;
             set;
         }
-
+        [Required]
         public string ShipName
         {
             get;
