@@ -53,7 +53,7 @@ namespace Telerik.Examples.RazorPages.Pages.Grid
 
         public JsonResult OnPostDestroy([DataSourceRequest] DataSourceRequest request, OrderViewModel order)
         {
-            orders.Remove(orders.First(x => x.OrderID == order.OrderID));
+            orders.Remove(orders.FirstOrDefault(x => x.OrderID == order.OrderID));
 
             return new JsonResult(new[] { order }.ToDataSourceResult(request, ModelState));
         }
