@@ -1,0 +1,87 @@
+﻿@page
+@model Telerik.Examples.RazorPages.Pages.Scheduler.SchedulerCrudOperationsModel
+@{
+    ViewData["Title"] = "SchedulerCrudOperations";
+}
+
+@using Kendo.Mvc.UI
+
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Xsrf
+@Html.AntiForgeryToken()
+
+@(Html.Kendo().Scheduler<Telerik.Examples.RazorPages.Models.MeetingViewModel>()
+    .Name("scheduler")
+    .Height(600)
+    .Views(views =>
+    {
+        views.DayView();
+        views.WeekView(weekView => weekView.Selected(true));
+        views.MonthView();
+        views.AgendaView();
+    })
+    .Timezone("Etc/UTC")
+    .Resources(resource =>
+    {
+        resource.Add(m => m.RoomID)
+            .Title("Room")
+            .DataTextField("Text")
+            .DataValueField("Value")
+            .DataColorField("Color")
+            .BindTo(new[] {
+                    new { Text = "Meeting Room 101", Value = 1, Color = "#6eb3fa" },
+                    new { Text = "Meeting Room 201", Value = 2, Color = "#f58a8a" }
+                });
+        resource.Add(m => m.Attendees)
+            .Title("Attendees")
+            .Multiple(true)
+            .DataTextField("Text")
+            .DataValueField("Value")
+            .DataColorField("Color")
+            .BindTo(new[] {
+                    new { Text = "Alex", Value = 1, Color = "#f8a398" },
+                    new { Text = "Bob", Value = 2, Color = "#51a0ed" },
+                    new { Text = "Charlie", Value = 3, Color = "#56ca85" }
+                });
+    })
+    .DataSource(d => d
+        .Model(m =>
+        {
+            m.Id(f => f.MeetingID);
+            m.Field(f => f.Title).DefaultValue("No title");
+            m.Field(f => f.Attendees).DefaultValue(1);
+            m.RecurrenceId(f => f.RecurrenceID);
+        })
+        .Events(e => e.Error("error_handler"))
+        .Read(read=>read.Url(Url.Page("SchedulerCrudOperations","Meetings_Read")).Data("forgeryToken"))
+        .Create(create=>create.Url(Url.Page("SchedulerCrudOperations","Meetings_Create")).Data("forgeryToken"))
+        .Destroy(destroy=>destroy.Url(Url.Page("SchedulerCrudOperations","Meetings_Destroy")).Data("forgeryToken"))
+        .Update(u=>u.Url(Url.Page("SchedulerCrudOperations","Meetings_Update")).Data("forgeryToken"))
+    )
+)
+
+<script>
+    function forgeryToken() {
+        return kendo.antiForgeryTokens();
+    }
+
+    function error_handler(e) {
+        if (e.errors) {
+            var message = "Errors:\n";
+            $.each(e.errors, function (key, value) {
+                if ('errors' in value) {
+                    $.each(value.errors, function () {
+                        message += this + "\n";
+                    });
+                }
+            });
+            alert(message);
+
+            var scheduler = $("#scheduler").data("kendoScheduler");
+            scheduler.one("dataBinding", function (e) {
+                //prevent saving if server error is thrown
+                e.preventDefault();
+            })
+        }
+    }
+</script>
+
