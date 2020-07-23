@@ -1,0 +1,45 @@
+﻿@page
+@model Telerik.Examples.RazorPages.Pages.ComboBox.ComboBoxCrudModel
+@{
+    ViewData["Title"] = "ComboBoxCrud";
+}
+
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Xsrf
+@Html.AntiForgeryToken()
+
+<h1>ComboBox CrudOperations</h1>
+
+@(Html.Kendo().ComboBox()
+        .Name("products")
+        .DataTextField("ShipName")
+        .DataValueField("ShipCity")
+        .HtmlAttributes(new { style = "width:300px;" })
+        .Events(e => e.Select("onSelect"))
+        .AutoBind(false)
+        .Filter(FilterType.Contains)
+        .DataSource(ds => ds
+            .Custom()
+            .Transport(transport => transport
+                .Read(r => r
+                    .Url("/ComboBox/ComboBoxCrud?handler=Read").Data("dataFunction")
+                ))
+                .ServerFiltering(true)
+            )
+        )
+<script>
+    function onSelect(e) {
+        console.log("You selected item: " + e.item.text());
+    }
+
+    function dataFunction(e) {
+        var filterValue = '';
+        if (e.filter.filters[0]) {
+            filterValue = e.filter.filters[0].value;
+        }
+
+        return {
+            __RequestVerificationToken: kendo.antiForgeryTokens().__RequestVerificationToken,
+            filterValue: filterValue
+        };
+    }
+</script>
