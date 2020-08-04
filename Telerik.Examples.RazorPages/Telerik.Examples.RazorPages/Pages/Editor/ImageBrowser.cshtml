@@ -1,0 +1,27 @@
+﻿@page
+@model Telerik.Examples.RazorPages.Pages.Editor.ImageBrowserModel
+@{
+    ViewData["Title"] = "Editor - ImageBrowser";
+}
+
+@(Html.Kendo().Editor()
+            .Name("editor")
+            .ImageBrowser(imageBrowser => imageBrowser
+                .Transport(t => {
+                    t.Read(r => r.Url("/Editor/ImageBrowser?handler=Read"));
+                    t.Create(c => c.Url("/Editor/ImageBrowser?handler=Create"));
+                    t.Destroy(d => d.Url("/Editor/ImageBrowser?handler=Destroy"));
+                    t.UploadUrl("/Editor/ImageBrowser?handler=Upload");
+                    t.ImageUrl("/Images/{0}");
+                    
+                })
+                .Schema(schema => schema.Model(
+                    model => model.Fields(fields => fields
+                        .Name(name => name.Field("Name"))
+                        .Size(size => size.Field("Size"))
+                        .Type(type => type.Field("EntryType"))
+                )
+            )
+        )
+    )
+)

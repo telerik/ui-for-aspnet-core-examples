@@ -20,7 +20,9 @@
 
 
   <ItemGroup>
+    <Folder Include="Pages\Editor\" />
     <Folder Include="Pages\Shared\EditorTemplates\" />
+    <Folder Include="wwwroot\Images\" />
   </ItemGroup>
 
 </Project>
