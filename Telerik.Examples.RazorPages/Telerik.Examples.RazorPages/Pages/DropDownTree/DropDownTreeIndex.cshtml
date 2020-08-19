@@ -1,0 +1,37 @@
+﻿@page
+@model Telerik.Examples.RazorPages.Pages.DropDownTree.DropDownTreeIndexModel
+@{
+    ViewData["Title"] = "DropDownTreeIndex";
+}
+
+
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Xsrf
+@Html.AntiForgeryToken()
+
+<h1>DropDownTreeIndex</h1>
+
+@using Kendo.Mvc.UI
+
+@(Html.Kendo().DropDownTree()
+    .AutoWidth(true)
+    .DataTextField("Name")
+    .Name("dropdowntree")
+    .HtmlAttributes(new { style = "width: 100%" })
+    .CheckAll(true)
+    .AutoClose(false)
+    .Checkboxes(checkboxes => checkboxes
+        .CheckChildren(true)
+    )
+    .DataSource(dataSource => dataSource
+        .Custom()
+        .Transport(t => t
+            .Read(r => r.Url(Url.Page("DropDownTreeIndex", "DropDownTreeRead")).Data("forgeryToken")))
+        )
+
+)
+
+<script>
+    function forgeryToken() {
+        return kendo.antiForgeryTokens();
+    }
+</script>
