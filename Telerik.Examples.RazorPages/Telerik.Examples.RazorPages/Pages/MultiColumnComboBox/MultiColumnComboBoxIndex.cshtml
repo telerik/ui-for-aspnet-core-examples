@@ -1,0 +1,44 @@
+﻿@page
+@model Telerik.Examples.RazorPages.Pages.MultiColumnComboBox.MultiColumnComboBoxIndexModel
+@{
+    ViewData["Title"] = "MultiColumnComboBoxIndex";
+}
+
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Xsrf
+@Html.AntiForgeryToken()
+
+<h1>MultiColumnComboBox Index</h1>
+
+@(Html.Kendo().MultiColumnComboBox()
+        .Name("products")
+        .DataTextField("ShipName")
+        .DataValueField("ShipCity")
+        .Filter(FilterType.Contains)
+        .Columns(columns =>
+            {
+                columns.Add().Field("ShipName").Title("Ship Name").Width("200px");
+                columns.Add().Field("ShipCity").Title("Ship City").Width("200px");
+                columns.Add().Field("Freight").Title("Freight").Width("200px");
+            })
+        .DataSource(ds => ds
+            .Custom()
+            .Transport(transport => transport
+                .Read(r => r
+                    .Url("/MultiColumnComboBox/MultiColumnComboBoxIndex?handler=Read").Data("dataFunction")
+                ))
+                .ServerFiltering(true)
+            )
+        )
+<script>
+    function dataFunction(e) {
+        var filterValue = '';
+        if (e.filter.filters[0]) {
+            filterValue = e.filter.filters[0].value;
+        }
+
+        return {
+            __RequestVerificationToken: kendo.antiForgeryTokens().__RequestVerificationToken,
+            filterValue: filterValue
+        };
+    }
+</script>
