@@ -1,0 +1,36 @@
+﻿@page
+@model Telerik.Examples.RazorPages.AutoCompleteCRUDOperationsModel
+@{
+    ViewData["Title"] = "AutoCompleteCRUDOperations";
+}
+
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Xsrf
+@Html.AntiForgeryToken()
+
+@(Html.Kendo().AutoComplete()
+          .Name("autocomplete")
+          .DataTextField("ShipName")
+          .Filter("contains")
+          .MinLength(3)
+          .HtmlAttributes(new { style = "width:100%" })
+          .DataSource(ds => ds
+            .Custom()
+            .Transport(transport => transport
+                .Read(r => r
+                    .Url("/AutoComplete/AutoCompleteCRUDOperations?handler=Read").Data("dataFunction")
+                ))
+                .ServerFiltering(true)
+            )
+)
+<script>
+
+    function dataFunction() {
+        var value = $("#autocomplete").val();
+        return {
+            __RequestVerificationToken: kendo.antiForgeryTokens().__RequestVerificationToken,
+            filterValue: value
+        };
+    }
+
+</script>
+
