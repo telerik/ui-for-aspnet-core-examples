@@ -1,0 +1,31 @@
+﻿@page
+@model Telerik.Examples.RazorPages.Pages.Button.ButtonIndexModel
+@{
+    ViewData["Title"] = "ButtonIndex";
+}
+
+
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Xsrf
+@Html.AntiForgeryToken()
+
+<h1>ButtonIndex</h1>
+
+<form method="post">
+    <input type="text" name="description">
+    <br/>
+    @(Html.Kendo().Button()
+        .Name("primaryTextButton")
+        .HtmlAttributes(new { type = "submit", @class = "k-primary" })
+        .Events(e => e.Click("onClick"))
+        .Content("Submit")
+    )
+</form>
+
+
+
+
+<script>
+    function onClick() {
+        return kendo.antiForgeryTokens();
+    }
+</script>

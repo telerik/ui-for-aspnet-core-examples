@@ -1,0 +1,53 @@
+﻿@page
+@model Telerik.Examples.RazorPages.Pages.ContextMenu.ContextMenuIndexModel
+@{
+    ViewData["Title"] = "ContextMenuIndex";
+}
+
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Xsrf
+@Html.AntiForgeryToken()
+
+<h1>ContextMenuIndex</h1>
+
+<div id="target">Right click here</div>
+
+@(Html.Kendo().ContextMenu()
+        .Name("RequestMenu")
+        .Target("#target")
+        .Orientation(ContextMenuOrientation.Vertical)
+        .Items(items =>
+        {
+            items.Add()
+                .Text("Edit");
+
+            items.Add()
+                 .Text("Cancel");
+        })
+        .Events(e =>
+        {
+            e.Select("onSelect");
+
+        })
+    )
+
+<script>
+    function onSelect(e) {
+        if ($(e.item).text() == "Edit") {
+            $.ajax({
+                url: "/ContextMenu/ContextMenuIndex?handler=Custom",
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                headers: {
+                    RequestVerificationToken: $('input:hidden[name="__RequestVerificationToken"]').val()
+                },
+                dataType: "json",
+                success: function (data) {
+                    options.success(data);
+                },
+                failure: function (response) {
+                    console.log(response);
+                }
+            });
+        }        
+    }
+</script>

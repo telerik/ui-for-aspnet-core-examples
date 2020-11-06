@@ -1,0 +1,26 @@
+﻿@page
+@model Telerik.Examples.RazorPages.Pages.Menu.MenuRemoteDataModel
+@{
+    ViewData["Title"] = "MenuRemoteData";
+}
+
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Xsrf
+@Html.AntiForgeryToken()
+
+<h1>MenuRemoteData</h1>
+
+@(Html.Kendo().Menu()
+            .Name("Menu")
+            .DataTextField("Name")
+            .DataSource(ds => ds
+                .Read(r => r
+                    .Url("/Menu/MenuRemoteData?handler=Read").Data("dataFunction")
+                )
+            .Model(model => model.Children("Products")))
+    )
+
+<script>  
+    function dataFunction() {     
+        return kendo.antiForgeryTokens();
+    }
+</script>
