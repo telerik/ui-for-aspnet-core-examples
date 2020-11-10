@@ -25,4 +25,9 @@
     <Folder Include="wwwroot\Images\" />
   </ItemGroup>
 
+
+  <ItemGroup>
+    <None Include="Pages\ButtonGroup\ButtonGroupIndex.cshtml" />
+  </ItemGroup>
+
 </Project>
