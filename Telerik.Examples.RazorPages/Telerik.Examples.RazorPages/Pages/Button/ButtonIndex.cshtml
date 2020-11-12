@@ -4,7 +4,6 @@
     ViewData["Title"] = "ButtonIndex";
 }
 
-
 @inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Xsrf
 @Html.AntiForgeryToken()
 
@@ -20,9 +19,6 @@
         .Content("Submit")
     )
 </form>
-
-
-
 
 <script>
     function onClick() {
