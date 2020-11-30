@@ -1,0 +1,62 @@
+﻿@page
+@model Telerik.Examples.RazorPages.Pages.Slider.SliderIndexModel
+@{
+	ViewData["Title"] = "SliderIndex";
+}
+
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Xsrf
+@Html.AntiForgeryToken()
+
+<h1>SliderIndex</h1>
+
+<h4>Horizontal orientation:</h4>
+<div class="slider-container">
+@(Html.Kendo().Slider()
+    .Name("slider")
+    .IncreaseButtonTitle("Right")
+    .DecreaseButtonTitle("Left")
+    .Min(-10)
+    .Max(10)
+    .SmallStep(2)
+    .LargeStep(5)
+    .Value(0)
+    .HtmlAttributes(new { @class = "balSlider", title = "slider" })
+)
+</div>
+<h4>Vertical orientation:</h4>
+<div class="slider-container">
+@(Html.Kendo().Slider()
+    .Name("eqSlider1")
+    .Orientation(SliderOrientation.Vertical)
+    .Min(-20)
+    .Max(20)
+    .SmallStep(1)
+    .LargeStep(20)
+    .ShowButtons(false)
+    .Value(10)
+    .HtmlAttributes(new { @class = "eqSlider", title = "eqSlider1" })
+)
+</div>
+
+<style>
+	.slider-container {
+		padding-top: 20px;
+		padding-bottom: 20px;
+	}
+
+	div.balSlider {
+		width: 100%;
+	}
+
+	div.balSlider .k-slider-selection {
+		display: none;
+	}
+
+	div.eqSlider {
+		display: inline-block;
+		margin: 1em;
+		height: 122px;
+		vertical-align: top;
+	}
+</style>
+

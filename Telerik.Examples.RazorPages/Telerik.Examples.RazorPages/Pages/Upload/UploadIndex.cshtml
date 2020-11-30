@@ -1,0 +1,20 @@
+﻿@page
+@model Telerik.Examples.RazorPages.Pages.Upload.UploadIndexModel
+@{
+	ViewData["Title"] = "UploadIndex";
+}
+
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Xsrf
+@Html.AntiForgeryToken()
+
+<h1>UploadIndex</h1>
+
+@(Html.Kendo().Upload()
+	.Name("files")
+	.Async(a=>
+		a.SaveUrl("./UploadIndex?handler=Save")
+		.RemoveUrl("./UploadIndex?handler=Save")
+	)
+	.Validation(validation => validation.AllowedExtensions(new string[] { ".jpg" , ".png", ".jpeg" }))
+    .Validation(validation => validation.MaxFileSize(2000000))
+)
