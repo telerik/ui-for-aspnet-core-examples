@@ -9,7 +9,14 @@ namespace Telerik.Examples.RazorPages.Models
     {
         public int ProductID { get; set; }
         public int CategoryID { get; set; }
+
         public string ProductName { get; set; }
         public string ImageUrl { get; set; }
+
+        public decimal UnitPrice { get; set; }
+
+        public int UnitsInStock { get; set; }
+
+        public bool Discontinued { get; set; }
     }
 }
