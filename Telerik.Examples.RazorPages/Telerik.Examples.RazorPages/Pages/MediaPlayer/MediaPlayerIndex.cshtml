@@ -1,0 +1,15 @@
+﻿@page
+@model Telerik.Examples.RazorPages.Pages.MediaPlayer.MediaPlayerIndexModel
+@{
+    ViewData["Title"] = "MediaPlayerIndex";
+}
+
+@(Html.Kendo().MediaPlayer()
+    .Name("mediaPlayer")
+    .AutoPlay(false)
+    .Navigatable(true)
+    .Media(m => m
+    .Title("ProgressNEXT 2019 Highlights")
+    .Source("https://youtu.be/2OvvwWShNWo"))
+    .HtmlAttributes(new { style = "height:720px" })
+)
