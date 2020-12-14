@@ -1,0 +1,11 @@
+﻿@page
+@model Telerik.Examples.RazorPages.Pages.DateInput.DateInputIndexModel
+@{
+    ViewData["Title"] = "DateInputIndex";
+}
+
+<h4>Enter a date</h4>
+@(Html.Kendo().DateInput()
+          .Name("dateinput")
+          .HtmlAttributes(new { style = "width: 100%", title = "Enter a date" })
+)

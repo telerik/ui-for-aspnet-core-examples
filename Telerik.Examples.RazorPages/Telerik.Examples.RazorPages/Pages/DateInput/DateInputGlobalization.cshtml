@@ -1,0 +1,36 @@
+﻿@page
+@model Telerik.Examples.RazorPages.Pages.DateInput.DateInputGlobalizationModel
+@{
+    ViewData["Title"] = "DateInputGlobalization";
+}
+
+@using System.Globalization
+
+@{
+    var culture = CultureInfo.DefaultThreadCurrentCulture = new CultureInfo("de-DE");
+}
+
+<script src="@Url.Content("https://kendo.cdn.telerik.com/2020.3.1118/js/cultures/kendo.culture." + culture + ".min.js")"></script>
+
+<script type="text/javascript">
+    kendo.culture("@culture");
+</script>
+
+<div>
+    <h4>Enter a date</h4>
+    @(Html.Kendo().DateInput()
+        .Name("dateinput")
+        .Value(DateTime.Today)
+    )
+
+    @(Html.Kendo().DateInput()
+      .Name("dateinput2")
+    )
+</div>
+
+
+<style>
+    div {
+        text-align: center;
+    }
+</style>
