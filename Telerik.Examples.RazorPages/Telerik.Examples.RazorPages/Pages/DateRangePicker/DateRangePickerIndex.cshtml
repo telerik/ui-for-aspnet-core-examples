@@ -1,0 +1,19 @@
+﻿@page
+@model Telerik.Examples.RazorPages.Pages.DateRangePicker.DateRangePickerIndexModel
+@{
+    ViewData["Title"] = "DateRangePickerIndex";
+}
+
+<div>
+    <h4>Pick a date range</h4>
+        @(Html.Kendo().DateRangePicker()
+        .Name("daterangepicker")
+        .HtmlAttributes(new { style = "width: 100%", title = "daterangepicker" })
+    )
+</div>
+
+<style>
+    div {
+       text-align: center;
+    }
+</style>
