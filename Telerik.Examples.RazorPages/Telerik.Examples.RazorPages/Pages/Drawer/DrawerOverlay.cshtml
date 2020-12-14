@@ -1,0 +1,49 @@
+﻿@page
+@model Telerik.Examples.RazorPages.Pages.Drawer.DrawerOverlayModel
+@{
+    ViewData["Title"] = "DrawerIndex";
+}
+
+<div class="button-group">
+    <h2>Overlay Drawer</h2>
+    <button id="show-left" class="k-button">Show on Left</button>
+    <button id="show-right" class="k-button">Show on Right</button>
+</div>
+
+@(Html.Kendo().Drawer()
+        .Name("overlay-drawer")
+        .Template(@"
+            <ul>
+                <li data-role='drawer-item'><span class='k-item-text'>First Item</span></li>
+                <li data-role='drawer-separator'></li>
+                <li data-role='drawer-item'><span class='k-item-text'>Second Item</span></li>
+                <li data-role='drawer-item' class='k-state-selected'><span class='k-item-text'>Third Item</span></li>
+                <li data-role='drawer-separator'></li>
+                <li data-role='drawer-item'><span class='k-item-text'>Last Item</span></li>
+            </ul>
+        ")
+        .Position("left")
+        .SwipeToOpen(false)
+)
+
+<script>
+    $(function () {
+        $("#show-left").click(function () {
+            var drawer = $("#overlay-drawer").data("kendoDrawer");
+            drawer.position("left");
+            drawer.show();
+        });
+
+        $("#show-right").click(function () {
+            var drawer = $("#overlay-drawer").data("kendoDrawer");
+            drawer.position("right");
+            drawer.show();
+        });
+    });
+</script>
+
+<style>
+    .button-group {
+        text-align: center;
+    }
+</style>
