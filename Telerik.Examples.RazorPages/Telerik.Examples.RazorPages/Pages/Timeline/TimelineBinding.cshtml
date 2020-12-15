@@ -1,0 +1,17 @@
+﻿@page
+@model Telerik.Examples.RazorPages.Pages.Timeline.TimelineBindingModel
+@using Telerik.Examples.RazorPages.Models
+
+@(Html.Kendo().Timeline<TimelineEventModel>()
+               .Name("Timeline")
+               .DataDateField("EventDate")
+               .DataDescriptionField("Description")
+               .DataSubtitleField("Subtitle")
+               .DataTitleField("Title")
+               .DataImagesField("Images")
+               .DataActionsField("Actions")
+               .Orientation(TimelineOrientation.Vertical)
+               .AlternatingMode()
+               .CollapsibleEvents()
+               .DataSource(dt => dt.Read(r=>r.Url("/Timeline/TimelineBinding?handler=Events")))
+    )
