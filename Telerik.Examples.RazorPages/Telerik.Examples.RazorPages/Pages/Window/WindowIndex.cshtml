@@ -1,0 +1,49 @@
+﻿@page
+@model Telerik.Examples.RazorPages.Pages.Window.WindowIndexModel
+@{
+    ViewData["Title"] = "WindowIndex";
+}
+
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Xsrf
+@Html.AntiForgeryToken()
+
+<h1>WindowIndex</h1>
+
+@(Html.Kendo().Window()
+    .Name("window")
+    .Title("About Alvar Aalto")
+    .Content(@<text>
+        <p>
+            Alvar Aalto is one of the greatest names in modern architecture and design.
+            Glassblowers at the iittala factory still meticulously handcraft the legendary
+            vases that are variations on one theme, fluid organic shapes that let the end user
+            decide the use. Interpretations of the shape in new colors and materials add to the
+            growing Alvar Aalto Collection that remains true to his original design.
+        </p>        
+    </text>)
+    .Actions(actions => actions
+        .Minimize()
+        .Maximize()
+        .Close()
+    )
+    .Draggable()
+    .Resizable()
+    .Width(600)
+    .Events(ev => ev.Close("onClose"))
+)
+
+<span id="undo" style="display:none" class="k-button">Click here to open the window.</span>
+
+<script>
+    function onClose() {
+        $("#undo").show();
+        console.log("Window is closed")
+    }
+
+    $(document).ready(function () {
+        $("#undo").bind("click", function () {
+            $("#window").data("kendoWindow").open();
+            $("#undo").hide();
+        });
+    });
+</script>
