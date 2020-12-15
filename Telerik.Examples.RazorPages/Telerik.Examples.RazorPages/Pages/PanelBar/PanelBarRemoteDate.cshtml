@@ -1,0 +1,20 @@
+﻿@page
+@model Telerik.Examples.RazorPages.Pages.PanelBar.PanelBarRemoteDateModel
+@{
+    ViewData["Title"] = "PanelBarRemoteDate";
+}
+
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Xsrf
+@Html.AntiForgeryToken()
+
+<h1>PanelBarRemoteDate</h1>
+
+@(Html.Kendo().PanelBar()
+        .Name("panelbar")
+        .DataTextField("Name")
+        .DataSource(dataSource => dataSource
+            .Read(read => read
+                .Url("/PanelBar/PanelBarRemoteDate?handler=Read")
+            )
+        )
+)

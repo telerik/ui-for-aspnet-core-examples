@@ -15,19 +15,20 @@ namespace Telerik.Examples.RazorPages.Pages.Menu
         {
             if (categories == null)
             {
-                categories = new List<Category>() 
-                { 
-                    new Category(){ 
-                        CategoryID = 1, 
-                        CategoryName = "Clothes", 
+                categories = new List<Category>()
+                {
+                    new Category()
+                    {
+                        CategoryID = 1,
+                        CategoryName = "Clothes",
                         Products = new List<Product>()
-                        { 
+                        {
                             new Product(){ ProductID = 10, ProductName = "Dresses", CategoryID = 1},
                             new Product(){ ProductID = 11, ProductName = "T-shirts", CategoryID = 1}
                         }
-                    
                     },
-                    new Category(){
+                    new Category()
+                    {
                         CategoryID = 2,
                         CategoryName = "Furniture",
                         Products = new List<Product>()
@@ -36,14 +37,13 @@ namespace Telerik.Examples.RazorPages.Pages.Menu
                             new Product(){ ProductID = 13, ProductName = "Accessories", CategoryID = 2},
                             new Product(){ ProductID = 14, ProductName = "Tables", CategoryID = 2}
                         }
-
                     }
-                };  
+                };
             }
         }
 
         public JsonResult OnGetRead()
-        {            
+        {
             var result = categories.ToList().Select((category) =>
                 new
                 {
