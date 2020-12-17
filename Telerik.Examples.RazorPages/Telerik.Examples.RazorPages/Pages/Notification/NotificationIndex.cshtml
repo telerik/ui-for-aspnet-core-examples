@@ -9,52 +9,49 @@
 
 <h1>NotificationIndex</h1>
 
+<button id="showNotification" class="k-button">Show notification</button>
+<button id="hideAllNotifications" class="k-button">Hide All Notifications</button>
+
 @(Html.Kendo().Notification()
     .Name("notification")
-    .Width("12em")
-    .Events(ev => ev.Show("onShow").Hide("onHide"))
+    .Width("20em")
     .Templates(t =>
     {
-        t.Add().Type("time")
-            .ClientTemplate("<div style='padding: .6em 1em'>Time is: <span class='timeWrap'>#: time #</span></div>");
+        t.Add().Type("info")
+            .ClientTemplate("<div>TEXT: <span class='custom-style'>#: text #</span> </div> <div>TIME: <span class='custom-style'>#: time #</span> </div>");
     })
 )
-
-<div class="demo-section">
-    <p>
-        <button id="showNotification" class="k-button">Show notification</button>
-
-        <button id="hideAllNotifications" class="k-button">Hide All Notifications</button>
-    </p>
-</div>
-
 <script>
-
-    function onShow(e) {
-        console.log("event :: show (" + $(e.element).find(".timeWrap").text() + ")");
-    }
-
-    function onHide(e) {
-        console.log("event :: hide (" + $(e.element).find(".timeWrap").text() + ")");
-    }
-
     $(document).ready(function () {
 
-        var notification = $("#notification").data("kendoNotification");
-
         $("#showNotification").click(function () {
-            var d = new Date();
-            notification.show({ time: kendo.toString(d, 'HH:MM:ss.') + kendo.toString(d.getMilliseconds(), "000") }, "time");
+            $.ajax({
+                url: '/Notification/NotificationIndex?handler=Read',
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                headers: {
+                    RequestVerificationToken: $('input:hidden[name="__RequestVerificationToken"]').val()
+                },
+                dataType: "json",
+                success: function (response) {
+                    // Show notification based on the returned data from the server                    
+                    var notification = $("#notification").getKendoNotification();
+                    notification.show({
+                        text: response.Text,
+                        time: kendo.toString(new Date(response.Time), "dd MMMM yy hh:mm tt")
+                    }, "info");
+                }
+            });
         });
 
         $("#hideAllNotifications").click(function () {
+            var notification = $("#notification").getKendoNotification();
             notification.hide();
         });
     });
 </script>
 <style>
-    .k-notification {
-        color: white;
+    .custom-style {
         font-weight: bold;
     }
 </style>
