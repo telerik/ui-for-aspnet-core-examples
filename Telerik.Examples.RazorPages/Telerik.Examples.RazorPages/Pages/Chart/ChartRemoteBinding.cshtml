@@ -1,0 +1,38 @@
+﻿@page
+@model Telerik.Examples.RazorPages.Pages.Chart.ChartRemoteBindingModel
+@{ ViewData["Title"] = "ChartRemoteBinding"; }
+
+<h1>ChartRemoteBinding</h1>
+
+@using Telerik.Examples.RazorPages.Models
+@using Kendo.Mvc.UI
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Xsrf
+@Html.AntiForgeryToken()
+
+@(Html.Kendo().Chart<Telerik.Examples.RazorPages.Models.ElectricityProduction>()
+        .Name("chart")
+        .Title("Electricity production (GWh)")
+        .Legend(legend => legend
+            .Position(ChartLegendPosition.Top)
+        )
+        .DataSource(ds => ds.Read(r => r.Url("/Chart/ChartRemoteBinding?handler=Read").Data("forgeryToken")))
+        .Series(series => {
+            series.Column(model => model.Nuclear).Name("Nuclear").CategoryField("Year").Color("#b2b2ff");
+            series.Column(model => model.Wind).Name("Wind").CategoryField("Year").Color("#3232ff");
+            series.Column(model => model.Hydro).Name("Hydro").CategoryField("Year").Color("#a6a6a6");
+        })
+        .CategoryAxis(axis => axis
+            .MajorGridLines(lines => lines.Visible(false))
+        )
+        .ValueAxis(axis => axis.Numeric())
+        .Tooltip(tooltip => tooltip
+            .Visible(true)
+            .Format("{0:N0}")
+        )
+    )
+
+<script>
+    function forgeryToken() {
+        return kendo.antiForgeryTokens();
+    }
+</script>
