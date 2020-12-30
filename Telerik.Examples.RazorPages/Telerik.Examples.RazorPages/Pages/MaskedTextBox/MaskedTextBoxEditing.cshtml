@@ -1,0 +1,23 @@
+﻿@page
+@model Telerik.Examples.RazorPages.Pages.MaskedTextBox.MaskedTextBoxEditingModel
+@{
+}
+@if (!String.IsNullOrEmpty(Model.PhoneNumber))
+{
+    <div>A message will be sent to: @Model.PhoneNumber</div>
+}
+else
+{
+    <div>Supply value to the MaskedTextBox and submit the form</div>
+}
+
+<hr />
+
+<form method="post">
+    <label for="phone_number">Phone number:</label>
+    @(Html.Kendo().MaskedTextBoxFor(c=>c.PhoneNumber)
+                .Mask("(999) 000-0000")
+        )
+    <br />
+    <input type="submit" name="name" value="Submit Form" />
+</form>
