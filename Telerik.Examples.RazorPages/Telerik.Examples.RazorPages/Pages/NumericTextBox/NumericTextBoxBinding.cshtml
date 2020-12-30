@@ -1,0 +1,26 @@
+﻿@page
+@model Telerik.Examples.RazorPages.Pages.NumericTextBoxBindingModel
+@{
+}
+
+@if (Model.Price > 0)
+{
+    <div>The Price for Product X is @Model.Price</div>
+}
+else
+{
+    <div>Enter Price for Product X.</div>
+}
+
+<hr />
+
+<form method="post">
+    <label for="Price">Price:</label>
+    @(Html.Kendo().NumericTextBoxFor(c=>c.Price)
+                .Step(1)
+                .Min(0)
+                .Decimals(0)
+        )
+    <br />
+    <input type="submit" name="name" value="Submit Form" />
+</form>
