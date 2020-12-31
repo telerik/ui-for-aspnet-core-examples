@@ -1,0 +1,17 @@
+﻿@page
+@model Telerik.Examples.RazorPages.Pages.Calendar.CalendarIndexModel
+@{
+    ViewData["Title"] = "CalendarIndex";
+}
+
+<h1>CalendarIndex</h1>
+
+<form method="post">
+    <div style="text-align: center;">
+        <h4>Birthday Date</h4>
+        @(Html.Kendo().Calendar()
+            .Name("SelectedDate")
+            .Value(Model.SelectedDate)
+    )
+    </div>
+</form>

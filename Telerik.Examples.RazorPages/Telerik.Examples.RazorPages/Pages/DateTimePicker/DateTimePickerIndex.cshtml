@@ -1,0 +1,37 @@
+﻿@page
+@model Telerik.Examples.RazorPages.Pages.DateTimePicker.DateTimePickerIndexModel
+@{
+    ViewData["Title"] = "DateTimePickerIndex";
+}
+
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Xsrf
+@Html.AntiForgeryToken()
+
+<h1>DateTimePickerIndex</h1>
+
+<form method="post">
+    <div style="text-align: center;">
+        <h4>Pick Date & Time</h4>
+        @(Html.Kendo().DateTimePicker()
+            .Name("SelectedDate")
+            .Value(Model.SelectedDate)
+    )
+        <br />
+        <br />
+        @(Html.Kendo().Button()
+        .Name("primaryTextButton")
+        .HtmlAttributes(new { type = "submit", @class = "k-primary" })
+        .Events(e => e.Click("onClick"))
+        .Content("Submit")
+    )
+        <br />
+        <br />
+        Selected Date is: <b>@Html.Label(Model.SelectedDate.ToString())</b>
+    </div>
+</form>
+
+<script>
+    function onClick() {
+        return kendo.antiForgeryTokens();
+    }
+</script>

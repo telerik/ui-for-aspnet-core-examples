@@ -1,0 +1,13 @@
+﻿@page
+@model Telerik.Examples.RazorPages.Pages.TreeMap.TreeMapBindingModel
+
+@(Html.Kendo().TreeMap()
+      .Name("treeMap")
+      .DataSource(dataSource => dataSource
+          .Read(r => r.Url("/TreeMap/TreeMapBinding?handler=ReadOptional"))
+          .Model(m => m.Children("Items"))
+      )
+      .ValueField("Value")
+      .TextField("Name")
+      .HtmlAttributes(new { style = "height:600px; font-size: 12px;" })
+)
