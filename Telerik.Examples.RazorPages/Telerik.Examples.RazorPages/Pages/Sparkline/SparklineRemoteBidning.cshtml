@@ -1,0 +1,82 @@
+﻿@page
+@model Telerik.Examples.RazorPages.Pages.Sparkline.SparklineRemoteBidningModel
+@{ ViewData["Title"] = "SparklineRemoteBinding"; }
+
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Xsrf
+@Html.AntiForgeryToken()
+
+<h1>Sparkline</h1>
+<div class="demo-section k-content wide">
+    <table id="weather" class="weather">
+        <thead>
+            <tr>
+                <th class="month">MONTH</th>
+                <th>MAX TEMP &deg;C</th>
+                <th>WIND SPEED KM/H</th>
+                <th>RAINFALL MM</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                string[] months = { "January", "February", "March", "April", "May", "June" };
+                for (int i = 0; i < months.Length; i++)
+                {
+                    var monthNumber = i + 1;
+                        <tr>
+                            <td class="month">@(months[i])</td>
+                            <td>
+                                @(Html.Kendo().Sparkline()
+                                .Name("sparkline-tmax-" + i)
+                                .DataSource(ds => ds.Read(r => r.Url("/Sparkline/SparklineRemoteBidning?handler=Read").Data("forgeryToken")))
+                                .Series(series => series
+                                    .Column("TMax").Color("#ff0000").NegativeColor("#0099ff")
+                                )
+                            )
+                            </td>
+                            <td>
+                                @(Html.Kendo().Sparkline()
+                                .Name("sparkline-wnd-" + i)
+                                .DataSource(ds => ds.Read(r => r.Url("/Sparkline/SparklineRemoteBidning?handler=Read").Data("forgeryToken")))
+                                .Series(series => series
+                                    .Line("Wind").Color("#5b8f00")
+                                )
+                            )
+                            </td>
+                            <td>
+                                @(Html.Kendo().Sparkline()
+                                .Name("sparkline-rain-" + i)
+                                .DataSource(ds => ds.Read(r => r.Url("/Sparkline/SparklineRemoteBidning?handler=Read").Data("forgeryToken")))
+                                .Series(series => series
+                                    .Area("Rain").Color("#0099ff")
+                                )
+                            )
+                            </td>
+                        </tr>
+                }}
+        </tbody>
+    </table>
+</div>
+
+<script>
+    function forgeryToken() {
+        return kendo.antiForgeryTokens();
+    }
+</script>
+
+    <style>
+        .weather {
+            border-collapse: collapse;
+            line-height: 50px;
+            width: 100%;
+        }
+
+            .weather td, .weather th {
+                padding: 0;
+                text-align: center;
+            }
+
+            .weather .month, .weather .month {
+                text-align: right;
+                padding-right: 20px;
+            }
+    </style>
