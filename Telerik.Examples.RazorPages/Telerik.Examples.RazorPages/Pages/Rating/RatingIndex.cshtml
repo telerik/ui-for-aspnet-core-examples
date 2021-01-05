@@ -1,0 +1,18 @@
+﻿@page
+@model Telerik.Examples.RazorPages.Pages.Rating.RatingIndexModel
+@{
+    ViewData["Title"] = "RatingIndex";
+}
+
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Xsrf
+@Html.AntiForgeryToken()
+
+<h1>RatingIndex</h1>
+
+@(Html.Kendo().Rating()
+    .Name("ratingHalf")
+    .Min(Model.Min)
+    .Max(Model.Max)
+    .Value(Model.Value)
+    .Precision(Model.Precision)
+)

@@ -1,0 +1,17 @@
+﻿@page
+@model Telerik.Examples.RazorPages.Pages.ColorPicker.ColorPickerIndexModel
+@{
+    ViewData["Title"] = "ColorPickerIndex";
+}
+
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Xsrf
+@Html.AntiForgeryToken()
+
+<h1>ColorPickerIndex</h1>
+
+@(Html.Kendo().ColorPicker()
+		.Name("picker")	
+		.ClearButton(Model.ClearButton)
+		.Buttons(Model.Buttons)
+		.Value(Model.Value)
+)
