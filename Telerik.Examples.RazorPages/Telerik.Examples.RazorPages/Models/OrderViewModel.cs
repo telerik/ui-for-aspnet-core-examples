@@ -33,6 +33,7 @@ namespace Telerik.Examples.RazorPages.Models
             set;
         }
         [Required]
+        [MinLength(5,ErrorMessage = "Ship Name must be at least 5 characters long")]
         public string ShipName
         {
             get;
