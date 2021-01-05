@@ -1,0 +1,68 @@
+﻿@page
+@model Telerik.Examples.RazorPages.Pages.ScrollView.ScrollViewBindingModel
+
+<h1>ScrollView Binding</h1>
+<div id="example" style="margin:auto; width:60%">
+    @(Html.Kendo().ScrollView()
+                .Name("scrollView")
+                .EnablePager(false)
+                .ContentHeight("100%")
+                .TemplateId("scrollview-template")
+                .DataSource(d =>
+                        d.Custom()
+                          .Type("odata")
+                          .Transport(t => t.Read(r => r.Url("https://demos.telerik.com/kendo-ui/service/Northwind.svc/Products")))
+                          .ServerPaging(true)
+                          .PageSize(3))
+                .HtmlAttributes(new { style = "height:500px; width:890px; max-width: 100%;" })
+    )
+</div>
+
+
+<script id="scrollview-template" type="text/x-kendo-template">
+    <div class="img-wrapper">
+        # for (var i = 0; i < data.length; i++) { #
+        <div>
+            <div style="width: 140px; height: 140px;  background-image: #=setBackground(data[i].ProductID)#; background-repeat:no-repeat; background-size: cover;"></div>
+            <p>#= data[i].ProductName #</p>
+        </div>
+        # } #
+    </div>
+</script>
+<script>
+    function setBackground(id) {
+        return "url(https://demos.telerik.com/kendo-ui/content/web/foods/" + id + ".jpg)";
+    }
+</script>
+
+<style>
+    div.k-scrollview ul.k-scrollview-wrap > li {
+        text-align: center;
+        display: table;
+        box-sizing: border-box;
+    }
+
+    ul.k-scrollview-wrap > li > .img-wrapper {
+        padding: 2em;
+        display: table-cell;
+        vertical-align: middle;
+    }
+
+        ul.k-scrollview-wrap > li > .img-wrapper > div {
+            width: 30%;
+            min-width: 150px;
+            box-sizing: border-box;
+            display: inline-block;
+            vertical-align: top;
+            margin-bottom: 1em;
+        }
+
+            ul.k-scrollview-wrap > li > .img-wrapper > div > div {
+                margin: auto;
+                margin-bottom: 0.5em;
+            }
+</style>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
