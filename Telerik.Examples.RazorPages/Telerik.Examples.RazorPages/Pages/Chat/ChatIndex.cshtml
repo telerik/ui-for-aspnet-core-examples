@@ -1,0 +1,43 @@
+﻿@page
+@model Telerik.Examples.RazorPages.Pages.Chat.ChatIndexModel
+@{
+    ViewData["Title"] = "ChatIndex";
+}
+
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Xsrf
+@Html.AntiForgeryToken()
+
+<h1>ChatIndex</h1>
+
+    @(Html.Kendo().Chat()
+        .Name("chat")
+        .Toolbar(toolbar =>
+        {
+            toolbar.Toggleable(Model.Toggable);
+            toolbar.Scrollable(Model.Scrollable);
+            toolbar.Buttons(buttons =>
+            {
+                buttons.Add().Name("Settings").IconClass("k-icon k-i-gear");
+                buttons.Add().Name("Hand").IconClass("k-icon k-i-hand");
+                buttons.Add().Name("Bold").IconClass("k-icon k-i-bold");
+                buttons.Add().Name("Italic").IconClass("k-icon k-i-italic");
+                buttons.Add().Name("Underline").IconClass("k-icon k-i-underline");
+            });
+        })
+        .Messages(messages =>
+        {
+            messages.Placeholder(Model.Placeholder);
+            messages.SendButton(Model.SendButton);
+        })
+        .Events(e =>
+        {
+            e.ToolClick("onToolClick");
+        })
+    )
+   
+
+<script>
+    function onToolClick(e) {
+        console.log(e.name)
+    }        
+</script>

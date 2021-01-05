@@ -1,0 +1,25 @@
+﻿@page
+@model Telerik.Examples.RazorPages.Pages.Stepper.StepperIndexModel
+@{
+    ViewData["Title"] = "StepperIndex";
+}
+
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Xsrf
+@Html.AntiForgeryToken()
+
+<h1>StepperIndex</h1>
+
+@(Html.Kendo().Stepper()
+        .Name("stepper")
+        .Orientation(StepperOrientationType.Horizontal)
+        .Label(Model.Label)
+        .Indicator(Model.Indicator)
+        .Steps(s =>
+        {
+            s.Add().Label("First");
+            s.Add().Label("Second").Selected(true);
+            s.Add().Label("Third");
+            s.Add().Label("Fourth");
+            s.Add().Label("Fifth");
+        })
+    )
