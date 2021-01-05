@@ -1,0 +1,27 @@
+﻿@page
+@model Telerik.Examples.RazorPages.Pages.FileManager.FileManagerIndexModel
+@{
+}
+
+
+@using Kendo.Mvc.UI
+
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Xsrf
+@Html.AntiForgeryToken()
+
+<kendo-filemanager name="filemanager" upload-url="/FileManager/FileManagerIndex?handler=FileManagerUpload">
+    <filemanager-datasource>
+        <transport>
+            <read url="/FileManager/FileManagerIndex?handler=FileManagerRead" data="forgeryToken" type="POST" />
+            <destroy url="/FileManager/FileManagerIndex?handler=FileManagerDestroy" data="forgeryToken" type="POST" />
+            <create url="/FileManager/FileManagerIndex?handler=FileManagerCreate" data="forgeryToken" type="POST" />
+            <update url="/FileManager/FileManagerIndex?handler=FileManagerUpdate" data="forgeryToken" type="POST" />
+        </transport>
+    </filemanager-datasource>
+</kendo-filemanager>
+
+<script>
+    function forgeryToken() {
+        return kendo.antiForgeryTokens();
+    }
+</script>
