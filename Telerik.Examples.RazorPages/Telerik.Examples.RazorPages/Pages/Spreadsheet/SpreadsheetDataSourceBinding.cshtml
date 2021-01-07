@@ -1,0 +1,133 @@
+﻿@page
+@model Telerik.Examples.RazorPages.Pages.Spreadsheet.SpreadsheetDataSourceBindingModel
+
+@using Telerik.Examples.RazorPages.Models
+@using Kendo.Mvc.UI
+
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Xsrf
+@Html.AntiForgeryToken()
+
+<div class="box-col">
+    <h4>Save data changes</h4>
+    <div>
+        <button id="save">Save changes</button>
+        <button id="cancel">Cancel changes</button>
+    </div>
+</div>
+
+@(Html.Kendo().Spreadsheet()
+    .Name("spreadsheet")
+    .Events(e => e
+            .DataBinding("onDataBinding")
+            .DataBound("onDataBound")
+        )
+    .Sheets(s => s.Add()
+        .Name("Sheet1")
+        .DataSource<Product>(ds => ds
+            .Custom()
+            .Batch(true)
+            .Transport(t => t
+                .Read("onRead")
+                .Submit("onSubmit")
+            )
+            .Events(e => e.Change("onChange"))
+            .Schema(sch => sch
+                .Model(m =>
+                {
+                    m.Id(i => i.ProductID);
+                })
+            )
+        )
+        .Columns(columns=>{
+            columns.Add().Width(100);
+            columns.Add().Width(100);
+            columns.Add().Width(200);
+        })
+        .Rows(rows =>
+        {
+            rows.Add().Height(40).Cells(cells =>
+            {
+                cells.Add()
+                    .Bold(true)
+                    .Background("#9c27b0")
+                    .TextAlign(SpreadsheetTextAlign.Center)
+                    .Color("white");
+                cells.Add()
+                    .Bold(true)
+                    .Background("#9c27b0")
+                    .TextAlign(SpreadsheetTextAlign.Center)
+                    .Color("white");
+                cells.Add()
+                    .Bold(true)
+                    .Background("#9c27b0")
+                    .TextAlign(SpreadsheetTextAlign.Center)
+                    .Color("white");
+            });
+        })
+        )
+    )
+
+<script>
+    function onSubmit(e) {
+        $.ajax({
+            type: "POST",
+            url: '@Url.Page("SpreadsheetDataSourceBinding", "Data_Source_Products_Submit")',
+            data: {
+                model: e.data,
+                __RequestVerificationToken: kendo.antiForgeryTokens().__RequestVerificationToken
+            },
+            dataType: "json",
+            success: function (result) {
+                e.success(result.Updated, "update");
+                e.success(result.Created, "create");
+                e.success(result.Destroyed, "destroy");
+            },
+            error: function (xhr, httpStatusMessage, customErrorMessage) {
+                alert(xhr.responseText);
+            }
+        });
+    }
+
+    function onRead(options) {
+        $.ajax({
+            url: '@Url.Page("SpreadsheetDataSourceBinding", "Data_Source_Products_Read")',
+            dataType: "json",
+            success: function (result) {
+                options.success(result.Data);
+            },
+            error: function (result) {
+                options.error(result);
+            }
+        });
+    }
+
+    function onChange(e) {
+        $("#cancel, #save").toggleClass("k-state-disabled", !this.hasChanges());
+    }
+
+    function getDataSource() {
+        return $("#spreadsheet").data("kendoSpreadsheet").activeSheet().dataSource;
+    }
+
+    function onDataBinding(e) {
+        console.log('Data is about to be bound to sheet "' + e.sheet.name() + '".');
+    }
+
+    function onDataBound(e) {
+        console.log('Data has been bound to sheet "' + e.sheet.name() + '".');
+    }
+
+    $(document).ready( function () {
+        $("#save").click(function () {
+            if (!$(this).hasClass("k-state-disabled")) {
+                getDataSource().sync();
+            }
+        });
+
+        $("#cancel").click(function () {
+            if (!$(this).hasClass("k-state-disabled")) {
+                getDataSource().cancelChanges();
+            }
+        });
+    })
+</script>
