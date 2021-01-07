@@ -1,0 +1,16 @@
+﻿@page
+@model Telerik.Examples.RazorPages.Pages.ImageEditor.ImageEditorIndexModel
+
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Xsrf
+@Html.AntiForgeryToken()
+
+@(Html.Kendo().ImageEditor()
+        .Name("imageEditor")
+        .Height(900)
+        .SaveAs(s => {
+            s.FileName("image_edited.png");
+            s.ForceProxy(true);
+            s.ProxyURL(Url.Page("ImageEditorIndex", "Save"));
+        })
+        .ImageUrl(@Url.Content("~/images/2.jpg"))
+    )
