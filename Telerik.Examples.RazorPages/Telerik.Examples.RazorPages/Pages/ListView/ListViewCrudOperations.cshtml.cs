@@ -18,7 +18,7 @@ namespace Telerik.Examples.RazorPages.Pages.ListView
             {
                 products = new List<Product>();
 
-                Enumerable.Range(0, 50).ToList().ForEach(i => products.Add(new Product
+                Enumerable.Range(1, 50).ToList().ForEach(i => products.Add(new Product
                 {
                     ProductID = i,
                     ProductName = "Product Name " + i,
