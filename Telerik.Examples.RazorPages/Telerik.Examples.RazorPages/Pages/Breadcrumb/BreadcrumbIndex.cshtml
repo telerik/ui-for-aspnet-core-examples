@@ -1,0 +1,37 @@
+﻿@page
+@model Telerik.Examples.RazorPages.Pages.Breadcrumb.BreadcrumbIndexModel
+@{
+}
+
+<div id="example">
+    <div class="configurator">
+        <div class="header">Configurator</div>
+        <div class="box-col">
+            <button class="k-button" onClick="window.location.reload()">
+                <span class="k-icon k-i-refresh"></span>Refresh Breadcrumb
+            </button>
+        </div>
+    </div>
+
+    <div class="demo-section k-content wide">
+        <h4>Breadcrumb</h4>
+        @(Html.Kendo().Breadcrumb()
+                .Name("breadcrumb")
+                .Items(items =>
+                {
+
+                    foreach(var item in Model.Items)
+                    {
+                        items.Add()
+                         .Type(item.IsRoot == true ? BreadcrumbItemType.RootItem : BreadcrumbItemType.Item)
+                         .Href(item.Href)
+                         .Text(item.Text)
+                         .Icon(item.Icon)
+                         .ShowText(true);
+                    }                   
+                   
+                })
+                .Editable(true)
+        )
+    </div>
+</div>
