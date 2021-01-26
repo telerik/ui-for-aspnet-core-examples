@@ -1,0 +1,69 @@
+﻿
+@{
+    ViewData["Title"] = "Dynamic";
+}
+
+<h1>Dynamic Grid Binding</h1>
+
+@model System.Data.DataTable
+@(Html.Kendo().Grid<dynamic>()
+    .Name("Grid")
+    .Columns(columns =>
+    {
+        foreach (System.Data.DataColumn dcolumn in Model.Columns)
+        {
+            switch (dcolumn.DataType.ToString())
+            {
+                case "System.Int16":
+                case "System.Int32":
+                case "System.Int64":
+                    columns.Bound(dcolumn.ColumnName).Title(dcolumn.Caption).EditorTemplateName("Integer");
+                    break;
+
+                case "System.Decimal":
+                case "System.Double":
+                case "System.Float":
+                    columns.Bound(dcolumn.ColumnName).Title(dcolumn.Caption).EditorTemplateName("Number");
+                    break;
+                case "System.String":
+                    columns.Bound(dcolumn.ColumnName).Title(dcolumn.Caption).EditorTemplateName("String");
+                    break;
+                case "System.Byte":
+                case "System.Boolean":
+                    columns.Bound(dcolumn.ColumnName).Title(dcolumn.Caption).EditorTemplateName("Boolean");
+                    break;
+                case "System.DateTime":
+                    columns.Bound(dcolumn.ColumnName).Title(dcolumn.Caption).Format("{0:d}").EditorTemplateName("Date");
+                    break;
+                default:
+                    columns.Bound(dcolumn.ColumnName).Title(dcolumn.Caption).EditorTemplateName("String");
+                    break;
+
+            }
+        }
+        columns.Command(com => com.Edit());
+    })
+    .Pageable()
+    .Sortable()
+    .Editable(ed => ed.Mode(GridEditMode.InLine))
+    .Filterable()
+    .Groupable()
+        .DataSource(dataSource => dataSource
+            .Ajax()
+            .Model(model =>
+            {
+                var id = Model.PrimaryKey[0].ColumnName;
+                model.Id(id);
+                foreach (System.Data.DataColumn column in Model.Columns)
+                {
+                    var field = model.Field(column.ColumnName, column.DataType);
+                    if (column.ColumnName == id) {
+                        field.Editable(false);
+                    }
+
+                }
+            })
+            .Read(read => read.Action("Customers_Read", "Dynamic"))
+            .Update(read => read.Action("Customers_Update", "Dynamic"))
+    )
+)
