@@ -22,12 +22,18 @@
   <ItemGroup>
     <Folder Include="Pages\Editor\" />
     <Folder Include="Pages\Shared\EditorTemplates\" />
-    <Folder Include="wwwroot\Images\" />
   </ItemGroup>
 
 
   <ItemGroup>
     <None Include="Pages\ButtonGroup\ButtonGroupIndex.cshtml" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <None Update="Pages\ScrollView\ScrollViewImages\image2.jpg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>
