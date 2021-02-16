@@ -1,0 +1,104 @@
+﻿@page
+@model Telerik.Examples.RazorPages.Pages.Wizard.WizardIndexModel
+@{
+}
+
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Xsrf
+@{
+    var token = Xsrf.GetAndStoreTokens(HttpContext).RequestToken;
+}
+
+<h1>WizardIndex</h1>
+
+@(Html.Kendo().Wizard()
+    .Name("wizard")
+    .Tag("form")
+    .Events(ev => ev.Done("onDone"))
+    .HtmlAttributes(new { url = @Url.Page("WizardIndex"), method = "POST" })
+    .Steps(s =>
+    {
+        s.Add<WizardIndexModel.UserModel>()
+        .Title("Account Details")
+            .Form(f => f
+                .Validatable(v =>
+                {
+                    v.ValidateOnBlur(true);
+                    v.ValidationSummary(vs => vs.Enable(false));
+                })
+                .FormData(Model.UserViewModel)
+                .Items(items =>
+                {
+                    items.Add().Field(p => p.AccountDetails.Username).Label(l => l.Text("Username:"));
+                    items.Add().Field(p => p.AccountDetails.Email).Label(l => l.Text("Email:"));
+                    items.Add().Field(p => p.AccountDetails.Password).Label(l => l.Text("Password:")).InputHtmlAttributes(new { @type = "password" }).Hint("Hint: enter alphanumeric characters only.");
+                })
+            )
+            .Buttons(b =>
+            {
+                b.Next();
+            });
+
+        s.Add<WizardIndexModel.UserModel>()
+            .Title("Personal details")
+            .Form(f => f
+                .Validatable(v =>
+                {
+                    v.ValidateOnBlur(true);
+                    v.ValidationSummary(vs => vs.Enable(false));
+                })
+                .FormData(Model.UserViewModel)
+                .Items(items =>
+                {
+                    items.Add().Field(p => p.PersonalDetails.FullName).Label(l => l.Text("Full Name:"));
+                    items.Add()
+                        .Field(p => p.PersonalDetails.Country)
+                        .Label(label => label.Text("Country:"))
+                        .Editor(e =>
+                        {
+                            e.AutoComplete()
+                            .DataTextField("Text")
+                            .BindTo(new List<SelectListItem>() {
+                                new SelectListItem() {
+                                    Text = "France",
+                                },
+                                new SelectListItem() {
+                                    Text = "Germany",
+                                },
+                                new SelectListItem() {
+                                    Text = "Italy",
+                                },
+                                new SelectListItem() {
+                                    Text = "Netherlands",
+                                },
+                                new SelectListItem() {
+                                    Text = "Norway",
+                                },
+                                new SelectListItem() {
+                                    Text = "Spain",
+                                }
+                            });
+                        });
+
+
+                    items.Add()
+                        .Field(p => p.PersonalDetails.About)
+                        .Label(l => l.Text("About:").Optional(true));
+                })
+            )
+            .Buttons(b =>
+            {
+                b.Previous();
+                b.Next();
+            });
+
+        s.Add().Content("<h3>Click on the \"Done\" button to complete your registration.</h3>");
+
+
+    })
+)
+
+<script>
+    function onDone(e) {        
+        $("#wizard").append($("<input type='hidden' name='__RequestVerificationToken' value='@token' data-stop='true' />"))
+    }
+</script>
