@@ -1,0 +1,16 @@
+﻿@page
+@model Telerik.Examples.RazorPages.Pages.Loader.LoaderIndexModel
+@{
+}
+
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Xsrf
+@Html.AntiForgeryToken()
+
+<h1>LoaderIndex</h1>
+
+
+@(Html.Kendo().Loader()
+    .Name("loader")
+    .Size(Model.Size)
+    .ThemeColor(Model.ThemeColor)
+)
