@@ -1,0 +1,11 @@
+﻿@page
+@model Telerik.Examples.RazorPages.Pages.CheckBoxGroup.CheckBoxGroupIndexModel
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Xsrf
+@Html.AntiForgeryToken()
+
+<label>Select color:</label>
+@(Html.Kendo().CheckBoxGroup()
+    .Name("checkboxgroup")
+    .BindTo(Model.CheckBoxGroupModel.Items)
+    .Value(Model.CheckBoxGroupModel.CheckBoxGroupValue)
+)

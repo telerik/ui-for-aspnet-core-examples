@@ -1,0 +1,26 @@
+﻿@page
+@model Telerik.Examples.RazorPages.Pages.RadioButon.RadioButtonIndexModel
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Xsrf
+@Html.AntiForgeryToken()
+
+<h4>Agree to Terms and Conditions:</h4>
+<ul class="fieldlist">
+    <li>
+        @(Html.Kendo().RadioButtonFor(m => m.IAgreeProp).Label("I agree").Value(true))
+    </li>
+    <li>
+        @(Html.Kendo().RadioButtonFor(m => m.IAgreeProp).Label("I Disagree").Value(false))
+    </li>
+</ul>
+
+<style>
+    .fieldlist {
+        margin: 0 0 -1em;
+        padding: 0;
+    }
+
+        .fieldlist li {
+            list-style: none;
+            padding-bottom: 1em;
+        }
+</style>

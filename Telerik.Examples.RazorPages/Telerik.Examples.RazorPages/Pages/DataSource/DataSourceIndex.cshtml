@@ -1,0 +1,101 @@
+﻿@page
+@model Telerik.Examples.RazorPages.Pages.DataSource.DataSourceIndexModel
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Xsrf
+@Html.AntiForgeryToken()
+
+<div id="example">
+    <div class="demo-section k-content">
+        <div id="createItm" class="k-button">Create</div>
+        <div id="deleteItm" class="k-button">Delete</div>
+        <div id="updateItm" class="k-button">Update</div>
+        <table id="orders" class="metrotable">
+            <thead>
+                <tr>
+                    <th>Order Id</th>
+                    <th>Freight</th>
+                    <th>Ship Name</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td colspan="4"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script id="template" type="text/x-kendo-template">
+    <tr>
+        <td>#= OrderID #</td>
+        <td>#= Freight #</td>
+        <td>#= ShipName #</td>
+    </tr>
+</script>
+
+<script>
+    var template;
+
+    function change() {
+        $("#orders tbody").html(kendo.render(template, this.view())); // populate the table
+    }
+
+    function dataFunction() {
+        return {
+            __RequestVerificationToken: kendo.antiForgeryTokens().__RequestVerificationToken
+        };
+    }
+
+    $(document).ready(function () {
+        template = kendo.template($("#template").html());
+        dataSource1.fetch();
+
+        $("#createItm").click(function () {
+            dataSource1.add({ OrderID:0, Freight: 13, ShipName: "John Doe", ShipCity: "Boston", OrderDate: new Date() })
+            dataSource1.sync();
+        })
+
+        $("#deleteItm").click(function () {
+            var dataItem = dataSource1.at(1);
+            dataSource1.remove(dataItem);
+            dataSource1.sync();
+        })
+
+        $("#updateItm").click(function () {
+            var dataItem = dataSource1.at(1);
+            dataItem.set("ShipName", "Updated Ship Name");
+            dataSource1.sync();
+        })
+    });
+</script>
+
+@(Html.Kendo().DataSource<Telerik.Examples.RazorPages.Models.OrderViewModel>()
+    .Name("dataSource1")
+    .Ajax(dataSource => dataSource
+       .PageSize(10)
+       .Events(ev => ev.Change("change"))
+       .Create(read => read.Url(@Url.Page("DataSourceIndex", "Create")).Data("dataFunction"))
+       .Read(read => read.Url(@Url.Page("DataSourceIndex","Read")).Data("dataFunction"))
+       .Update(read => read.Url(@Url.Page("DataSourceIndex", "Update")).Data("dataFunction"))
+       .Destroy(read => read.Url(@Url.Page("DataSourceIndex", "Destroy")).Data("dataFunction"))
+       .Model(model=>model.Id(m=>m.OrderID))
+    )
+)
+
+<style>
+    .demo-section {
+        overflow: auto;
+    }
+
+    .metrotable {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+        .metrotable > thead > tr > th {
+            font-size: 1.3em;
+            padding-top: 0;
+            padding-bottom: 5px;
+        }
+</style>
