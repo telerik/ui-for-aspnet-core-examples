@@ -1,0 +1,20 @@
+﻿@page
+@model Telerik.Examples.RazorPages.Pages.RadioGroup.RadioGroupIndexModel
+@{
+}
+
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Xsrf
+@Html.AntiForgeryToken()
+
+<h1>RadioGroup</h1>
+
+@(Html.Kendo().RadioGroup()
+        .Name("radiogroup")
+        .Items(i =>
+        {
+            i.Add().Label("Phone (SMS)").Value("1");
+            i.Add().Label("E-mail").Value("2");
+            i.Add().Label("None").Value("3");
+        })
+        .Value("1")
+)
