@@ -1,0 +1,18 @@
+﻿@page
+@model Telerik.Examples.RazorPages.Pages.PDFViewer.PDFViewerDPLModel
+@{
+    ViewData["Title"] = "PDFViewerDPL";
+}
+
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Xsrf
+@Html.AntiForgeryToken()
+
+<h1>PDFViewerDPLProcessing</h1>
+
+@(Html.Kendo().PDFViewer()
+        .Name("pdfviewer")
+        .DplProcessing(dpl =>
+        {
+            dpl.Read(r=>r.Url("/PDFViewer/PDFViewerDPL?handler=Read"));
+        })
+)

@@ -16,6 +16,7 @@
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="3.0.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.0.0" />
     <PackageReference Include="Telerik.UI.for.AspNet.Core.Trial" Version="2021.1.119" />
+    <PackageReference Include="Telerik.Web.PDF" Version="2021.1.119" />
   </ItemGroup>
 
 

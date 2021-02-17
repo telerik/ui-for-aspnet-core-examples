@@ -1,0 +1,20 @@
+﻿@page
+@model Telerik.Examples.RazorPages.Pages.PDFViewer.PDFViewerIndexModel
+@{
+    ViewData["Title"] = "PDFViewerIndex";
+}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.2.2/pdf.js"></script>
+<script>
+    window.pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.2.2/pdf.worker.js';
+</script>
+
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Xsrf
+@Html.AntiForgeryToken()
+
+<h1>PDFViewerPDFJSProcessing</h1>
+
+@(Html.Kendo().PDFViewer()
+        .Name("pdfviewer")
+        .PdfjsProcessing(pdf => pdf.File(Url.Content("~/sample.pdf")))
+        .Height(1200)
+    )
