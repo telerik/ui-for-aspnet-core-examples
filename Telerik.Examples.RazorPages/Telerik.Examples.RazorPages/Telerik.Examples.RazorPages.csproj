@@ -28,6 +28,9 @@
 
   <ItemGroup>
     <None Include="Pages\ButtonGroup\ButtonGroupIndex.cshtml" />
+    <None Include="wwwroot\Content\TabStrip\ajaxContent1.html" />
+    <None Include="wwwroot\Content\TabStrip\ajaxContent2.html" />
+    <None Include="wwwroot\Content\TabStrip\ajaxContent3.html" />
   </ItemGroup>
 
 
