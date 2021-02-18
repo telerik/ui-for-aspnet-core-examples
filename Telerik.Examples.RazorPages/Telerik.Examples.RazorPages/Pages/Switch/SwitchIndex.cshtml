@@ -1,0 +1,10 @@
+﻿@page
+@model Telerik.Examples.RazorPages.Pages.Switch.SwitchIndexModel
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Xsrf
+@Html.AntiForgeryToken()
+
+<label>Agree to terms and conditions: </label>
+@(Html.Kendo().Switch()
+        .Name("switch")
+        .Checked(Model.IsChecked)
+    )
