@@ -1,0 +1,74 @@
+﻿@page
+@model Telerik.Examples.RazorPages.Pages.Tooltip.TooltipIndexModel
+
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Xsrf
+@Html.AntiForgeryToken()
+
+@(Html.Kendo().Tooltip()
+    .For("#images")
+    .Filter("a")
+    .ContentTemplateId("template")
+    .Position(TooltipPosition.Top)
+    .Width(500)
+    .Height(500)
+)
+
+<div class="description">
+    <h3>
+        Hover over an image for a larger size.
+    </h3>
+</div>
+<ul id="images" class="photos">
+    @for (int i = 1; i < 10; i++)
+    {
+        var imageSrc = @Url.Content("~/Images/ScrollViewImages/image") + i + ".jpg";
+        {
+            <li>
+                <a href="#" data-id="@i">
+                    <img src="@imageSrc" width="110" height="110" />
+                </a>
+            </li>
+        }
+    }
+
+</ul>
+<script id="template" type="text/x-kendo-template">
+    <div class="template-wrapper">
+        <img src="@Url.Content("~/Images/ScrollViewImages/image")#=target.data('id')#.jpg" alt="#=target.data('id')#"  width="500" height="500" />
+    </div>
+</script>
+
+<style>
+    
+    .photos {
+        list-style-type: none;
+        padding: 0;
+        line-height: 0;
+    }
+
+    .photos li {
+        display: inline-block;
+        margin: 0;
+        padding: 0;
+        width: 110px;
+        height: 110px;
+        position: relative;
+    }
+
+    .photos li:hover {
+        -moz-box-shadow: 0 0 10px rgba(0,0,0,0.8);
+        -webkit-box-shadow: 0 0 10px rgba(0,0,0,0.8);
+        box-shadow: 0 0 10px rgba(0,0,0,0.8);
+        z-index: 1;
+    }
+
+    .photos li, .photos li:hover {
+        transition: all .2s;
+        -moz-transition: all .2s;
+        -webkit-transition: all .2s;
+    }
+
+    .photos a {
+        display: inline-block;
+    }
+</style>
