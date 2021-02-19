@@ -1,0 +1,59 @@
+﻿@page
+@model Telerik.Examples.RazorPages.Pages.DropDownList.DropDownListVirtualizationModel
+@using Kendo.Mvc.UI
+
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Xsrf
+@Html.AntiForgeryToken()
+
+@(Html.Kendo().DropDownList()
+    .Name("orders")
+    .DataTextField("ShipName")
+    .DataValueField("OrderID")
+    .HtmlAttributes(new { style = "width:100%" })
+    .Template("#= OrderID # | For: #= ShipName #")
+    .Height(290)
+    .Filter(FilterType.Contains)
+    .DataSource(source =>
+    {
+        source.Ajax()
+            .PageSize(80)
+            .Read(r => r.Url(Url.Page("DropDownListVirtualization","Read")).Data("forgeryToken"));
+    })
+    .Value("55")
+    .Virtual(v => v.ItemHeight(26).ValueMapper("valueMapper"))
+)
+
+<script>
+    function valueMapper(options) {
+        $.ajax({
+            url: "@Url.Page("DropDownListVirtualization", "ValueMapper")",
+            type: "POST",
+            dataType: "json",
+            headers: {
+                RequestVerificationToken: $('input:hidden[name="__RequestVerificationToken"]').val()
+            },
+            data: convertValues(options.value),
+            success: function (data) {
+                    options.success(data);
+                }
+            });
+    }
+
+    function convertValues(value) {
+        var data = {};
+
+        value = $.isArray(value) ? value : [value];
+
+        for (var idx = 0; idx < value.length; idx++) {
+            data["values[" + idx + "]"] = value[idx];
+        }
+
+        return data;
+    }
+</script>
+
+<script>
+    function forgeryToken() {
+        return kendo.antiForgeryTokens();
+    }
+</script>
