@@ -1,0 +1,143 @@
+﻿@page
+@model Telerik.Examples.RazorPages.Pages.Wizard.WizardAjaxSubmitModel
+@{
+}
+
+@using Telerik.Examples.RazorPages.Models
+@using Kendo.Mvc.UI
+
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Xsrf
+@Html.AntiForgeryToken()
+
+<h1>Wizard Ajax Submit</h1>
+
+<div id="validation-success"></div>
+<div id="validation-error">
+    <ul></ul>
+</div>
+
+
+@(Html.Kendo().Wizard()
+    .Name("wizard-ajax")
+    .Tag("form")
+    .Events(ev => ev.Done("onDone"))
+    .HtmlAttributes(new { url = @Url.Page("WizardAjaxSubmit"), method = "POST" })
+    .Steps(s =>
+    {
+        s.Add<UserViewModel>()
+        .Title("Main information ")
+            .Form(f => f
+                .Validatable(v =>
+                {
+                    v.ValidateOnBlur(true);
+                    v.ValidationSummary(vs => vs.Enable(false));
+                })
+                .FormData(Model.User)
+                .Items(items =>
+                {
+                    items.Add().Field(p => p.UserId)
+                        .Label(l => l.Text("User ID:"))
+                        .Editor(f => f.NumericTextBox()
+                            .RestrictDecimals(true)
+                            .Min(0)
+                            .Format("n0")
+                            .Decimals(0));
+                    items.Add().Field(p => p.Name).Label(l => l.Text("Name:"));
+                })
+            )
+            .Buttons(b =>
+            {
+                b.Next();
+            });
+
+        s.Add<UserViewModel>()
+            .Title("User details")
+            .Form(f => f
+                .Validatable(v =>
+                {
+                    v.ValidateOnBlur(true);
+                    v.ValidationSummary(vs => vs.Enable(false));
+                })
+                .FormData(Model.User)
+                .Items(items =>
+                {
+                    items.Add().Field(p => p.BirthDate).Label(l => l.Text("Birth Date:"))
+                         .Editor(e => e.DatePicker().Format("{0:dd-MM-yyyy}"));                   
+
+                    items.Add()
+                        .Field(p => p.City)
+                        .Label(label => label.Text("City:"))
+                        .Editor(e =>
+                        {
+                            e.DropDownList()
+                            .DataTextField("Text")
+                            .DataValueField("Text")
+                            .OptionLabel("Please select city")
+                            .BindTo(new List<SelectListItem>() {
+                                new SelectListItem() {
+                                    Text = "Venice",
+                                },
+                                new SelectListItem() {
+                                    Text = "Genoa",
+                                },
+                                new SelectListItem() {
+                                    Text = "Italy",
+                                },
+                                new SelectListItem() {
+                                    Text = "Valencia",
+                                },
+                                new SelectListItem() {
+                                    Text = "Rotterdam",
+                                },
+                                new SelectListItem() {
+                                    Text = "Athens",
+                                }
+                            });
+                        });
+
+                })
+            )
+            .Buttons(b =>
+            {
+                b.Previous();
+                b.Next();
+            });
+
+        s.Add().Content("<h3>Click on the \"Done\" button to complete the process.</h3>");
+    })
+)
+
+<script>
+    function onDone(e) {
+        e.originalEvent.preventDefault();
+        var form = $("#wizard-ajax");
+        console.log("OnDone hit");
+
+        $.ajax({
+            type: 'POST',
+            url: "@Url.Page("WizardAjaxSubmit", "Submit")",
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("RequestVerificationToken",
+                    $('input:hidden[name="__RequestVerificationToken"]').val());
+            },
+            data: form.serialize(),
+            success: function (data) {
+                $("#validation-success").html("<div class='k-messagebox k-messagebox-success'>" + data.success + "</div>");
+                $("#validation-error").find("ul").empty();
+            },
+            error: function (data) {
+                var response = JSON.parse(data.responseText);
+                var form = $("#formExample").getKendoForm();
+                var errorString = "";
+
+                $.each(response.errors, function (key, value) {
+                    errorString += '<li class="k-messagebox k-messagebox-error">' + value + '</li>';
+                });
+
+                $("#validation-success").html("");
+                $("#validation-error").find("ul").empty();
+                $("#validation-error").find("ul").append(errorString);
+            }
+        });
+    }
+</script>
