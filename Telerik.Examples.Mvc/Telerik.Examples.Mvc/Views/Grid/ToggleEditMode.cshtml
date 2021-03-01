@@ -1,0 +1,70 @@
+﻿@{
+    ViewData["Title"] = "ToggleEditMode";
+}
+
+@using Telerik.Examples.Mvc.Models
+
+<h1>ToggleEditMode</h1>
+
+<div class="row">
+    <div class="col-12">
+        @(Html.Kendo().Grid<OrderViewModel>()
+                            .Name("grid")
+                            .Columns(columns =>
+                            {
+                                columns.Bound(p => p.OrderID).Filterable(false);
+                                columns.Bound(p => p.Freight);
+                                columns.Bound(p => p.OrderDate).Format("{0:MM/dd/yyyy}");
+                                columns.Bound(p => p.ShipName);
+                                columns.Bound(p => p.ShipCity);
+                                columns.Command(c => c.Edit());
+                            })
+                            .Editable(editable => editable.Mode(GridEditMode.InLine))
+                            .Events(events => events.DataBound("dataBound"))
+                            .ToolBar(t =>
+                            {
+                                t.Custom().Name("toggleEditable").Text("Toggle Readonly");
+                            })
+                            .Pageable()
+                            .Sortable()
+                            .Scrollable()
+                            .Filterable()
+                            .HtmlAttributes(new { style = "height:550px;" })
+                            .DataSource(dataSource => dataSource
+                                .Ajax()
+                                .Model(model => model.Id(m => m.OrderID))
+                                .PageSize(20)
+                                .Read(read => read.Action("Read", "ToggleEditMode"))
+                                .Update(update => update.Action("Update", "ToggleEditMode"))
+                                .Create(create => create.Action("Create", "ToggleEditMode"))
+                                .Destroy(destroy => destroy.Action("Destroy", "ToggleEditMode"))
+                             )
+        )
+    </div>
+</div>
+
+<script>
+    function dataBound(e) {
+        let grid = this,
+            commands = grid.content.find(".k-command-cell").children("a"),
+            editable = grid.options.editable,
+            toggleButton = $(".k-grid-toggleEditable");
+
+        toggleButton.click(function (e) {
+            e.preventDefault();
+
+            if (editable) {
+                // Disable edit mode if the grid is currently editable.
+                grid.setOptions({ editable: false });
+            } else {
+                // Enable edit. Available options: inline, incell, popup.
+                grid.setOptions({ editable: "inline" });
+            }
+        });
+
+        // Change the text of the button depending on the grid state.
+        editable ? toggleButton.text("Toggle Readonly") : toggleButton.text("Toggle Editable");
+        // If the grid is not editable disable the column commands.
+        commands && !editable ? commands.addClass("k-state-disabled") : commands.removeClass("k-state-disabled");
+    }
+</script>
