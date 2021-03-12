@@ -13,6 +13,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json.Serialization;
 using AutoMapper;
+using Telerik.Examples.Mvc.Hubs;
 
 namespace Telerik.Examples.Mvc
 {
@@ -57,6 +58,9 @@ namespace Telerik.Examples.Mvc
                 (options => options.UseSqlServer(connection));
 
             services.AddKendo();
+            services.AddSignalR().AddJsonProtocol(options => {
+                options.PayloadSerializerOptions.PropertyNamingPolicy = null;
+            });
             services.Configure<IISServerOptions>(options =>
             {
                 options.AllowSynchronousIO = true;
@@ -85,6 +89,7 @@ namespace Telerik.Examples.Mvc
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapHub<MeetingHub>("/meetingHub");
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
