@@ -1,0 +1,105 @@
+﻿@using Telerik.Examples.Mvc.Models
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<script src="~/js/signalr/dist/browser/signalr.min.js"></script>
+<script>
+    "use strict";
+    var meetingHubConnection = new signalR.HubConnectionBuilder().withUrl("/meetingHub").build();
+    var hubStart = meetingHubConnection
+        .start({ jsonp: true })
+        .then(function (e) {
+            $("#notification").data("kendoNotification").success("SignalR Hub Started!");
+        })
+        .catch(function (err) {
+            return console.error(err.toString());
+        });
+
+    function onPush(e) {
+        $("#notification").data("kendoNotification").success(e.type);
+    }
+</script>
+
+<h2>Open another tab with the same path to see real time updates</h2>
+<div class="row">
+    @(Html.Kendo().Notification()
+    .Name("notification")
+    .Width("100%")
+    .Position(position => position
+        .Top(0)
+        .Left(0))
+        )
+    @(Html.Kendo().Scheduler<MeetingSignalRViewModel>()
+    .Name("scheduler")
+    .Date(DateTime.Now)
+    .StartTime(DateTime.Now.AddHours(-3))
+    .Height(600)
+    .Views(views =>
+    {
+        views.DayView();
+        views.WeekView(weekView => weekView.Selected(true));
+        views.MonthView();
+        views.AgendaView();
+        views.TimelineView();
+    })
+    .Timezone("Etc/UTC")
+    .Resources(resource =>
+    {
+        resource.Add(m => m.RoomID)
+            .Title("Room")
+            .DataTextField("Text")
+            .DataValueField("Value")
+            .DataColorField("Color")
+            .BindTo(new[] {
+                    new { Text = "Meeting Room 101", Value = 1, Color = "#6eb3fa" },
+                    new { Text = "Meeting Room 201", Value = 2, Color = "#f58a8a" }
+            });
+        resource.Add(m => m.Attendees)
+            .Title("Attendees")
+            .Multiple(true)
+            .DataTextField("Text")
+            .DataValueField("Value")
+            .DataColorField("Color")
+            .BindTo(new[] {
+                    new { Text = "Alex", Value = 1, Color = "#f8a398" },
+                    new { Text = "Bob", Value = 2, Color = "#51a0ed" },
+                    new { Text = "Charlie", Value = 3, Color = "#56ca85" }
+            });
+    })
+    .DataSource(dataSource => dataSource
+        .SignalR()
+        .Events(events => events.Push("onPush"))
+        .Transport(tr => tr
+            .Promise("hubStart")
+            .Hub("meetingHubConnection")
+            .Client(c => c
+                .Read("read")
+                .Create("create")
+                .Update("update")
+                .Destroy("destroy"))
+            .Server(s => s
+                .Read("read")
+                .Create("create")
+                .Update("update")
+                .Destroy("destroy")))
+        .Schema(schema => schema
+            .Model(model =>
+            {
+                model.Id(m => m.ID);
+                model.Field(m => m.ID).Editable(false);
+                model.Field("start", typeof(DateTime)).From("Start");
+                model.Field("end", typeof(DateTime)).From("End");
+                model.Field("title", typeof(string)).From("Title");
+                model.Field("description", typeof(string)).From("Description");
+                model.Field("recurrenceID", typeof(int)).From("RecurrenceID");
+                model.Field("recurrenceRule", typeof(string)).From("RecurrenceRule");
+                model.Field("recurrenceException", typeof(string)).From("RecurrenceException");
+                model.Field("isAllDay", typeof(bool)).From("IsAllDay");
+                model.Field("startTimezone", typeof(string)).From("StartTimezone");
+                model.Field("endTimezone", typeof(string)).From("EndTimezone");
+            })
+        )
+    )
+)
+</div>
