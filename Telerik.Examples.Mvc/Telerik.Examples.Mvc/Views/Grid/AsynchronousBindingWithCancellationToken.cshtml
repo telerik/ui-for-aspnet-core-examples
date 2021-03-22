@@ -1,0 +1,30 @@
+﻿
+@{
+    ViewData["Title"] = "AsynchronousBindingWithCancellationToken";
+}
+
+@using Telerik.Examples.Mvc.Models
+
+<h1>Asynchronous Binding With Cancellation Token</h1>
+
+@(Html.Kendo().Grid <OrderViewModel>()
+                            .Name("grid")
+                            .Columns(columns =>
+                            {
+                                columns.Bound(p => p.OrderID).Filterable(false);
+                                columns.Bound(p => p.Freight);
+                                columns.Bound(p => p.OrderDate).Format("{0:MM/dd/yyyy}");
+                                columns.Bound(p => p.ShipName);
+                                columns.Bound(p => p.ShipCity);
+                            })
+                            .Pageable()
+                            .Sortable()
+                            .Scrollable()
+                            .Filterable()
+                            .HtmlAttributes(new { style = "height:550px;" })
+                            .DataSource(dataSource => dataSource
+                                .Ajax()
+                                .PageSize(20)
+                                .Read(read => read.Action("Orders_Read", "AsynchronousBindingWithCancellationToken"))
+                             )
+        )
