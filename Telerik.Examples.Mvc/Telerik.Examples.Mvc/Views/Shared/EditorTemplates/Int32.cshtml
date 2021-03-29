@@ -1,0 +1,3 @@
+﻿@model int
+
+@Html.Kendo().NumericTextBoxFor(x => x).Format(ViewData["format"] != null ? ViewData["format"].ToString() : "{0:n2}")
