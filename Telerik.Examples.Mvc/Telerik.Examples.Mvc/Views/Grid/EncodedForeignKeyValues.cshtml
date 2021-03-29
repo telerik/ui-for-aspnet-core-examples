@@ -1,0 +1,59 @@
+﻿
+<div class="row">
+    <div class="col-12">
+        @(Html.Kendo().Grid<ForeignKeyOrderViewModel>()
+            .Name("grid")
+            .Columns(columns =>
+            {
+                columns.Bound(p => p.OrderID).Filterable(false).Width(110);
+                columns.Bound(p => p.Freight).Width(100);
+                columns.Bound(p => p.OrderDate).Format("{0:MM/dd/yyyy}").Width(220);
+                columns.Bound(p => p.ShipName).Width(150);
+                columns.ForeignKey(p => p.ShipCityId, (System.Collections.IEnumerable)ViewData["cities"], "CityID", "CityName").Title("City").Width(400);
+                columns.Command(c => c.Edit());
+            })
+            .Editable(editable => editable.Mode(GridEditMode.InLine))
+            .Pageable()
+            .Sortable()
+            .Scrollable()
+            .Filterable()
+            .HtmlAttributes(new { style = "height:750px;" })
+            .Events(e => e.Edit("onEdit"))
+            .DataSource(dataSource => dataSource
+                .Ajax()
+                .Model(model => model.Id(m => m.OrderID))
+                .PageSize(10)
+                .Read(read => read.Action("Read", "EncodedForeignKeyValues"))
+                .Update(update => update.Action("Update", "EncodedForeignKeyValues"))
+                .Create(create => create.Action("Create", "EncodedForeignKeyValues"))
+                .Destroy(destroy => destroy.Action("Destroy", "EncodedForeignKeyValues"))
+             )
+        )
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        var grid = $("#grid").data("kendoGrid")
+        grid.one("dataBound", function (e) {
+            var gridColumns = grid.options.columns;
+            gridColumns[4].values.forEach(function (el) {
+                el.text = decodeURIComponent(el.text)
+            })
+            setTimeout(function () {
+                grid.setOptions({
+                    columns: gridColumns
+                })
+            })
+        })
+    });
+
+    function onEdit(e) {
+        var dropdown = e.container.find("[data-role=dropdownlist]").data("kendoDropDownList")
+        var dropdownDS = dropdown.dataSource.data();
+        dropdownDS.forEach(function (el) {
+            el.CityName = decodeURIComponent(el.CityName)
+        })
+        dropdown.refresh()
+    }
+</script>

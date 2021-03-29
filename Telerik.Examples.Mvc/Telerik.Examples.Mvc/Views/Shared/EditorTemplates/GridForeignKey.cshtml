@@ -1,0 +1,7 @@
+﻿@model Telerik.Examples.Mvc.Models.CityViewModel
+
+@(Html.Kendo().DropDownListFor(m => m)
+        .DataValueField("CityID")
+        .DataTextField("CityName")
+        .BindTo((System.Collections.IEnumerable)ViewData["cities"])
+)
