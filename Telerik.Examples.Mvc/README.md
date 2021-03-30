@@ -1,10 +1,10 @@
 # Telerik.Examples.Mvc
 
-The current project consists of a collection of Telerik UI for ASP.NET Core examples that cover common scenarios. It is built over the RazorPages design pattern exposed by the ASP.NET Core framework. For more information refer to the dedicated [RazorPages documentation article by Microsoft](https://docs.microsoft.com/en-us/aspnet/core/razor-pages/?view=aspnetcore-5.0&tabs=visual-studio). 
+The current project consists of a collection of Telerik UI for ASP.NET Core examples that cover common scenarios. It is built over the MVC (Model-View-Controller) design pattern exposed by the ASP.NET Core framework. For more information refer to the dedicated [ASP.NET MVC documentation article by Microsoft](https://dotnet.microsoft.com/apps/aspnet/mvc). 
 
 ## Local Setup
 
-1. Clone the [repo](https://github.com/telerik/ui-for-aspnet-core-examples)
+1. Clone the repo
 2. Open the Telerik.Examples.Mvc.sln file in VS2019 
 3. Clean the solution
 4. Build the solution and run the project.
