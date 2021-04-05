@@ -41,6 +41,10 @@ In order to add a reference to the commercial NuGet Package follow the steps bel
 
 1. Browse and Install the **Telerik.UI.for.AspNet.Core** NuGet package.
 
+> Visual Studio sometimes caches the NuGet packages and they should be cleared. In order to do this, open the **Tools > NuGet Package Manager > Package Manager Settings** menu command, then select **Clear All NuGet Cache(s)**.
+
+> If an error is present in the Package Manager and a reference to the deleted source is still standing, оpen the NuGet Package Feed and remove the reference manually. 
+
 For more information on how to add the private Telerik NuGet feed and install the package refer to the [NuGet Install in ASP.NET Core article](https://docs.telerik.com/aspnet-core/getting-started/installation/nuget-install)
 
 ## Additional Example Notes
