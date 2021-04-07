@@ -45,6 +45,7 @@ namespace Telerik.Examples.Mvc
 
             services.Configure<RazorViewEngineOptions>(options => {
                 options.ViewLocationFormats.Add("/Views/Grid/{0}" + RazorViewEngine.ViewExtension);
+                options.ViewLocationFormats.Add("/Views/ImageEditor/{0}" + RazorViewEngine.ViewExtension);
                 options.ViewLocationFormats.Add("/Views/Editor/{0}" + RazorViewEngine.ViewExtension);
                 options.ViewLocationFormats.Add("/Views/Forms/{0}" + RazorViewEngine.ViewExtension);
                 options.ViewLocationFormats.Add("/Views/MultiSelect/{0}" + RazorViewEngine.ViewExtension);
