@@ -21,25 +21,26 @@ namespace Telerik.Examples.Mvc.Controllers.Grid
             return View();
         }
 
-        public ActionResult Orders_Read([DataSourceRequest] DataSourceRequest request)
+        public async Task<ActionResult> EditingInline_Read([DataSourceRequest] DataSourceRequest request)
         {
             CancellationTokenSource source = new CancellationTokenSource(2000);
             CancellationToken token = source.Token;
 
-            var result = Enumerable.Range(0, 50).Select(i => new OrderViewModel
+            var result = await GetOrders().ToDataSourceResultAsync(request, token);
+            return Json(result);
+        }
+
+        private List<OrderViewModel> GetOrders()
+        {
+            Thread.Sleep(3000);
+            return Enumerable.Range(0, 50).Select(i => new OrderViewModel
             {
                 OrderID = i,
                 Freight = i * 10,
-                OrderDate = new DateTime(2016, 9, 15).AddDays(i % 7),
+                OrderDate = DateTime.Now.AddDays(i),
                 ShipName = "ShipName " + i,
                 ShipCity = "ShipCity " + i
-            });
-
-            // TO BE RELEASED
-            //var dsResult = result.ToDataSourceResult(request, token);
-
-            var dsResult = result.ToDataSourceResult(request);
-            return Json(dsResult);
+            }).ToList();
         }
     }
 }
