@@ -20,9 +20,10 @@ namespace Telerik.Examples.RazorPages.Pages.Grid
             {
                 orders = new List<OrderViewModel>();
 
-                Enumerable.Range(0, 50).ToList().ForEach(i => orders.Add(new OrderViewModel
+                Enumerable.Range(1, 50).ToList().ForEach(i => orders.Add(new OrderViewModel
                 {
-                    OrderID = i + 1,
+                    OrderID = i,
+                    OrderDate = DateTime.Now.AddDays(i % 7),
                     Freight = i * 10,
                     ShipName = "ShipName " + i,
                     ShipCity = "ShipCity " + i
