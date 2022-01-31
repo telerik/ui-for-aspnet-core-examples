@@ -1,0 +1,12 @@
+﻿@model List<Telerik.Examples.RazorPages.Models.Customer>
+
+@(Html.Kendo().MultiSelectFor(m => m)
+        .DataTextField("Name")
+        .DataValueField("Name")
+        .AutoBind(false)
+        .TagMode(MultiSelectTagMode.Single)
+        .DataSource(d =>
+        {
+            d.Read(read => read.Url(@Url.Page("GridMultiSelectAsEditor","Customers")));
+        })
+)

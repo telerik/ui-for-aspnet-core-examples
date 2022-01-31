@@ -1,0 +1,68 @@
+﻿@page
+@model Telerik.Examples.RazorPages.Pages.Grid.MultiSelectAsEditorModel
+@{
+    ViewData["Title"] = "GridMultiSelectAsEditor";
+}
+
+@using Telerik.Examples.RazorPages.Models
+@using Kendo.Mvc.UI
+
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Xsrf
+@Html.AntiForgeryToken()
+
+<h1>@ViewData["Title"]</h1>
+
+<script>
+    function customersTemplate(customers) {
+        var template = "<ul>";
+        for (var i = 0; i < customers.length; i++){
+            template += "<li>" + customers[i].Name + "</li>";
+        }
+
+        template += "</ul>";
+        return template;
+   }
+</script>
+
+@(Html.Kendo().Grid<StoreViewModel>().Name("grid")
+                .Groupable()
+                .Sortable()
+                .Editable()
+                .Scrollable()
+                .ToolBar(x => {
+                    x.Create();
+                })
+                .Columns(columns =>
+                {
+                    columns.Bound(column => column.StoreID);
+                    columns.Bound(column => column.StoreName);
+                    columns.Bound(column => column.Budget);
+                    columns.Bound(column => column.EmployeesCount);
+                    columns.Bound(column => column.Customers).Width(200).Sortable(false).ClientTemplate("#=customersTemplate(Customers)#");
+                    columns.Command(column =>
+                    {
+                        column.Edit();
+                        column.Destroy();
+                    });
+                })
+                .Editable(editable=>editable.Mode(GridEditMode.InLine))
+                .DataSource(ds => ds.Ajax()
+                       .Create(c => c.Url(@Url.Page("GridMultiSelectAsEditor","Create")).Data("forgeryToken"))
+                       .Read(r => r.Url(@Url.Page("GridMultiSelectAsEditor","Read")).Data("forgeryToken"))
+                       .Update(u=>u.Url(@Url.Page("GridMultiSelectAsEditor","Update")).Data("forgeryToken"))
+                       .Destroy(u=>u.Url(@Url.Page("GridMultiSelectAsEditor","Destroy")).Data("forgeryToken"))
+                       .Model(m =>
+                       {
+                           m.Id(id => id.StoreID);
+                           m.Field(f => f.StoreID).Editable(false);
+                           m.Field(f => f.Customers).DefaultValue(new List<Customer>());
+                       })
+                    .PageSize(10)
+                )
+                .Pageable()
+)
+<script>
+    function forgeryToken() {
+        return kendo.antiForgeryTokens();
+    }
+</script>
