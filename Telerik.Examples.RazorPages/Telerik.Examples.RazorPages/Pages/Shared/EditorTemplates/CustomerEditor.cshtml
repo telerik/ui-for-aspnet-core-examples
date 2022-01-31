@@ -7,6 +7,6 @@
         .TagMode(MultiSelectTagMode.Single)
         .DataSource(d =>
         {
-            d.Read(read => read.Url("/Grid/GridMultiSelectAsEditor?handler=Customers"));
+            d.Read(read => read.Url(@Url.Page("GridMultiSelectAsEditor","Customers")));
         })
 )

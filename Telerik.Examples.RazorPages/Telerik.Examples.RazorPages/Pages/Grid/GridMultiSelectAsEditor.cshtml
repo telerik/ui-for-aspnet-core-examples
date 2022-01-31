@@ -47,10 +47,10 @@
                 })
                 .Editable(editable=>editable.Mode(GridEditMode.InLine))
                 .DataSource(ds => ds.Ajax()
-                       .Create(c => c.Url("/Grid/GridMultiSelectAsEditor?handler=Create").Data("forgeryToken"))
-                       .Read(r => r.Url("/Grid/GridMultiSelectAsEditor?handler=Read").Data("forgeryToken"))
-                       .Update(u=>u.Url("/Grid/GridMultiSelectAsEditor?handler=Update").Data("forgeryToken"))
-                       .Destroy(u=>u.Url("/Grid/GridMultiSelectAsEditor?handler=Destroy").Data("forgeryToken"))
+                       .Create(c => c.Url(@Url.Page("GridMultiSelectAsEditor","Create")).Data("forgeryToken"))
+                       .Read(r => r.Url(@Url.Page("GridMultiSelectAsEditor","Read")).Data("forgeryToken"))
+                       .Update(u=>u.Url(@Url.Page("GridMultiSelectAsEditor","Update")).Data("forgeryToken"))
+                       .Destroy(u=>u.Url(@Url.Page("GridMultiSelectAsEditor","Destroy")).Data("forgeryToken"))
                        .Model(m =>
                        {
                            m.Id(id => id.StoreID);
