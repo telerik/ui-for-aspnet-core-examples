@@ -19,7 +19,6 @@ namespace Telerik.Examples.Mvc.Controllers.Grid
             foreach(System.Data.DataColumn colData in db.Columns)
             {
                 columnData.Add(colData);
-
             }
             ViewData["modelData"] = columnData;
             return View(db);

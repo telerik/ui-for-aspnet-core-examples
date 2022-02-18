@@ -30,42 +30,42 @@
                 case "System.Float":
                     <div class="k-edit-field">
                         @(Html.Kendo().NumericTextBox()
-                        .Name($"{dcolumn.ColumnName}")
-                        .HtmlAttributes(new { style = "width:100%", data_bind = $"value: {dcolumn.ColumnName}" })
-                    )
+                            .Name($"{dcolumn.ColumnName}")
+                            .HtmlAttributes(new { style = "width:100%", data_bind = $"value: {dcolumn.ColumnName}" })
+                        )
                     </div>
                     break;
                 case "System.String":
                     <div class="k-edit-field">
                         @(Html.Kendo().TextBox()
-                        .Name($"{dcolumn.ColumnName}")
-                        .HtmlAttributes(new { style = "width:100%", data_bind = $"value: {dcolumn.ColumnName}" })
-                    )
+                            .Name($"{dcolumn.ColumnName}")
+                            .HtmlAttributes(new { style = "width:100%", data_bind = $"value: {dcolumn.ColumnName}" })
+                        )
                     </div>
                     break;
                 case "System.Byte":
                 case "System.Boolean":
                     <div class="k-edit-field">
                         @(Html.Kendo().CheckBox()
-                        .Name($"{dcolumn.ColumnName}")
-                        .HtmlAttributes(new { style = "width:100%", data_bind = $"checked: {dcolumn.ColumnName}" })
-                    )
+                            .Name($"{dcolumn.ColumnName}")
+                            .HtmlAttributes(new { style = "width:100%", data_bind = $"checked: {dcolumn.ColumnName}" })
+                        )
                     </div>
                     break;
                 case "System.DateTime":
                     <div class="k-edit-field">
                         @(Html.Kendo().DateTimePicker()
-                        .Name($"{dcolumn.ColumnName}")
-                        .HtmlAttributes(new { style = "width:100%", data_bind = $"value: {dcolumn.ColumnName}" })
-                    )
+                            .Name($"{dcolumn.ColumnName}")
+                            .HtmlAttributes(new { style = "width:100%", data_bind = $"value: {dcolumn.ColumnName}" })
+                        )
                     </div>
                     break;
                 default:
                     <div class="k-edit-field">
                         @(Html.Kendo().TextBox()
-                        .Name($"{dcolumn.ColumnName}")
-                        .HtmlAttributes(new { style = "width:100%", data_bind = $"value: {dcolumn.ColumnName}" })
-                    )
+                            .Name($"{dcolumn.ColumnName}")
+                            .HtmlAttributes(new { style = "width:100%", data_bind = $"value: {dcolumn.ColumnName}" })
+                        )
                     </div>
                     break;
             }
