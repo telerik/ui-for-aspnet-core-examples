@@ -1,0 +1,74 @@
+﻿<div class="k-edit-form-container">
+
+    @{ foreach (System.Data.DataColumn dcolumn in ViewData["modelData"] as IList<System.Data.DataColumn>)
+        {
+            <div class="k-edit-label">
+                <label for="@dcolumn.ColumnName">@dcolumn.ColumnName</label>
+            </div>
+            switch (dcolumn.DataType.ToString())
+            {
+                case "System.Int16":
+                case "System.Int32":
+                case "System.Int64":
+                    bool eidtor_enabled = true;
+                    if(dcolumn.ColumnName == "OrderID")
+                    {
+                        eidtor_enabled = false;
+                    }
+                    <div class="k-edit-field">
+                        @(Html.Kendo().IntegerTextBox()
+                            .Name($"{dcolumn.ColumnName}")
+                            .HtmlAttributes(new { data_bind= $"value: {dcolumn.ColumnName}" })
+                            .Min(int.MinValue)
+                            .Max(int.MaxValue)
+                            .Enable(eidtor_enabled)
+                        )
+                    </div>
+                    break;
+                case "System.Decimal":
+                case "System.Double":
+                case "System.Float":
+                    <div class="k-edit-field">
+                        @(Html.Kendo().NumericTextBox()
+                        .Name($"{dcolumn.ColumnName}")
+                        .HtmlAttributes(new { style = "width:100%", data_bind = $"value: {dcolumn.ColumnName}" })
+                    )
+                    </div>
+                    break;
+                case "System.String":
+                    <div class="k-edit-field">
+                        @(Html.Kendo().TextBox()
+                        .Name($"{dcolumn.ColumnName}")
+                        .HtmlAttributes(new { style = "width:100%", data_bind = $"value: {dcolumn.ColumnName}" })
+                    )
+                    </div>
+                    break;
+                case "System.Byte":
+                case "System.Boolean":
+                    <div class="k-edit-field">
+                        @(Html.Kendo().CheckBox()
+                        .Name($"{dcolumn.ColumnName}")
+                        .HtmlAttributes(new { style = "width:100%", data_bind = $"checked: {dcolumn.ColumnName}" })
+                    )
+                    </div>
+                    break;
+                case "System.DateTime":
+                    <div class="k-edit-field">
+                        @(Html.Kendo().DateTimePicker()
+                        .Name($"{dcolumn.ColumnName}")
+                        .HtmlAttributes(new { style = "width:100%", data_bind = $"value: {dcolumn.ColumnName}" })
+                    )
+                    </div>
+                    break;
+                default:
+                    <div class="k-edit-field">
+                        @(Html.Kendo().TextBox()
+                        .Name($"{dcolumn.ColumnName}")
+                        .HtmlAttributes(new { style = "width:100%", data_bind = $"value: {dcolumn.ColumnName}" })
+                    )
+                    </div>
+                    break;
+            }
+        }
+    }
+</div>
