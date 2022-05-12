@@ -1,0 +1,18 @@
+﻿@{
+    ViewData["title"] = "Security Trimming";
+}
+
+<h2>@ViewData["title"]</h2>
+
+<p>You should be logged in or registered in order to access the "About" and "Contact" pages</p>
+
+@(Html.Kendo().Menu()
+    .Name("menu")
+    .SecurityTrimming(true)
+    .Items(menu =>
+    {
+        menu.Add().Text("Home").Action("Index", "Home", new { area = "" });
+        menu.Add().Text("About").Action("Contact", "Home", new { area = "" });
+        menu.Add().Text("Contact").Action("Contact", "Home", new { area = "" });
+    })
+)

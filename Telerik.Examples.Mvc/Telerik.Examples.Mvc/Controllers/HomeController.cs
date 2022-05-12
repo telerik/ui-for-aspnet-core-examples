@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Telerik.Examples.Mvc.Models;
 using System.IO;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Telerik.Examples.Mvc.Controllers
 {
@@ -47,6 +48,16 @@ namespace Telerik.Examples.Mvc.Controllers
             }
 
             return View(fileNames);
+        }
+        [Authorize]
+        public IActionResult About()
+        {
+            return View();
+        }
+        [Authorize]
+        public IActionResult Contact()
+        {
+            return View();
         }
 
         public IActionResult Privacy()
