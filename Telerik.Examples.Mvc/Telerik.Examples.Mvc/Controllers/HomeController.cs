@@ -32,7 +32,7 @@ namespace Telerik.Examples.Mvc.Controllers
             {
                 var fileName = Path.GetFileName(file);
                 var parentDirectory = Path.GetFileName(Path.GetDirectoryName(file));
-                if (!foldersToExclude.Contains(parentDirectory) && !fileName.StartsWith("_"))
+                if (!foldersToExclude.Contains(parentDirectory) && !fileName.Contains("_"))
                 {
                     if (!directoryNames.Contains(parentDirectory))
                     {
@@ -48,16 +48,6 @@ namespace Telerik.Examples.Mvc.Controllers
             }
 
             return View(fileNames);
-        }
-        [Authorize]
-        public IActionResult About()
-        {
-            return View();
-        }
-        [Authorize]
-        public IActionResult Contact()
-        {
-            return View();
         }
 
         public IActionResult Privacy()
