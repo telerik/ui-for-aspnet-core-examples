@@ -14,6 +14,7 @@ using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json.Serialization;
 using AutoMapper;
 using Telerik.Examples.Mvc.Hubs;
+using Microsoft.AspNetCore.Identity;
 
 namespace Telerik.Examples.Mvc
 {
@@ -54,9 +55,18 @@ namespace Telerik.Examples.Mvc
                 options.ViewLocationFormats.Add("/Views/StylesAndLayout/{0}" + RazorViewEngine.ViewExtension);
             });
 
-            var connection = @"Server=(localdb)\mssqllocaldb;Database=Samples;Trusted_Connection=True;ConnectRetryCount=0";
             services.AddDbContext<GeneralDbContext>
-                (options => options.UseSqlServer(connection));
+                (options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddDefaultIdentity<IdentityUser>(options =>
+            {
+                options.SignIn.RequireConfirmedAccount = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequireLowercase = false;
+
+            }).AddEntityFrameworkStores<GeneralDbContext>();
 
             services.AddKendo();
             services.AddSignalR().AddJsonProtocol(options => {
@@ -86,6 +96,7 @@ namespace Telerik.Examples.Mvc
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
@@ -94,6 +105,7 @@ namespace Telerik.Examples.Mvc
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapRazorPages();
             });
 
             using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())

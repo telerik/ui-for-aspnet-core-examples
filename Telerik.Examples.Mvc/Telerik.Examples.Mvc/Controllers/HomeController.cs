@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Telerik.Examples.Mvc.Models;
 using System.IO;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Telerik.Examples.Mvc.Controllers
 {
@@ -31,7 +32,7 @@ namespace Telerik.Examples.Mvc.Controllers
             {
                 var fileName = Path.GetFileName(file);
                 var parentDirectory = Path.GetFileName(Path.GetDirectoryName(file));
-                if (!foldersToExclude.Contains(parentDirectory) && !fileName.StartsWith("_"))
+                if (!foldersToExclude.Contains(parentDirectory) && !fileName.Contains("_"))
                 {
                     if (!directoryNames.Contains(parentDirectory))
                     {

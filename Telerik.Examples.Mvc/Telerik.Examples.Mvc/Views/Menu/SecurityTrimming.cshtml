@@ -1,0 +1,42 @@
+﻿@{
+    ViewData["title"] = "Security Trimming";
+}
+
+<h2>@ViewData["title"]</h2>
+
+<div>
+    <p>The Telerik UI for ASP.NET Core Menu has a built-in security trimming functionality, which is enabled by default. If the URL, which the Menu item points to, is not authorized, then it is hidden.</p>
+    <h5>Example: </h5>
+    <ul>
+        <li>
+            <a asp-area="Identity" asp-page="/Account/Register" asp-route-returnUrl="@Url.Action("SecurityTrimming", "SecurityTrimming", new { area = "" })">Register</a>
+             or
+            <a asp-area="Identity" asp-page="/Account/Login" asp-route-returnUrl="@Url.Action("SecurityTrimming", "SecurityTrimming", new { area = "" })">login</a>.
+        </li>
+        <li>
+            Enter your credentials.
+        </li>
+        <li>
+            Access the additionally displayed menu item.
+        </li>
+    </ul>
+    <h5>Menu: </h5>
+    @(Html.Kendo().Menu()
+        .Name("menu")
+        .SecurityTrimming(true)
+        .Items(menu =>
+        {
+            menu.Add().Text("Home").Action("Index", "Home", new { area = "" });
+            menu.Add().Text("Security Informaiton").Action("Security_Information", "SecurityTrimming", new { area = "" });
+        })
+    )
+</div>
+<style>
+    .k-menu-horizontal .k-link {
+        border-color: #e6e6e6;
+    }
+    .k-menu-link {
+        border-width: 0 1px 0 0;
+        border-style: solid;
+    }
+</style>
