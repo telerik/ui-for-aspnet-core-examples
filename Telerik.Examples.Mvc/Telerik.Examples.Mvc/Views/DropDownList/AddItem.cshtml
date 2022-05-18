@@ -1,0 +1,58 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+@using Telerik.Examples.Mvc.Models
+
+@(Html.Kendo().DataSource<Location>()
+    .Name("customDataSource")
+    .Custom(c=>c
+    .Transport(transport=>transport
+        .Read(read => read.Action("GetLocations", "AddItem"))
+        .Create(create => create.Action("CreateLocation", "AddItem"))
+     )
+    .Schema(s=>s
+        .Model(m=>
+        {
+            m.Id("Id");
+            m.Field(f=>f.Id);
+            m.Field(f=>f.Name);
+        })
+     )
+    )
+)
+
+@(Html.Kendo().DropDownList()
+    .Name("dropDownList")
+    .DataTextField("Name")
+    .DataValueField("Id")
+    .NoDataTemplateId("noDataTemplate")
+    .Filter(FilterType.StartsWith)
+    .DataSource("customDataSource")
+    .HtmlAttributes(new { style = "width: 100%" })
+)
+
+<script id="noDataTemplate" type="text/x-kendo-tmpl">
+    <button class="k-button k-button-solid k-button-md k-rounded-md k-button-solid-base" onclick="addNew('#: instance.element[0].id #', '#: instance.filterInput.val() #')">Add new item</button>
+</script>
+
+<script>
+    function addNew(widgetId, value) {
+        var widget = $("#" + widgetId).getKendoDropDownList();
+        var dataSource = widget.dataSource;
+
+        if (confirm("Are you sure?")) {
+            dataSource.add({
+                Id: 0,
+                Name: value
+            });
+
+            dataSource.one("sync", function () {
+                widget.select(dataSource.view().length - 1);
+            });
+
+            dataSource.filter({});
+            dataSource.sync();
+        }
+    };
+</script>
