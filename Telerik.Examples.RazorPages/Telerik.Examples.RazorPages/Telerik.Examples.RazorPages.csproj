@@ -15,7 +15,8 @@
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="3.0.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.0.0" />
-    <PackageReference Include="Telerik.UI.for.AspNet.Core.Trial" Version="2021.2.616" />
+    <PackageReference Include="Telerik.UI.for.AspNet.Core.Trial" Version="2022.2.510" />
+    <PackageReference Include="Telerik.Web.Captcha" Version="1.1.0" />
     <PackageReference Include="Telerik.Web.PDF.Trial" Version="2021.2.616" />
   </ItemGroup>
 
