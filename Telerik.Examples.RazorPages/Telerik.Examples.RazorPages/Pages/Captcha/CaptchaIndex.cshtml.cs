@@ -53,7 +53,7 @@ namespace Telerik.Examples.RazorPages.Pages.Captcha
                 return Page();
             }
 
-            return RedirectToPage("/Form/Success");
+            return RedirectToPage("Success");
         }
         public ActionResult OnGetReset()
         {
