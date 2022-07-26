@@ -1,0 +1,22 @@
+﻿@{
+    ViewData["Title"] = "AudioColumn";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+@(Html.Kendo().Grid<MusicianViewModel>()
+          .Name("grid")
+          .Columns(columns =>
+          {
+              columns.Bound(musician => musician.ID);
+              columns.Bound(musician => musician.Name);
+              columns.Bound(musician => musician.Age);
+              columns.Bound(musician => musician.Nationality);
+              columns.Bound(musician => musician.Intro).Width(150).ClientTemplate("<audio controls><source src='../shared/audio/musicians/#=Intro.FileName#.#=Intro.Extension#'/></audio>");
+          })
+          .Pageable()
+          .DataSource(dataSource => dataSource
+              .Ajax()
+              .Read(read => read.Action("Read", "AudioColumn"))
+          )
+)

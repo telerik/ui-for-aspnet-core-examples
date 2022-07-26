@@ -22,5 +22,9 @@
     <PackageReference Include="System.Drawing.Common" Version="5.0.2" />
     <PackageReference Include="Telerik.UI.for.AspNet.Core.Trial" Version="2022.2.510" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\shared\audio\" />
+  </ItemGroup>
 </Project>
  
