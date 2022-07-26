@@ -12,3 +12,22 @@ The current project consists of a collection of Telerik UI for ASP.NET Core exam
 
 > The project uses a local database which is created upon building the project based on the existent migrations.
 > Mandatory prerequisite is to have installed ASP.NET Core 3.0
+## Additional Example Notes
+
+The following section aims to provide additional information or important notes regarding specific examples. 
+
+### Telerik.Examples.Mvc
+
+#### Editor/EditorContent
+
+This project demonstrates how you can add, read, edit and delete text data using a local database and the UI for ASP.NET Core Editor component
+
+> Please note that the current project doesn't have any XSS attack preventions applied. It is a developer's responsibility to manage these security risks. For more information, please refer to this [Preventing Cross-Site Scripting](https://docs.telerik.com/kendo-ui/controls/editors/editor/preventing-xss) article.
+
+#### MultiSelect/GetPostData
+
+The MultiSelect UI component is a `<select multiple>` element and behaves like one in a POST query - the browser will add a form data field with the name of the widget for each selected item, and the value of the form field will be the value of the item. This means that your model needs to expect a List of values for the given field.
+
+The example also shows how you can get the selected values with JavaScript so you can use them to craft your own query in case you have more specific requirements.
+
+You can read more about this in the [Submit MultiSelect Data to Controller POST](https://docs.telerik.com/aspnet-core/knowledge-base/multiselect-post-data-values) Knowledge Base article.
