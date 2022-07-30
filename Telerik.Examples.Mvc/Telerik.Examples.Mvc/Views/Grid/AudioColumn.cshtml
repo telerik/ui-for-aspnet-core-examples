@@ -4,6 +4,12 @@
 
 <h1>@ViewData["Title"]</h1>
 
+<script id="audioTemplate" type="text/x-kendo-template">
+    <audio controls>
+       <source src='../shared/audio/musicians/#=Intro.FileName#.#=Intro.Extension#'/>
+    </audio>
+</script>
+
 @(Html.Kendo().Grid<MusicianViewModel>()
           .Name("grid")
           .Columns(columns =>
@@ -12,11 +18,30 @@
               columns.Bound(musician => musician.Name);
               columns.Bound(musician => musician.Age);
               columns.Bound(musician => musician.Nationality);
-              columns.Bound(musician => musician.Intro).Width(150).ClientTemplate("<audio controls><source src='../shared/audio/musicians/#=Intro.FileName#.#=Intro.Extension#'/></audio>");
+              columns.Bound(musician => musician.Intro.FileName).Width(150).EditorTemplateName("IntroEditor").ClientTemplateId("audioTemplate");
+              columns.Command(command =>
+              {
+                  command.Edit();
+                  command.Destroy();
+              });
           })
+          .Editable(editable => editable.Mode(GridEditMode.InLine))
+          .ToolBar(toolbar => toolbar.Create())
+          .Sortable()
+          .Filterable()
           .Pageable()
           .DataSource(dataSource => dataSource
               .Ajax()
+              .Model(model =>
+              {
+                  model.Id(field => field.ID);
+                  model.Field(field => field.ID).DefaultValue(0);
+                  model.Field(field => field.Intro).DefaultValue(new Audio { FileName = "Eminem", Extension = "mp3" });
+              })
+              .PageSize(5)
+              .Create(create => create.Action("Create","AudioColumn"))
               .Read(read => read.Action("Read", "AudioColumn"))
+              .Update(update => update.Action("Update", "AudioColumn"))
+              .Destroy(destroy => destroy.Action("Destroy", "AudioColumn"))
           )
 )

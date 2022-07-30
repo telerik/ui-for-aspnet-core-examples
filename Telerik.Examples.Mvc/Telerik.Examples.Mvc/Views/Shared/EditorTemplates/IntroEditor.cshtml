@@ -1,0 +1,10 @@
+﻿@model Audio
+
+@(Html.Kendo().DropDownListFor(m => m.FileName)
+    .DataTextField("FileName")
+    .DataValueField("FileName")
+    .HtmlAttributes(new { data_bind = "value: Intro" })
+    .DataSource(dataSource => dataSource
+        .Read(read => read.Action("GetAudio","AudioColumn"))
+    )
+)
