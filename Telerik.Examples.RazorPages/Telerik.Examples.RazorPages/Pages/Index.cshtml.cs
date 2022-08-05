@@ -24,7 +24,7 @@ namespace Telerik.Examples.RazorPages.Pages
             var foldersToExclude = new string[] { "Pages", "Shared", "EditorTemplates" };
             var fileNames = new List<string>();
             var directoryNames = new List<string>();
-            var txtPath = @".\Pages";
+            var txtPath = Path.Combine(".", "Pages");
             string[] files = Directory.GetFiles(txtPath, "*.cshtml", SearchOption.AllDirectories);
 
             foreach (var file in files)
