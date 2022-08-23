@@ -1,0 +1,59 @@
+﻿@{
+    ViewData["Title"] = "Editor Watermark PDF Export";
+}
+    
+<h3>@ViewData["Title"]</h3>
+
+@(Html.Kendo().Editor()
+        .Name("editor")
+        .HtmlAttributes(new { style = "height:440px; width: 100%; height:470px", aria_label = "editor" })
+        .Tools(tools => tools
+            .Clear()
+            .ExportAs(export => {
+                export.Add("PDF","pdf");
+            })
+        )
+        .ExportAs(exportAs => exportAs
+            .FileName("Watermark_Example")
+            .Proxy("Export", "Watermark")
+        )
+        .Value(@<text>
+                <br/>
+                <p style="text-align:center;">
+                    <span style="font-family:Verdana, Geneva, sans-serif;font-size:large;">
+                        <strong>One of the Most Beautiful Islands on Earth - Tenerife</strong>
+                    </span>
+                </p>
+                <p>
+                    <span style="font-family:Verdana, Geneva, sans-serif;font-size:medium;">
+                        <strong>Overview</strong>
+                    </span>
+                </p>
+                <p style="font-size: small;">
+                    <strong>Tenerife </strong>is the largest and most populated island of the eight <a href="https://en.wikipedia.org/wiki/Canary_Islands" target="_blank"> Canary Islands</a>. It is also the most populated island of <strong>Spain</strong>, with a land area of 2,034.38 square kilometers(785 sq mi) and 904,713 inhabitants, 43 % of the total population of the <strong>Canary Islands</strong>. The archipelago's beaches, climate, and important natural attractions make it a major tourist destination with over 12 million visitors per year.
+                </p>
+                <br />
+                <img src="@Url.Content("~/shared/editor/tenerife.png")" style="float: right;" alt="" width="350" height="206" />
+                <p>
+                    <span style="font-family:Verdana, Geneva, sans-serif;font-size:medium;">
+                        <strong>Trip Highlights in Tenerife</strong>
+                    </span>
+                </p>
+                <ul>
+                    <li>
+                        <strong style="color: rgb(0,80,5);">Trip to Loro Parque </strong> <br /> Our top tip is to visit the famous <em>Loro Parque</em> or 'Loro Park. It is a 13.5-hectare zoo on the outskirts of Puerto de la Cruz in Tenerife, Spain where it houses an extensive and diverse reserve of animal and plant species.
+                        <br />
+                        <br />
+                    </li>
+                    <li>
+                        <strong><span style="color: rgb(46,125,50);">Whale and Dolphin Watching Tour&nbsp;<br /></span></strong> Another great option is to take boat excursion with almost guaranteed sightings of whales and dolphins. This is a day-long trip that includes lunch, island visits, fishing, and amazing views of ocean sceneries.
+                        <br />
+                        <br />
+                    </li>
+                    <li>
+                        <strong><span style="color: rgb(96,173,94);">Teide National Park Stargazing</span></strong><br />Last, but not least you can take a stargazing trip to Teide National Park, the 3rd best place in the world to view stars and described by NASA as a window to the universe.
+                        <br />
+                    </li>
+                </ul>
+        </text>)
+)
