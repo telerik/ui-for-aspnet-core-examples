@@ -2,6 +2,8 @@
 
 Telerik UI for ASP.NET is library of 110+ full-featured ASP.NET UI components that enable you to build everything from complex data-driven applications to user facing web apps, with tons of customization options covering every UI development need: navigation and layout, data management and visualization, editing, interactivity and more.
 
+[![Try Telerik UI for ASP.NET Core](images/github-banner.png)](https://www.telerik.com/aspnet-core-ui?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github)
+
 This repository contains examples related to the [Telerik UI for ASP.NET Core components](https://www.telerik.com/aspnet-core-ui?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github) that can be used in addition to the technical documentation and demos. These examples demonstrate common scenarios and provide answers to frequent how-to-questions regarding the most popular and widely used Telerik UI for ASP.NET Core components:
 
 - [ASP.NET Core Data Grid](https://www.telerik.com/aspnet-core-ui/grid?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github)
@@ -44,6 +46,7 @@ This repo allows you to experiment with RazorPages and MVC (Model View Controlle
   * [Where do I make suggestions?](#where-do-i-make-suggestions)
 * [ASP.NET Core UI Components](#aspnet-core-ui-components)
 * [Design to development](#design-to-development-support)
+* [Sample Applications](#sample-applications)
 * [Package References](#package-references)
 * [Contribution](#contribution)
 * [Licensing](#licensing)
@@ -652,6 +655,35 @@ Telerik UI for ASP.NET Core offers a variety of professionally designed and cust
   <td><a href="https://themebuilder.telerik.com/aspnet-core?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">Telerik UI for ASP.NET Core ThemeBuilder App</a></td>
 </tr>
 </tbody></table>
+
+## Sample Applications
+
+### ASP.NET Core Admin Dashboard Application
+
+We created the [ASP.NET Core Admin Dashboard Application](https://demos.telerik.com/aspnet-core/admin-dashboard?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github) to illustrate how such an application can look following the best practices of building UI with Telerik UI for ASP.NET components. It demonstrates the components' look and feel and can be used as a leraning resource by anyone that's considering to use the Telerik UI components for building UI, regardless of their experience. The demo covers a complete admin dashboard application, including task tracking, product catalogue, account settings etc., and demonstrates how easy it is to build UI with the help of complex components such as the DataGrid (Table), Charts, Forms and more!.
+
+* [Live demo](https://demos.telerik.com/aspnet-core/admin-dashboard?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github)
+* [Source code](https://github.com/telerik/admin-dashboard-sample-app-core)
+
+![ASP.NET Core Admin Dashboard Sample](images/dashboard-sample.png)
+
+### ASP.NET Core Stock Portfolio Application
+
+The [ASP.NET Core Stock Portfolio Application](https://demos.telerik.com/aspnet-core/finance-portfolio?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github) is a progressive web app (PWA) showcasing how to create fast and efficiently beautiful, dynamic financial dashboards. It uses some of the most renowned Telerik UI for ASP.NET Core components and shows dynamic data updates in real time, allowing for great flexibility and efficient data monitoring with no visible delay. The sample applications utilizes components such as ASP.NET Core Grid, Charts, DropDownList, HeatMap, Calendar and more!   
+
+* [Live demo](https://demos.telerik.com/aspnet-core/finance-portfolio?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github)
+* [Source code](https://github.com/telerik/finance-portfolio-sample-app-core)
+
+![Stock portfolio sample](images/my-stocks-portfolio-sample.png)
+
+### ASP.NET Core Telerik UI + Bootstrap Application
+
+The [ASP.NET Core + Bootstrap Application](https://demos.telerik.com/aspnet-core/bootstrap?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github) shows how to create responsive applications using Telerik UI for ASP.NET Core alongside Twitter Bootstrap. The grid layout and responsive CSS is based on Bootstrap, while the components are provided by Telerik UI for ASP.NET Core. The demo allows you to resize the page by changing the font size or customize it using the pickers above to experience its responsive features.
+   
+* [Live demo](https://demos.telerik.com/aspnet-core/bootstrap?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github)
+* [Source code](https://github.com/telerik/core-bootstrap-demo)
+
+![ASP.NET Core + Bootstrap Application](images/telerik-bootstrap.png)
 
 ## Package References
 
