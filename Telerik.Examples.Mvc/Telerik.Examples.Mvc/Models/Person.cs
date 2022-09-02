@@ -10,5 +10,7 @@ namespace Telerik.Examples.Mvc.Models
         public int PersonID { get; set; }
         public string Name { get; set; }
         public DateTime BirthDate { get; set; }
+        
+        public int? ProductID { get; set; }
     }
 }
