@@ -1,0 +1,74 @@
+﻿@{
+    ViewData["Title"] = "Hierarchy Crud";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+@(Html.Kendo().Grid<Product>()
+          .Name("grid")
+          .DataSource(dataSource => dataSource
+              .Ajax()
+              .Read(read => read.Action("Read_Products", "HierarchyCrud"))
+              .Update(update => update.Action("Update_Products", "HierarchyCrud"))
+              .Create(create => create.Action("Create_Products", "HierarchyCrud"))
+              .Destroy(destroy => destroy.Action("Destroy_Products", "HierarchyCrud"))
+              .Model(m => {
+                  m.Id(id => id.ProductID);
+                  m.Field(f => f.ProductID).Editable(false);
+              })
+           )
+          .Editable(editable => editable.Mode(GridEditMode.InLine))
+          .ToolBar(t => t.Create())
+          .Columns(columns =>
+          {
+              columns.Bound(product => product.ProductID);
+              columns.Bound(product => product.ProductName);
+              columns.Bound(product => product.UnitsInStock);
+              columns.Bound(product => product.Discontinued);
+              columns.Bound(product => product.UnitPrice);
+              columns.Bound(product => product.UnitsOnOrder);
+              columns.Command(command => {
+                  command.Edit();
+                  command.Destroy();
+              });
+          })
+          .Pageable()
+          .Sortable()
+          .Filterable()
+          .Groupable()
+          .ClientDetailTemplateId("OrdersTemplate")
+)
+
+<script type="text/kendo" id="OrdersTemplate">
+  @(Html.Kendo().Grid<Person>()
+      .Name("People#=ProductID#")
+      .Columns(columns =>
+      {
+          columns.Bound(o => o.PersonID);
+          columns.Bound(o => o.Name);
+          columns.Bound(o => o.BirthDate).Format("{0:d}");
+
+          columns.Command(command =>
+          {
+              command.Edit();
+              command.Destroy();
+          });
+      })
+      .ToolBar(toolbar => toolbar.Create())
+      .Editable(editable=>editable.Mode(GridEditMode.InLine))
+      .Pageable().Sortable().Filterable()
+      .DataSource(source => source.Ajax()
+          .Model(model =>
+          {
+              model.Id(o => o.PersonID);
+              model.Field(o => o.ProductID).DefaultValue(0);
+              model.Field(o => o.PersonID).Editable(false);
+          })
+          .Create(create => create.Action("Create_People","HierarchyCrud"))
+          .Read(read => read.Action("Read_People", "HierarchyCrud", new { productID = "#=ProductID#" }))
+          .Update(update => update.Action("Update_People", "HierarchyCrud"))
+          .Destroy(destroy=>destroy.Action("Remove_People", "HierarchyCrud"))
+      )
+      .ToClientTemplate()
+   )
+</script>
