@@ -6,48 +6,39 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Telerik.Examples.Mvc.Models;
-using System.IO;
-using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Microsoft.AspNetCore.Mvc.Controllers;
+using System.Text.RegularExpressions;
 
 namespace Telerik.Examples.Mvc.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IActionDescriptorCollectionProvider _actionDescriptorCollectionProvider;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IActionDescriptorCollectionProvider actionDescriptorCollectionProvider )
         {
             _logger = logger;
+            this._actionDescriptorCollectionProvider = actionDescriptorCollectionProvider;
         }
 
         public IActionResult Index()
         {
-            var foldersToExclude = new string[] { "Views", "Home", "Shared"};
-            var fileNames = new List<string>();
-            var directoryNames = new List<string>();
-            var txtPath = @".\Views";
-            string[] files = Directory.GetFiles(txtPath, "*.cshtml", SearchOption.AllDirectories);
 
-            foreach (var file in files)
-            {
-                var fileName = Path.GetFileName(file);
-                var parentDirectory = Path.GetFileName(Path.GetDirectoryName(file));
-                if (!foldersToExclude.Contains(parentDirectory) && !fileName.Contains("_"))
-                {
-                    if (!directoryNames.Contains(parentDirectory))
-                    {
-                        fileNames.Add(parentDirectory);
-                        fileNames.Add(fileName);
-                        directoryNames.Add(parentDirectory);
-                    }
-                    else
-                    {
-                        fileNames.Add(fileName);
-                    }
-                }
-            }
-
-            return View(fileNames);
+            var demoEndpoints = this._actionDescriptorCollectionProvider.ActionDescriptors.Items
+                .OfType<ControllerActionDescriptor>()
+                .Where(w => w.ControllerName.Replace("Controller",String.Empty) == w.ActionName)
+                .Select(s => new Demo
+                { 
+                    ComponentName = Regex.Match(s.ControllerTypeInfo.FullName, @"(?<=\bControllers\b.).*(?=\.)").Value,
+                    ControllerName = s.ControllerName,
+                    ActionName = s.ActionName
+                })
+                .GroupBy(g => g.ComponentName)
+                .ToList();
+            
+            return View(demoEndpoints);
         }
 
         public IActionResult Privacy()
