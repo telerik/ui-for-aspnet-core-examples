@@ -2,27 +2,26 @@
     ViewData["Title"] = "Home Page";
 }
 
-@model IEnumerable<string>
+@model IEnumerable<IGrouping<string,Demo>>
 
 <h2 class="text-center">Navigate to an example of your choice</h2>
 <p>The Telerik.Examples.Mvc project is comprised of a number of pages that aim to depict a certain functionality or behavior of the different Telerik UI components.</p>
 
 <div class="nav-list">
-    @foreach (var item in Model)
-    {
-        if (@item.EndsWith("cshtml"))
+        @foreach (var component in Model)
         {
-            var name = @item.Split(".")[0];
-            var href = "/" + name + "/" + name;
+            <h4 class="nav-list-header">
+                @component.Key
+            </h4>
+            foreach (var demoName in component.Select(s => s.ActionName).Distinct())
+            {
+                var href = "/" + demoName + "/" + demoName;
+                <li class="nav-list-item">
+                    <a href="@href">@demoName</a>
+                </li>
+            }
 
-            <li class="nav-list-item"><a href="@href">@name</a>  </li>
         }
-        else
-        {
-            <h4 class="nav-list-header">@item</h4>
-
-        }
-    }
 </div>
 
 <script>

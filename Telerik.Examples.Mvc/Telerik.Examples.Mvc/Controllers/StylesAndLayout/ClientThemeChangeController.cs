@@ -1,23 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Telerik.Examples.Mvc.Models;
-using Kendo.Mvc.Extensions;
+﻿using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using Telerik.Examples.Mvc.Models;
 
-namespace Telerik.Examples.Mvc.Controllers.Grid
+namespace Telerik.Examples.Mvc.Controllers.StylesAndLayout
 {
     public class ClientThemeChangeController : Controller
     {
-        public IActionResult ClientThemeChange ()
+        public IActionResult ClientThemeChange()
         {
             return View();
         }
-
-        public ActionResult Orders_Read([DataSourceRequest]DataSourceRequest request)
+        public ActionResult Orders_Read([DataSourceRequest] DataSourceRequest request)
         {
             var result = Enumerable.Range(0, 50).Select(i => new OrderViewModel
             {
@@ -31,7 +29,6 @@ namespace Telerik.Examples.Mvc.Controllers.Grid
             var dsResult = result.ToDataSourceResult(request);
             return Json(dsResult);
         }
-
         public IActionResult GetThemes()
         {
             var themes = new List<Theme>()

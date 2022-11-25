@@ -7,7 +7,7 @@ using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Telerik.Examples.Mvc.Controllers
+namespace Telerik.Examples.Mvc.Controllers.Scheduler
 {
     public class SchedulerServerFilteringController : Controller
     {
@@ -20,7 +20,7 @@ namespace Telerik.Examples.Mvc.Controllers
 
         public SchedulerServerFilteringController(GeneralDbContext context)
         {
-            this.taskService = new SchedulerTaskService(context);
+            taskService = new SchedulerTaskService(context);
         }
 
         public virtual JsonResult Read([DataSourceRequest] DataSourceRequest request, FilterRange range)
