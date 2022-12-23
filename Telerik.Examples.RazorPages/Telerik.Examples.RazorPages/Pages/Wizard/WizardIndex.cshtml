@@ -28,9 +28,9 @@
                 .FormData(Model.UserViewModel)
                 .Items(items =>
                 {
-                    items.Add().Field(p => p.AccountDetails.Username).Label(l => l.Text("Username:"));
-                    items.Add().Field(p => p.AccountDetails.Email).Label(l => l.Text("Email:"));
-                    items.Add().Field(p => p.AccountDetails.Password).Label(l => l.Text("Password:")).InputHtmlAttributes(new { @type = "password" }).Hint("Hint: enter alphanumeric characters only.");
+                    items.Add().Field(p => p.AccountDetails.Username).Label(l => l.Text("Username:")).InputHtmlAttributes(new { required = "required", validationMessage = "Username is required !" });
+                    items.Add().Field(p => p.AccountDetails.Email).Label(l => l.Text("Email:")).InputHtmlAttributes(new { type = "email", required = "required", validationMessage = "Email is not valid !" });
+                    items.Add().Field(p => p.AccountDetails.Password).Label(l => l.Text("Password:")).InputHtmlAttributes(new { @type = "password", required = "required", validationMessage = "Password is required !" }).Hint("Hint: enter alphanumeric characters only.");
                 })
             )
             .Buttons(b =>
@@ -49,7 +49,7 @@
                 .FormData(Model.UserViewModel)
                 .Items(items =>
                 {
-                    items.Add().Field(p => p.PersonalDetails.FullName).Label(l => l.Text("Full Name:"));
+                    items.Add().Field(p => p.PersonalDetails.FullName).Label(l => l.Text("Full Name:")).InputHtmlAttributes(new { required = "required", validationMessage = "Full Name is required !" });
                     items.Add()
                         .Field(p => p.PersonalDetails.Country)
                         .Label(label => label.Text("Country:"))
