@@ -96,6 +96,18 @@ If your feature isn’t listed in the product roadmap, check our dedicated [feed
   <td><a href="https://docs.telerik.com/aspnet-core/html-helpers/data-management/filter/overview?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">Filter Documentation</td>
   <td><a href="https://demos.telerik.com/aspnet-core/filter?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">Filter Demos</td>
 </tr> 
+  <tr>
+  <td><b>ASP.NET Core PivotGrid Component</b></td>
+  <td><a href="https://www.telerik.com/aspnet-core-ui/pivotgrid?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">PivotGrid Features</a></td>
+  <td><a href="https://docs.telerik.com/aspnet-core/html-helpers/data-management/pivotgrid/overview?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">PivotGrid Documentation</td>
+  <td><a href="https://demos.telerik.com/aspnet-core/pivotgrid?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">PivotGrid Demos</td>
+</tr> 
+  <tr>
+  <td><b>ASP.NET Core PivotGrid v.2 Component</b></td>
+  <td><a href="https://www.telerik.com/aspnet-core-ui/pivotgrid-v.2?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">PivotGrid v.2 Features</a></td>
+  <td><a href="https://docs.telerik.com/aspnet-core/html-helpers/data-management/pivotgridv2/overview?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">PivotGrid v.2 Documentation</td>
+  <td><a href="https://demos.telerik.com/aspnet-core/pivotgridv2?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">PivotGrid v.2 Demos</td>
+</tr> 
 <tr>
   <td><b>ASP.NET Core Pager Component</b></td>
   <td><a href="https://www.telerik.com/aspnet-core-ui/pager?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">Pager Features</a></td>
@@ -107,6 +119,12 @@ If your feature isn’t listed in the product roadmap, check our dedicated [feed
   <td><a href="https://www.telerik.com/aspnet-core-ui/spreadsheet?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">Spreadsheet Features</a></td>
   <td><a href="https://docs.telerik.com/aspnet-core/html-helpers/data-management/spreadsheet/overview?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">Spreadsheet Documentation</td>
   <td><a href="https://demos.telerik.com/aspnet-core/spreadsheet?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">Spreadsheet Demos</td>
+</tr> 
+ <tr>
+  <td><b>ASP.NET Core TaskBoard Component</b></td>
+  <td><a href="https://www.telerik.com/aspnet-core-ui/taskboard?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">TaskBoard Features</a></td>
+  <td><a href="https://docs.telerik.com/aspnet-core/html-helpers/data-management/taskboard/overview?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">TaskBoard Documentation</td>
+  <td><a href="https://demos.telerik.com/aspnet-core/taskboard?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">TaskBoard Demos</td>
 </tr> 
 </tbody></table>
 
@@ -155,6 +173,12 @@ If your feature isn’t listed in the product roadmap, check our dedicated [feed
   <td><a href="https://www.telerik.com/aspnet-core-ui/gantt-chart?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">Gantt Features</a></td>
   <td><a href="https://docs.telerik.com/aspnet-core/html-helpers/scheduling/gantt/overview?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">Gantt Documentation</td>
   <td><a href="https://demos.telerik.com/aspnet-core/gantt?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">Gantt Demos</td>
+</tr> 
+ <tr>
+  <td><b>ASP.NET Core MultiViewCalendar Component</b></td>
+  <td><a href="https://www.telerik.com/aspnet-core-ui/core-multiviewcalendar?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">MultiViewCalendar Features</a></td>
+  <td><a href="https://docs.telerik.com/aspnet-core/html-helpers/scheduling/multiviewcalendar/overview?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">MultiViewCalendar Documentation</td>
+  <td><a href="https://demos.telerik.com/aspnet-core/multiviewcalendar?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">MultiViewCalendar Demos</td>
 </tr> 
 <tr>
   <td><b>ASP.NET Core Scheduler Component</b></td>
@@ -208,6 +232,12 @@ If your feature isn’t listed in the product roadmap, check our dedicated [feed
   <td><a href="https://docs.telerik.com/aspnet-core/html-helpers/editors/combobox/overview?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">ComboBox Documentation</td>
   <td><a href="https://demos.telerik.com/aspnet-core/combobox?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">ComboBox Demos</td>
 </tr>
+ <tr>
+  <td><b>ASP.NET Core MultiColumnComboBox Component</b></td>
+  <td><a href="https://www.telerik.com/aspnet-core-ui/multicolumncombobox?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">MultiColumnComboBox Features</a></td>
+  <td><a href="https://docs.telerik.com/aspnet-core/html-helpers/editors/multicolumncombobox/overview?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">MultiColumnComboBox Documentation</td>
+  <td><a href="https://demos.telerik.com/aspnet-core/multicolumncombobox?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">MultiColumnComboBox Demos</td>
+</tr>
 <tr>
   <td><b>ASP.NET Core DateInput Component</b></td>
   <td><a href="https://www.telerik.com/aspnet-core-ui/dateinput?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">DateInput Features</a></td>
@@ -234,9 +264,15 @@ If your feature isn’t listed in the product roadmap, check our dedicated [feed
 </tr>
  <tr>
   <td><b>ASP.NET Core TimePicker Component</b></td>
-  <td><a href="https://www.telerik.com/aspnet-core-ui/timepicker?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">Time Picker Features</a></td>
+  <td><a href="https://www.telerik.com/aspnet-core-ui/timepicker?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">TimePicker Features</a></td>
   <td><a href="https://docs.telerik.com/aspnet-core/html-helpers/editors/timepicker/overview?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">TimePicker Documentation</td>
   <td><a href="https://demos.telerik.com/aspnet-core/timepicker?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">TimePicker Demos</td>
+</tr>
+ <tr>
+  <td><b>ASP.NET Core TimeDurationPicker Component</b></td>
+  <td><a href="https://www.telerik.com/aspnet-core-ui/timedurationpicker?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">TimeDurationPicker Features</a></td>
+  <td><a href="https://docs.telerik.com/aspnet-core/html-helpers/editors/timedurationpicker/overview?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">TimeDurationPicker Documentation</td>
+  <td><a href="https://demos.telerik.com/aspnet-core/timedurationpicker?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">TimeDurationPicker Demos</td>
 </tr>
  <tr>
   <td><b>ASP.NET Core DropDownList Component</b></td>
@@ -274,6 +310,12 @@ If your feature isn’t listed in the product roadmap, check our dedicated [feed
   <td><a href="https://docs.telerik.com/aspnet-core/html-helpers/editors/radiogroup/overview?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">RadioGroup Documentation</td>
   <td><a href="https://demos.telerik.com/aspnet-core/radiogroup?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">RadioGroup Demos</td>
 </tr>
+ <tr>
+  <td><b>ASP.NET Core Rating Component</b></td>
+  <td><a href="https://www.telerik.com/aspnet-core-ui/rating?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">Rating Group Features</a></td>
+  <td><a href="https://docs.telerik.com/aspnet-core/html-helpers/editors/rating/overview?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">Rating Documentation</td>
+  <td><a href="https://demos.telerik.com/aspnet-core/rating?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">Rating Demos</td>
+</tr>
 <tr>
   <td><b>ASP.NET Core Editor Component</b></td>
   <td><a href="https://www.telerik.com/aspnet-core-ui/editor?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">Editor Features</a></td>
@@ -293,6 +335,12 @@ If your feature isn’t listed in the product roadmap, check our dedicated [feed
   <td><a href="https://demos.telerik.com/aspnet-core/textbox?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">TextBox Demos</td>
 </tr>
 <tr>
+  <td><b>ASP.NET Core Signature Component</b></td>
+  <td><a href="https://www.telerik.com/aspnet-core-ui/signature?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">Signature Features</a></td>
+  <td><a href="https://docs.telerik.com/aspnet-core/html-helpers/editors/signature/overview?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">Signature Documentation</td>
+  <td><a href="https://demos.telerik.com/aspnet-core/signature?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">Signature Demos</td>
+</tr>
+ <tr>
   <td><b>ASP.NET Core Slider Component</b></td>
   <td><a href="https://www.telerik.com/aspnet-core-ui/slider?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">Slider Features</a></td>
   <td><a href="https://docs.telerik.com/aspnet-core/html-helpers/editors/slider/overview?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">Slider Documentation</td>
@@ -340,9 +388,9 @@ If your feature isn’t listed in the product roadmap, check our dedicated [feed
 </tr>
 <tr>
   <td><b>ASP.NET Core Bar Chart Component</b></td>
-  <td><a href="https://www.telerik.com/aspnet-core-ui/charts?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">Diagram Features</a></td>
-  <td><a href="https://docs.telerik.com/aspnet-core/html-helpers/charts/overview?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">Diagram Documentation</td>
-  <td><a href="https://demos.telerik.com/aspnet-core/bar-charts?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">Diagram Demos</td>
+  <td><a href="https://www.telerik.com/aspnet-core-ui/charts?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">Bar Chart Features</a></td>
+  <td><a href="https://docs.telerik.com/aspnet-core/html-helpers/charts/overview?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">Bar Chart Documentation</td>
+  <td><a href="https://demos.telerik.com/aspnet-core/bar-charts?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">Bar Chart Demos</td>
 </tr>
 <tr>
   <td><b>ASP.NET Core Diagram Component</b></td>
@@ -397,6 +445,12 @@ If your feature isn’t listed in the product roadmap, check our dedicated [feed
   <td><a href="https://www.telerik.com/aspnet-core-ui/orgchart?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">OrgChart Features</a></td>
   <td><a href="https://docs.telerik.com/aspnet-core/html-helpers/diagrams-and-maps/orgchart/overview?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">OrgChart Documentation</td>
   <td><a href="https://demos.telerik.com/aspnet-core/orgchart?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">OrgChart Demos</td>
+</tr>
+ <tr>
+  <td><b>ASP.NET Core TreeMap Component</b></td>
+  <td><a href="https://www.telerik.com/aspnet-core-ui/treemap?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">TreeMap Features</a></td>
+  <td><a href="https://docs.telerik.com/aspnet-core/html-helpers/charts/treemap/overview?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">TreeMap Documentation</td>
+  <td><a href="https://demos.telerik.com/aspnet-core/treemap?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">TreeMap Demos</td>
 </tr>
 </tbody></table>
 
@@ -476,11 +530,41 @@ If your feature isn’t listed in the product roadmap, check our dedicated [feed
   <td><a href="https://docs.telerik.com/aspnet-core/html-helpers/layout/notification/overview?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">Notification Documentation</td>
   <td><a href="https://demos.telerik.com/aspnet-core/notification?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">Notification Demos</td>
 </tr>
+ <tr>
+  <td><b>ASP.NET Core Skeleton Container Component</b></td>
+   <td><a href="https://www.telerik.com/aspnet-core-ui/skeleton-container?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">Skeleton Container Features</a></td>
+  <td><a href="https://docs.telerik.com/aspnet-core/html-helpers/interactivity/skeletoncontainer/overview?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">Skeleton Container Documentation</td>
+  <td><a href="https://demos.telerik.com/aspnet-core/skeletoncontainer?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">Skeleton Container Demos</td>
+</tr>
+ <tr>
+  <td><b>ASP.NET Core Sortable Component</b></td>
+   <td><a href="https://www.telerik.com/aspnet-core-ui/sortable?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">Sortable Features</a></td>
+  <td><a href="https://docs.telerik.com/aspnet-core/html-helpers/interactivity/sortable/overview?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">Sortable Documentation</td>
+  <td><a href="https://demos.telerik.com/aspnet-core/sortable?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">Sortable Demos</td>
+</tr>
+  <tr>
+  <td><b>ASP.NET Core Conversational UI (Chat) Component</b></td>
+   <td><a href="https://www.telerik.com/aspnet-core-ui/conversational-ui?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">Conversational UI Features</a></td>
+  <td><a href="https://docs.telerik.com/aspnet-core/html-helpers/conversational-ui/chat/overview?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">Conversational UI Documentation</td>
+  <td><a href="https://demos.telerik.com/aspnet-core/chat?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">Conversational UI Demos</td>
+</tr>
+ <tr>
+  <td><b>ASP.NET Core Ripple Container Component</b></td>
+   <td><a href="https://www.telerik.com/aspnet-core-ui/core-ripple?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">Ripple Container Features</a></td>
+  <td>X</td>
+  <td><a href="https://demos.telerik.com/aspnet-core/ripplecontainer?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">Ripple Container Demos</td>
+</tr>
 </tbody></table>
 
 ### ASP.NET Core Layout Components
 <table><tbody>
-  <tr>
+ <tr>
+  <td><b>ASP.NET Core Avatar Component</b></td>
+  <td><a href="https://www.telerik.com/aspnet-core-ui/avatar?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">Avatar Features</a></td>
+  <td><a href="https://docs.telerik.com/aspnet-core/html-helpers/layout/avatar/overview?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">Avatar Documentation</td>
+  <td><a href="https://demos.telerik.com/aspnet-core/avatar?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">Avatar Demos</td>
+</tr> 
+ <tr>
   <td><b>ASP.NET Core Card Component</b></td>
   <td><a href="https://www.telerik.com/aspnet-core-ui?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">Card Features</a></td>
   <td><a href="https://docs.telerik.com/aspnet-core/styles-and-layout/cards?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">Card Documentation</td>
@@ -497,6 +581,25 @@ If your feature isn’t listed in the product roadmap, check our dedicated [feed
   <td><a href="https://www.telerik.com/aspnet-core-ui/form?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">Form Features</a></td>
   <td><a href="https://docs.telerik.com/aspnet-core/html-helpers/layout/form/overview?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">Form Documentation</td>
   <td><a href="https://demos.telerik.com/aspnet-core/form?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">Form Demos</td>
+</tr>
+<tr>
+<tr>
+  <td><b>ASP.NET Core GridLayout Component</b></td>
+  <td><a href="https://www.telerik.com/aspnet-core-ui/gridlayout?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">GridLayout Features</a></td>
+  <td><a href="https://docs.telerik.com/aspnet-core/html-helpers/layout/gridlayout/overview?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">GridLayout Documentation</td>
+  <td><a href="https://demos.telerik.com/aspnet-core/gridlayout?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">GridLayout Demos</td>
+</tr>
+ <tr>
+  <td><b>ASP.NET Core Expansion Panel Component</b></td>
+  <td><a href="https://www.telerik.com/aspnet-core-ui/expansionpanel?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">ExpansionPanel Features</a></td>
+  <td><a href="https://docs.telerik.com/aspnet-core/html-helpers/layout/expansionpanel/overview?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">ExpansionPanel Documentation</td>
+  <td><a href="https://demos.telerik.com/aspnet-core/expansionpanel?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">ExpansionPanel Demos</td>
+</tr>
+ <tr>
+  <td><b>ASP.NET Core StackLayout Component</b></td>
+  <td><a href="https://www.telerik.com/aspnet-core-ui/stacklayout?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">StackLayout Features</a></td>
+  <td><a href="https://demos.telerik.com/aspnet-core/stacklayout?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">StackLayout Documentation</td>
+  <td><a href="https://demos.telerik.com/aspnet-core/stacklayout?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">StackLayout Demos</td>
 </tr>
 <tr>
   <td><b>ASP.NET Core Badge Component</b></td>
@@ -517,6 +620,18 @@ If your feature isn’t listed in the product roadmap, check our dedicated [feed
   <td><a href="https://demos.telerik.com/aspnet-core/tilelayout?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">TileLayout Demos</td>
 </tr>
 <tr>
+  <td><b>ASP.NET Core Popover Component</b></td>
+  <td><a href="https://www.telerik.com/aspnet-core-ui/popover?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">Popover Features</a></td>
+  <td><a href="https://docs.telerik.com/aspnet-core/html-helpers/layout/popover/overview?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">Popover Documentation</td>
+  <td><a href="https://demos.telerik.com/aspnet-core/popover?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">Popover Demos</td>
+</tr>
+<tr>
+  <td><b>ASP.NET Core Responsive Panel Component</b></td>
+  <td><a href="https://www.telerik.com/aspnet-core-ui/responsive-panel?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">Responsive Panel Features</a></td>
+  <td><a href="https://docs.telerik.com/aspnet-core/html-helpers/layout/responsivepanel/overview?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">Responsive Panel Documentation</td>
+  <td><a href="https://demos.telerik.com/aspnet-core/responsive-panel?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">Responsive Panel Demos</td>
+</tr>
+<tr>
   <td><b>ASP.NET Core Window Component</b></td>
   <td><a href="https://www.telerik.com/aspnet-core-ui/window?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">Window Features</a></td>
   <td><a href="https://docs.telerik.com/aspnet-core/html-helpers/layout/window/overview?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">Window Documentation</td>
@@ -527,6 +642,24 @@ If your feature isn’t listed in the product roadmap, check our dedicated [feed
 ### ASP.NET Core Navigation Components
 <table><tbody>
 <tr>
+  <td><b>ASP.NET Core ActionSheet Component</b></td>
+  <td><a href="https://www.telerik.com/aspnet-core-ui/actionsheet?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">ActionSheet Features</a></td>
+  <td><a href="https://docs.telerik.com/aspnet-core/html-helpers/navigation/actionsheet/overview?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">ActionSheet Documentation</td>
+  <td><a href="https://demos.telerik.com/aspnet-core/actionsheet?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">ActionSheet Demos</td>
+</tr>
+ <tr>
+  <td><b>ASP.NET Core AppBar Component</b></td>
+  <td><a href="https://www.telerik.com/aspnet-core-ui/app-bar?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">AppBar Features</a></td>
+  <td><a href="https://docs.telerik.com/aspnet-core/html-helpers/navigation/appbar/overview?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">AppBar Documentation</td>
+  <td><a href="https://demos.telerik.com/aspnet-core/appbar?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">AppBar Demos</td>
+</tr>
+ <tr>
+  <td><b>ASP.NET Core Bottom Navigation Component</b></td>
+  <td><a href="https://www.telerik.com/aspnet-core-ui/bottomnavigation?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">BottomNavigation Features</a></td>
+  <td><a href="https://docs.telerik.com/aspnet-core/html-helpers/navigation/bottomnavigation/overview?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">BottomNavigation Documentation</td>
+  <td><a href="https://demos.telerik.com/aspnet-core/bottomnavigation?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">BottomNavigation Demos</td>
+</tr>
+ <tr>
   <td><b>ASP.NET Core Breadcrumb Component</b></td>
   <td><a href="https://www.telerik.com/aspnet-core-ui/breadcrumb?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">Breadcrumb Features</a></td>
   <td><a href="https://docs.telerik.com/aspnet-core/html-helpers/navigation/breadcrumb/overview?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">Breadcrumb Documentation</td>
@@ -544,6 +677,18 @@ If your feature isn’t listed in the product roadmap, check our dedicated [feed
   <td><a href="https://docs.telerik.com/aspnet-core/html-helpers/navigation/buttongroup/overview?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">ButtonGroup Documentation</td>
   <td><a href="https://demos.telerik.com/aspnet-core/buttongroup?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">ButtonGroup Demos</td>
 </tr>
+ <tr>
+  <td><b>ASP.NET Core Chip Component</b></td>
+  <td><a href="https://www.telerik.com/aspnet-core-ui/chip?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">Chip Features</a></td>
+  <td><a href="https://docs.telerik.com/aspnet-core/html-helpers/navigation/chip/overview?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">Chip Documentation</td>
+  <td><a href="https://demos.telerik.com/aspnet-core/chip?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">Chip Demos</td>
+</tr>
+ <tr>
+  <td><b>ASP.NET Core ChipList Component</b></td>
+  <td><a href="https://www.telerik.com/aspnet-core-ui/chiplist?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">ChipList Features</a></td>
+  <td><a href="https://docs.telerik.com/aspnet-core/html-helpers/navigation/chiplist/overview?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">ChipList Documentation</td>
+  <td><a href="https://demos.telerik.com/aspnet-core/chiplist?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">ChipList Demos</td>
+</tr>
 <tr>
   <td><b>ASP.NET Core Menu Component</b></td>
   <td><a href="https://www.telerik.com/aspnet-core-ui/menu?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">Menu Features</a></td>
@@ -557,10 +702,34 @@ If your feature isn’t listed in the product roadmap, check our dedicated [feed
   <td><a href="https://demos.telerik.com/aspnet-core/drawer?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">Drawer Demos</td>
 </tr>
 <tr>
+  <td><b>ASP.NET Core DropDown Button Component</b></td>
+  <td><a href="https://www.telerik.com/aspnet-core-ui/dropdownbutton?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">DropDown Button Features</a></td>
+  <td><a href="https://docs.telerik.com/aspnet-core/html-helpers/navigation/dropdownbutton/overview?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">DropDown Button Documentation</td>
+  <td><a href="https://demos.telerik.com/aspnet-core/dropdownbutton?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">DropDown Button Demos</td>
+</tr>
+<tr>
   <td><b>ASP.NET Core PanelBar Component</b></td>
   <td><a href="https://www.telerik.com/aspnet-core-ui/panelbar?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">PanelBar Features</a></td>
   <td><a href="https://docs.telerik.com/aspnet-core/html-helpers/navigation/panelbar/overview?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">PanelBar Documentation</td>
   <td><a href="https://demos.telerik.com/aspnet-core/panelbar?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">PanelBar Demos</td>
+</tr>
+ <tr>
+  <td><b>ASP.NET Core FloatingAction Button Component</b></td>
+  <td><a href="https://www.telerik.com/aspnet-core-ui/floatingactionbutton?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">FloatingActionButton Features</a></td>
+  <td><a href="https://docs.telerik.com/aspnet-core/html-helpers/navigation/floatingactionbutton/overview?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">FloatingActionButton Documentation</td>
+  <td><a href="https://demos.telerik.com/aspnet-core/floatingactionbutton?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">FloatingActionButton Demos</td>
+</tr>
+ <tr>
+  <td><b>ASP.NET Core SplitButton Component</b></td>
+  <td><a href="https://www.telerik.com/aspnet-core-ui/splitbutton?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">SplitButton Features</a></td>
+  <td><a href="https://docs.telerik.com/aspnet-core/html-helpers/navigation/splitbutton/overview?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">SplitButton Documentation</td>
+  <td><a href="https://demos.telerik.com/aspnet-core/splitbutton?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">SplitButton Demos</td>
+</tr>
+<tr>
+  <td><b>ASP.NET Core Timeline Component</b></td>
+  <td><a href="https://www.telerik.com/aspnet-core-ui/timeline?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">Timeline Features</a></td>
+  <td><a href="https://docs.telerik.com/aspnet-core/html-helpers/navigation/timeline/overview?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">Timeline Documentation</td>
+  <td><a href="https://demos.telerik.com/aspnet-core/timeline?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">Timeline Demos</td>
 </tr>
 <tr>
   <td><b>ASP.NET Core TabStrip Component</b></td>
@@ -593,6 +762,22 @@ If your feature isn’t listed in the product roadmap, check our dedicated [feed
   <td><a href="https://demos.telerik.com/aspnet-core/wizard?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-githu">Wizard Demos</td>
 </tr>
 </tbody></table>  
+
+### Media
+<table><tbody>
+<tr>
+  <td><b>ASP.NET Core MediaPlayer Component</b></td>
+  <td><a href="https://www.telerik.com/aspnet-core-ui/mediaplayer?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">MediaPlayer Features</a></td>
+  <td><a href="https://docs.telerik.com/aspnet-core/html-helpers/media/mediaplayer/overview?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">MediaPlayer Documentation</td>
+  <td><a href="https://demos.telerik.com/aspnet-core/mediaplayer?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">MediaPlayer Demos</td>
+</tr>
+ <tr>
+  <td><b>ASP.NET Core ScrollView Component</b></td>
+  <td><a href="https://www.telerik.com/aspnet-core-ui/scrollview?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">ScrollView Features</a></td>
+  <td><a href="https://docs.telerik.com/aspnet-core/html-helpers/media/scrollview/overview?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">ScrollView Documentation</td>
+  <td><a href="https://demos.telerik.com/aspnet-core/scrollview?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">ScrollView Demos</td>
+</tr>
+</tbody></table>
 
 ### Document Processing Libraries
 As part of your Telerik UI for ASP.NET Core free trial or licensed copy you get access to several document processing libraries that allow you to convert, manage and export data to different file formats.
@@ -630,17 +815,27 @@ As part of your Telerik UI for ASP.NET Core free trial or licensed copy you get 
 </tr>
 </tbody></table>
 
+### Visual Studio Code
+The Telerik UI for ASP.NET Core Productivity Tools for Visual Studio Code include UI for ASP.NET Core Scaffolder, Code Snippets Pack, Project Templates with Telerik components, Telerik REPL for ASP.NET Core
+<table><tbody>
+<tr>
+  <td><b>ASP.NET Core Visual Studio Code</b></td>
+  <td><a href="https://www.telerik.com/aspnet-core-ui/visual-studio-code?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">Visual Studio Code Overview</a></td>
+  <td><a href="https://docs.telerik.com/aspnet-core/vs-code-integration/introduction?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">Visual Studio Code Documentation</td>
+</tr>
+</tbody></table>
+
 ## Design-to-Development Support
 
-### 3 Design Themes
+### Four Design Themes
 
-Telerik UI for ASP.NET Core offers a variety of professionally designed and customizable built-in themes plus the Telerik SASS Theme Builder to help you create and deliver UI according to business needs. Telerik Ui for ASP.NET Core includes [three built-in themes: ASP.NET Core Default Theme, Material and Bootstrap Themes](https://docs.telerik.com/aspnet-core/styles-and-layout/components-rendering-overview?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github), as well as multiple color swatches including "Ocean Blue" targeting accessibility compliance.
+Telerik UI for ASP.NET Core offers a variety of professionally designed and customizable built-in themes plus the Telerik SASS Theme Builder to help you create and deliver UI according to business needs. Telerik Ui for ASP.NET Core includes [four built-in themes: ASP.NET Core Default Theme, Material, Fluent and Bootstrap Themes](https://docs.telerik.com/aspnet-core/styles-and-layout/components-rendering-overview?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github), as well as multiple color swatches including "Ocean Blue" targeting accessibility compliance.
 
 ### Design Kits for Figma
 
 <table><tbody>
 <tr>
-  <td><b>3 Telerik UI Design Kits for Figma</b></td>
+  <td><b>Four Telerik UI Design Kits for Figma</b></td>
    <td><a href="https://www.telerik.com/aspnet-core-ui/3-telerik-ui-kits-for-figma?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">Telerik UI Figma Design Kits</a></td>
   <td><a href="https://docs.telerik.com/aspnet-core/styles-and-layout/sass-themes/figma-kits?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">Documentation</td>
 </tr>
