@@ -590,13 +590,13 @@ If your feature isn’t listed in the product roadmap, check our dedicated [feed
   <td><a href="https://demos.telerik.com/aspnet-core/gridlayout?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">GridLayout Demos</td>
 </tr>
  <tr>
-  <td><b>ASP.NET Expansion Panel Component</b></td>
+  <td><b>ASP.NET Core Expansion Panel Component</b></td>
   <td><a href="https://www.telerik.com/aspnet-core-ui/expansionpanel?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">ExpansionPanel Features</a></td>
   <td><a href="https://docs.telerik.com/aspnet-core/html-helpers/layout/expansionpanel/overview?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">ExpansionPanel Documentation</td>
   <td><a href="https://demos.telerik.com/aspnet-core/expansionpanel?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">ExpansionPanel Demos</td>
 </tr>
  <tr>
-  <td><b>ASP.NET StackLayout Component</b></td>
+  <td><b>ASP.NET Core StackLayout Component</b></td>
   <td><a href="https://www.telerik.com/aspnet-core-ui/stacklayout?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">StackLayout Features</a></td>
   <td><a href="https://demos.telerik.com/aspnet-core/stacklayout?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">StackLayout Documentation</td>
   <td><a href="https://demos.telerik.com/aspnet-core/stacklayout?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">StackLayout Demos</td>
