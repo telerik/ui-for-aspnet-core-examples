@@ -13,20 +13,22 @@
             views.AgendaView();
             views.TimelineView();
         })
-        .Timezone("Etc/UTC")
-        .DataSource(d => d
-            .Model(m =>
-            {
-                m.Id(f => f.TaskID);
-                m.Field(f => f.Title).DefaultValue("No title");
-                m.Field(f => f.Title).DefaultValue("No title");
-                m.RecurrenceId(f => f.RecurrenceID);
-            })
-            .ServerOperation(true)
-        .Read(read => read.Action("Read", "SchedulerServerFiltering").Data("getAdditionalData"))
-        .Create("Create", "SchedulerServerFiltering")
-        .Destroy("Destroy", "SchedulerServerFiltering")
-        .Update("Update", "SchedulerServerFiltering")
+    .Editable(e=>e.TemplateName("SchedulerEdit").Window(window=>window.MinWidth(330).Width(400)))
+    .Timezone("Etc/UTC")
+    .DataSource(d => d
+    .Model(m =>
+        {
+            m.Id(f => f.TaskID);
+            m.Field(f => f.Title).DefaultValue("No title");
+            m.Field(f => f.Title).DefaultValue("No title");
+            m.RecurrenceId(f => f.RecurrenceID);
+        })
+        .ServerOperation(true)
+        .Read(read => read.Action("Read", "SchedulerCustomEdit").Data("getAdditionalData"))
+        .Create("Create", "SchedulerCustomEdit")
+        .Destroy("Destroy", "SchedulerCustomEdit")
+        .Update("Update", "SchedulerCustomEdit")
+
     )
 )
 

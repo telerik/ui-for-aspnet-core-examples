@@ -1,0 +1,36 @@
+﻿<div class ="k-edit-field">
+@(Html.Kendo().TextBox()
+            .Name("title")
+            .Label(l => l.Content("Title"))
+            .Placeholder("Enter a title")
+            .HtmlAttributes(new { style = "width: 100%" })
+        )
+</div>
+<div class="k-edit-field">
+<label for="start">Start</label>
+@(Html.Kendo().DateTimePicker()
+            .Name("start")
+            .HtmlAttributes(new { style = "width: 100%" })
+
+        )
+</div>
+<div class="k-edit-field">
+<label for="end">End</label>
+@(Html.Kendo().DateTimePicker()
+            .Name("end")
+            .HtmlAttributes(new { style = "width: 100%" })
+        )
+</div>
+<div class="k-edit-field">
+@(Html.Kendo().TextArea()
+                .Name("description")
+                .Label(label => label.Content("Description"))
+                .Rows(4)
+                .MaxLength(200)
+            )
+</div>
+<style>
+    label{
+        margin-right: 5px;
+    }
+</style>
