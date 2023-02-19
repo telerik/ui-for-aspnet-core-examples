@@ -2,12 +2,12 @@
 using System.IO;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Hosting;
-using Kendo.Core.Export;
-using Telerik.Documents.Primitives;
 using Telerik.Windows.Documents.Fixed.Model;
-using Telerik.Windows.Documents.Fixed.Model.Editing;
-using Telerik.Windows.Documents.Fixed.Model.ColorSpaces;
 using Telerik.Windows.Documents.Fixed.FormatProviders.Pdf.Streaming;
+using Telerik.Windows.Documents.Fixed.Model.Editing;
+using Telerik.Documents.Primitives;
+using Telerik.Windows.Documents.Fixed.Model.ColorSpaces;
+using Kendo.Core.Export;
 
 namespace Telerik.Examples.Mvc.Controllers.Editor
 {
