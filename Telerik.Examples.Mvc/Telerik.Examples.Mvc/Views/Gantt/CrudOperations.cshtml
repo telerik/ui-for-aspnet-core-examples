@@ -1,0 +1,51 @@
+﻿@{ 
+    ViewData["Title"] = "CRUD Operations";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+@(Html.Kendo().Gantt<GanttTaskViewModel, GanttDepedencyViewModel>()
+    .Name("gantt")
+    .Columns(columns =>
+    {
+        columns.Bound(c => c.TaskID).Title("ID").Width(80);
+        columns.Bound(c => c.Title).Width(250).Editable(true).Sortable(true);
+        columns.Bound(c => c.Start).Width(150).Editable(true).Sortable(true);
+        columns.Bound(c => c.End).Width(150).Editable(true).Sortable(true);
+    })
+    .Views(views =>
+    {
+        views.DayView();
+        views.WeekView(weekView => weekView.Selected(true));
+        views.MonthView();
+    })
+    .Height(700)
+    .ShowWorkHours(false)
+    .ShowWorkDays(false)
+    .Snap(false)
+    .DataSource(d => d
+        .Model(m =>
+        {
+            m.Id(f => f.TaskID);
+            m.ParentId(f => f.ParentID);
+            m.Field(f => f.Expanded).DefaultValue(true);
+            m.Field<string>(f => f.TaskID);
+        })
+        .Read(r => r.Action("Read_Tasks", "CrudOperations"))
+        .Create(r => r.Action("Create_Task", "CrudOperations"))
+        .Update(r => r.Action("Update_Task", "CrudOperations"))
+        .Destroy(r => r.Action("Destroy_Task", "CrudOperations"))
+    )
+    .DependenciesDataSource(d => d
+        .Model(m =>
+        {
+            m.Id(f => f.DependencyID);
+            m.PredecessorId(f => f.PredecessorID);
+            m.SuccessorId(f => f.SuccessorID);
+        })
+        .Read(r => r.Action("Read_Dependencies", "CrudOperations"))
+        .Create(r => r.Action("Create_Dependency", "CrudOperations"))
+        .Update(r => r.Action("Update_Dependency", "CrudOperations"))
+        .Destroy(r => r.Action("Destroy_Dependency", "CrudOperations"))
+    )
+)
