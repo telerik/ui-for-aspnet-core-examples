@@ -74,7 +74,7 @@ If your feature isn’t listed in the product roadmap, check our dedicated [feed
 <table><tbody>
 <tr>
   <td><b>ASP.NET Core DataGrid Component</b></td>
-  <td><a href="https://www.telerik.com/aspnet-core-ui/grid?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">Gird Features</a></td>
+  <td><a href="https://www.telerik.com/aspnet-core-ui/grid?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">Grid Features</a></td>
   <td><a href="https://docs.telerik.com/aspnet-core/html-helpers/data-management/grid/overview?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">Grid Documentation</td>
   <td><a href="https://demos.telerik.com/aspnet-core/grid?utm_medium=referral&utm_source=github&utm_campaign=core-trial-components-examples-github">Grid Demos</td>
 </tr>
