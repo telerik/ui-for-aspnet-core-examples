@@ -15,6 +15,7 @@ using Newtonsoft.Json.Serialization;
 using AutoMapper;
 using Telerik.Examples.Mvc.Hubs;
 using Microsoft.AspNetCore.Identity;
+using AutoMapper.Internal;
 
 namespace Telerik.Examples.Mvc
 {
@@ -34,6 +35,7 @@ namespace Telerik.Examples.Mvc
 
             var mappingConfig = new MapperConfiguration(mc =>
             {
+                mc.Internal().MethodMappingEnabled = false;
                 mc.AddProfile(new MappingProfile());
             });
 
