@@ -22,6 +22,7 @@ namespace Telerik.Examples.Mvc.Models
         public string RecurrenceException { get; set; }
         public string StartTimezone { get; set; }
         public string EndTimezone { get; set; }
+        public int? RoomID { get; set; }
 
         public virtual ICollection<Task> Tasks1 { get; set; }
         public virtual Task Task1 { get; set; }
