@@ -18,6 +18,27 @@ namespace Telerik.Examples.Mvc.Controllers.Scheduler
 
         private SchedulerTaskService taskService;
 
+        private List<SchedulerEventModel> appointments = new List<SchedulerEventModel> {
+            new SchedulerEventModel {
+                TaskID = 1,
+                Description = "Task 1 Description",
+                Title = "Task 1",
+                Start = new DateTime(2023,4,11,6,00,00),
+                End= new DateTime(2023,4,11,8,30,00),
+                RoomID = 1,
+                Attendees = new List<int>() { 1, 2 }
+            },
+            new SchedulerEventModel {
+                TaskID = 2,
+                Description = "Task 2 Description",
+                Title = "Task 2",
+                Start = new DateTime(2023,4,10,12,00,00),
+                End= new DateTime(2023,4,10,13,00,00),
+                RoomID = 2,
+                Attendees = new List<int>() { 2, 3 }
+            }
+        };
+
         public SchedulerGoogleCalendarController(GeneralDbContext context)
         {
             taskService = new SchedulerTaskService(context);
@@ -25,14 +46,11 @@ namespace Telerik.Examples.Mvc.Controllers.Scheduler
 
         public virtual JsonResult Read([DataSourceRequest] DataSourceRequest request, FilterRange range)
         {
-            //var t = taskService.GetAll();
-            var data = taskService.GetRange(range.Start, range.End);
-            return Json(data.ToDataSourceResult(request));
-            //return Json(taskService.GetAll().ToDataSourceResult(request));
+            return Json(appointments.ToDataSourceResult(request));
 
         }
 
-        public virtual JsonResult Destroy([DataSourceRequest] DataSourceRequest request, TaskViewModel task)
+        public virtual JsonResult Delete([DataSourceRequest] DataSourceRequest request, TaskViewModel task)
         {
             if (ModelState.IsValid)
             {
