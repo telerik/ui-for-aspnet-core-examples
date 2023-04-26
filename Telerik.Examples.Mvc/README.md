@@ -22,7 +22,7 @@ The following section aims to provide additional information or important notes 
 
 This project demonstrates how you can add, read, edit and delete text data using a local database and the UI for ASP.NET Core Editor component
 
-> Please note that the current project doesn't have any XSS attack preventions applied. It is a developer's responsibility to manage these security risks. For more information, please refer to this [Preventing Cross-Site Scripting](https://docs.telerik.com/kendo-ui/controls/editors/editor/preventing-xss) article.
+> Please note that the current project doesn't have any XSS attack preventions applied. It is a developer's responsibility to manage these security risks. For more information, please refer to this [Preventing Cross-Site Scripting](https://docs.telerik.com/kendo-ui/controls/editor/preventing-xss) article.
 
 #### MultiSelect/GetPostData
 
