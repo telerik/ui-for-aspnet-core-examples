@@ -16,6 +16,7 @@ namespace Telerik.Examples.RazorPages.Pages.FileManager
     public class FileManagerIndexModel : PageModel
     {
         //public static IList<OrderViewModel> orders;
+        public static readonly string[] foldersToCopy = new[] { "shared/UserFiles/Folders" };
 
         public FileManagerIndexModel(IWebHostEnvironment hostingEnvironment)
         {
@@ -37,11 +38,10 @@ namespace Telerik.Examples.RazorPages.Pages.FileManager
             get
             {
                 var virtualPath = Path.Combine("shared", "UserFiles", "Folders");
-                var path = HostingEnvironment.WebRootFileProvider.GetFileInfo(virtualPath).PhysicalPath;
+                var path = virtualPath;
                 return path;
             }
         }
-
         /// <summary>
         /// Gets the valid file extensions by which served files will be filtered.
         /// </summary>
@@ -93,11 +93,11 @@ namespace Telerik.Examples.RazorPages.Pages.FileManager
         {
             if (string.IsNullOrEmpty(path))
             {
-                return Path.GetFullPath(Path.Combine(this.HostingEnvironment.WebRootPath, ContentPath));
+                return Path.GetFullPath(Path.Combine(HostingEnvironment.WebRootPath, ContentPath));
             }
             else
             {
-                return Path.GetFullPath(Path.Combine(this.HostingEnvironment.WebRootPath, ContentPath, path));
+                return Path.GetFullPath(Path.Combine(HostingEnvironment.WebRootPath, ContentPath, path));
             }
         }
 

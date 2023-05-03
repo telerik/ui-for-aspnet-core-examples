@@ -40,7 +40,6 @@
                 .Label(l => l.Text("Freight:"));
             items.Add()
                 .Field("Captcha")
-                .Label("")
                 .Editor(ed => ed.Captcha()
                     .CaptchaImage((string)ViewData["Captcha"])
                     .CaptchaId((string)ViewData["CaptchaID"])
