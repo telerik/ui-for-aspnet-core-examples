@@ -12,9 +12,24 @@ using Telerik.Examples.Mvc.Hubs;
 using AutoMapper;
 using AutoMapper.Internal;
 using Telerik.Examples.Mvc.Models;
+using Microsoft.AspNetCore.OData;
+using Microsoft.OData.Edm;
+using Microsoft.OData.ModelBuilder;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddControllers().AddOData(options =>
+{
+    options.AddRouteComponents("odata", GetEdmModel());
+    options.Select()
+           .Filter()
+           .Count()
+           .OrderBy()
+           .Expand()
+           .Select()
+           .SetMaxTop(null);
+});
 
 var mappingConfig = new MapperConfiguration(mc =>
 {
@@ -102,3 +117,12 @@ var context = serviceScope.ServiceProvider.GetRequiredService<GeneralDbContext>(
 context.Database.Migrate();
 
 app.Run();
+
+
+static IEdmModel GetEdmModel()
+{
+    ODataConventionModelBuilder builder = new ODataConventionModelBuilder();
+    builder.EntitySet<Product>("Products");
+    builder.EntitySet<Category>("Categories");
+    return builder.GetEdmModel();
+}

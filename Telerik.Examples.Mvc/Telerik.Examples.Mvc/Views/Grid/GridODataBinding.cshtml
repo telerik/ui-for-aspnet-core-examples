@@ -1,0 +1,65 @@
+﻿@{
+    ViewData["Title"] = "GridODataBinding";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+@(Html.Kendo().Grid<Product>()
+     .Name("grid")
+     .Columns(columns =>
+     {
+         columns.Bound(p => p.ProductName);
+         columns.Bound(p => p.UnitsInStock);
+         columns.Bound(p => p.Category).ClientTemplate("#=Category.CategoryName#").EditorTemplateName("DropDownEditor");
+         columns.Bound(p => p.Discontinued);
+         columns.Bound(p => p.UnitsOnOrder);
+         columns.Bound(p => p.UnitPrice).Width(150);
+         columns.Command(command => {
+             command.Edit();
+             command.Destroy();
+         }).Width(150);
+     })
+     .ToolBar(toolBar =>
+     {
+         toolBar.Create();
+     })
+     .Editable(editable => editable.Mode(GridEditMode.InLine))
+     .Pageable()
+     .DataSource(dataSource => dataSource
+         .Custom()
+         .Type("odata-v4")
+         .Schema(schema => schema
+         .Model(model =>
+         {
+             model.Id(t => t.ProductID);
+             model.Field(t => t.ProductID).Editable(false);
+             model.Field(t => t.ProductName);
+             model.Field(t => t.UnitPrice);
+             model.Field(t => t.UnitsInStock);
+             model.Field(t => t.UnitsOnOrder);
+             model.Field(t => t.Discontinued);
+             model.Field(t => t.Category).DefaultValue(new Category { CategoryID = 1 , CategoryName = "Category1"});
+         }))
+         .Transport(transport =>
+         {
+             transport.Read(read => read.Url("/odata/Products").Data("function() {return {'$expand': 'Category'} }"));
+             transport.Update(new { url = new Kendo.Mvc.ClientHandlerDescriptor() { HandlerName = "update" } });
+             transport.Destroy(new { url = new Kendo.Mvc.ClientHandlerDescriptor() { HandlerName = "destroy" } });
+             transport.Create(new { url = new Kendo.Mvc.ClientHandlerDescriptor() { HandlerName = "create" } });
+         })
+         .PageSize(10)
+         .ServerPaging(true)
+     )
+)
+
+<script>
+    function update(dataItem){
+        return "/odata/Products(" + dataItem.ProductID + ")"
+    }
+    function create(){
+        return "/odata/Products?$expand=Category"
+    }
+    function destroy(dataItem){
+        return "/odata/Products(" + dataItem.ProductID + ")"
+    }
+</script>
