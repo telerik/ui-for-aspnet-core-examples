@@ -12,7 +12,7 @@
             .DataSource(dataSource => dataSource
               .Ajax()
               .PageSize(5)
-              .Read(read => read.Action("Children_Read", "Demo_Detail_Template_CSP"))
+              .Read(read => read.Action("Children_Read", "Demo_Detail_Template_CSP").Data("additionalData"))
             )
               .Pageable()
               .Sortable()

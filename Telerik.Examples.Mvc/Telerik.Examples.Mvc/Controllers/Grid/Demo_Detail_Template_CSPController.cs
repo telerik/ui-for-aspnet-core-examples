@@ -42,57 +42,6 @@ namespace Telerik.Examples.Mvc.Controllers.Grid
             var dsResult = result.ToDataSourceResult(request);
             return Json(dsResult);
         }
-        //public ActionResult DetailProducts_Update([DataSourceRequest] DataSourceRequest request, [Bind(Prefix = "models")] List<DetailProductViewModel> orders)
-        //{
-        //    var results = new List<DetailProductViewModel>();
-        //    if (orders != null && ModelState.IsValid)
-        //    {
-        //        results = orders;
-        //    }
-        //    return Json(results.ToDataSourceResult(request));
-        //}
-        //public ActionResult DetailProducts_Create([DataSourceRequest] DataSourceRequest request,
-        //    [Bind(Prefix = "models")] List<DetailProductViewModel> orders)
-        //{
-
-        //    var results = new List<DetailProductViewModel>();
-        //    if (orders != null && ModelState.IsValid)
-        //    {
-        //        int entriesNum = GetAll().Count();
-
-        //        foreach (DetailProductViewModel order in orders)
-        //        {
-        //            bool isInvalid = entriesNum >= order.ProductID;
-        //            if (isInvalid)
-        //            {
-        //                ModelState.AddModelError("NotUnique", "Row already exists");
-        //                return Json(results.ToDataSourceResult(request, ModelState));
-        //            }
-
-        //        }
-
-
-        //        results = orders;
-        //    }
-        //    return Json(results.ToDataSourceResult(request, ModelState));
-
-        //}
-
-        //public ActionResult DetailProducts_Destroy([DataSourceRequest] DataSourceRequest request,
-        //    [Bind(Prefix = "models")] List<DetailProductViewModel> orders)
-        //{
-        //    //ModelState.AddModelError("Destroy", "An unexplaing error");
-        //    var results = new List<DetailProductViewModel>();
-        //    if (orders != null && ModelState.IsValid)
-        //    {
-        //        foreach (var order in orders)
-        //        {
-        //            results.Add(order);
-        //        }
-        //    }
-        //    return Json(results.ToDataSourceResult(request, ModelState));
-        //}
-
         public static string JsonParentData { get; set; } = "[{\"EmployeeID\":1,\"FirstName\":\"Nancy\",\"EmployeeName\":null,\"LastName\":\"Davolio\""+
             ",\"Title\":\"SalesRepresentative\",\"Country\":\"USA\",\"City\":\"Seattle\",\"Address\":\"507-20thAve.E.\\nApt.2A\",\"HomePhone\":\"(206)555-9857\",\"Notes\":\"EducationincludesaBAinpsychologyfromColoradoStateUniversityin1970.Shealsocompleted\\\"TheArtoftheColdCall.\\\"NancyisamemberofToastmastersInternational.\",\"ReportsTo\":null},{\"EmployeeID\":2,\"FirstName\":\"Andrew\",\"EmployeeName\":null,"+
             "\"LastName\":\"Fuller\",\"Title\":\"VicePresident,Sales\",\"Country\":\"USA\",\"City\":\"Tacoma\",\"Address\":\"908W.CapitalWay\",\"HomePhone\":\"(206)555-9482\","+

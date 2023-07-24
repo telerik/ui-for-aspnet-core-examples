@@ -70,10 +70,11 @@ namespace Telerik.Examples.Mvc
             }).AddEntityFrameworkStores<GeneralDbContext>();
 
             //services.AddKendo();
-            services.AddKendo(x =>     
+            services.AddKendo(x =>
             {
                 x.DeferToScriptFiles = true;
             });
+
             services.AddSignalR().AddJsonProtocol(options => {
                 options.PayloadSerializerOptions.PropertyNamingPolicy = null;
             });
@@ -81,6 +82,7 @@ namespace Telerik.Examples.Mvc
             {
                 options.AllowSynchronousIO = true;
             });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -114,7 +116,7 @@ namespace Telerik.Examples.Mvc
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
-
+            
             using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
             {
                 var context = serviceScope.ServiceProvider.GetRequiredService<GeneralDbContext>();

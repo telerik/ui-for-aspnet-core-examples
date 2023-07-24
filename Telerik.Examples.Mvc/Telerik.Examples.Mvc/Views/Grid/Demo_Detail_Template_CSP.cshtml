@@ -1,4 +1,4 @@
-﻿
+﻿@using Kendo.Mvc
 
 
 @(Html.Kendo().Grid<Telerik.Examples.Mvc.Models.ExtendedEmployeeViewModel>()
@@ -41,16 +41,17 @@
         )
         .Events(events => events.DataBound("dataBound").DetailExpand("onExpand"))
 )
-
+@(Html.Kendo().DeferredScriptFile("Telerik-CSP-Examples"))
 <script nonce="Telerik-CSP-Examples">
     var expandId;
     function onExpand(e){
         var dataItem = e.sender.dataItem(e.masterRow);
         expandId=dataItem.EmployeeID;
+        console.log(expandId)
         setTimeout(function(){
             var tabstrip = $(e.detailRow).find(`#tabStrip_${expandId}`).data("kendoTabStrip");
             tabstrip.select(0);
-        },200)
+        },300)
     }
     function onSelect(e){
         e.sender.setOptions({
@@ -69,7 +70,7 @@
         this.expandRow(this.tbody.find("tr.k-master-row").first());
     }
 </script>
-@(Html.Kendo().DeferredScriptFile("Telerik-CSP-Examples"))
+
 <style>
     .k-detail-cell .k-tabstrip .demo-section {
         padding: 0.2em;
