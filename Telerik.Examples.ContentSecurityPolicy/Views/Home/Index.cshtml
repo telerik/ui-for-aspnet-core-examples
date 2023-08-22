@@ -1,0 +1,64 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+@model IEnumerable<IGrouping<string,Demo>>
+
+<h2 class="text-center">Navigate to an example of your choice</h2>
+<p>The Telerik.Examples.ContentSecurityPolicy project is comprised of a number of pages that aim to depict a certain functionality or behavior of the different Telerik UI components.</p>
+
+<div class="nav-list">
+    @foreach (var component in Model)
+    {
+        <h4 class="nav-list-header">
+            @component.Key
+        </h4>
+        foreach (var demoName in component.Select(s => s.ActionName).Distinct())
+        {
+            var href = "/" + demoName + "/" + demoName;
+            <li class="nav-list-item">
+                <a href="@href">@demoName</a>
+            </li>
+        }
+
+    }
+</div>
+
+<script nonce="Telerik-CSP-Examples">
+    $(document).ready(function () {
+        var headers = $(".nav-list").find(".nav-list-header");
+
+        headers.each(function (i, e) {
+            var header = $(e);
+            var list = header.nextUntil(".nav-list-header").wrapAll("<ul class='nav-list-items-wrap'></ul>");
+
+            header.wrap("<div class='nav-list-col'></div>");
+            header.parent().append(list.parent());
+        });
+    });
+</script>
+
+<style>
+    .nav-list {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .nav-list-col {
+        flex: 1 1 50%;
+        min-width: 400px;
+    }
+
+    .nav-list-header {
+        margin-top: 30px;
+    }
+
+    .nav-list-items-wrap {
+        list-style: none;
+    }
+
+    .nav-list-item {
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+</style>
