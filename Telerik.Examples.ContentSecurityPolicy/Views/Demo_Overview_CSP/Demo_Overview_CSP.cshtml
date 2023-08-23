@@ -5,15 +5,17 @@
 }
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self'; script-src 'self' https://kendo.cdn.telerik.com 'nonce-Telerik-CSP-Examples'; style-src 'self' 'unsafe-inline' https://kendo.cdn.telerik.com; font-src 'self' data:;" />
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self'; script-src 'self' https://kendo.cdn.telerik.com https://code.jquery.com/ 'nonce-Telerik-CSP-Examples'; style-src 'self' 'unsafe-inline' https://kendo.cdn.telerik.com; font-src 'self' data:;" />
 <title>@ViewData["Title"] - Telerik.Examples.Mvc</title>
 
 @{
     var kendoVersion = "2023.2.718";
 }
-<link rel="stylesheet" href="https://kendo.cdn.telerik.com/themes/6.5.0/default/default-ocean-blue.css">
+<link rel="stylesheet" href="https://kendo.cdn.telerik.com/themes/6.6.0/default/default-ocean-blue.css">
 
-<script src="https://kendo.cdn.telerik.com/@kendoVersion/js/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"
+            integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g="
+            crossorigin="anonymous"></script>
 <script src="https://kendo.cdn.telerik.com/@kendoVersion/js/jszip.min.js"></script>
 <script src="https://kendo.cdn.telerik.com/@kendoVersion/js/kendo.all.min.js"></script>
 <script src="https://kendo.cdn.telerik.com/@kendoVersion/js/kendo.aspnetmvc.min.js"></script>
