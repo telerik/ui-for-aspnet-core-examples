@@ -35,6 +35,15 @@ This repo allows you to experiment with RazorPages and MVC (Model View Controlle
 3. Build the solution and run the Razor project.
 4. Navigate to a certain ASPNET Core example by adding the PageFolder/ViewName to the URL, i.e https://localhost:44361/grid/gridcustomdatasource
 
+## Telerik.Examples.ContentSecurityPolicy
+
+1. Open the Telerik.Examples.ContentSecurityPolicy.sln file in VS 2019 or VS 2022. 
+2. Clean the solution
+3. Build the solution and run the ContentSecurityPolicy project.
+
+> The project applies a strict Content-Security-Policy for evaluating and sourcing JavaScript on the client-side.
+
+
 **NOTE**: This repository does not contain the actual source code of the components, or the demos application available at the official UI for ASP.NET Core demos. The demos application is available as an offline project from your Telerik UI for ASP.NET Core installation.
 ***
 
