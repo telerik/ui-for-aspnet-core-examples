@@ -1,0 +1,59 @@
+﻿@page
+@model Telerik.Examples.RazorPages.Pages.Grid.GridCascadingForeignKeysModel
+
+
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Xsrf
+@Html.AntiForgeryToken()
+
+@(Html.Kendo().Grid<ShippingModel>()
+     .Name("grid")
+     .Groupable()
+     .Sortable()
+     .Editable(e => e.Mode(GridEditMode.InLine))
+     .ToolBar(x =>
+     {
+         x.Create();
+     })
+     .Columns(columns =>
+     {
+         columns.Bound(column => column.Freight);
+         columns.ForeignKey(p => p.Fk_CountryID, ds => ds.Read(read => read.Url(Url.Page("GridCascadingForeignKeys", "Countries"))), "ID", "Description", true)
+           .Title("Country").EditorTemplateName("CountryGridForeignKey").Width(200);
+
+         columns.ForeignKey(p => p.Fk_StateID, ds => ds.Read(read => read.Url(Url.Page("GridCascadingForeignKeys", "StateLookup"))), "ID", "Description", true)
+         .Title("State").EditorTemplateName("StateGridForeignKey").Width(200);
+
+         columns.Bound(column => column.ShipName);
+         columns.Bound(column => column.ShipCity);
+         columns.Command(column =>
+         {
+             column.Edit();
+             column.Destroy();
+         }).Width(230);
+     })
+     .DataSource(ds => ds
+        .Ajax()
+        .Read(r => r.Url(Url.Page("GridCascadingForeignKeys", "Read")).Data("forgeryToken"))
+        .Update(u => u.Url(Url.Page("GridCascadingForeignKeys", "Update")).Data("forgeryToken"))
+        .Create(c => c.Url(Url.Page("GridCascadingForeignKeys", "Create")).Data("forgeryToken"))
+        .Destroy(d => d.Url(Url.Page("GridCascadingForeignKeys", "Destroy")).Data("forgeryToken"))
+        .Model(m =>
+        {
+            m.Id(id => id.OrderID);
+        })
+        .PageSize(10)
+     )
+     .Pageable()
+)
+
+<script>
+    function forgeryToken() {
+        return kendo.antiForgeryTokens();
+    }
+
+    function filterStates() {
+        return {
+            countryId: $("#Fk_CountryID").data("kendoDropDownList").value()
+        };
+    }
+</script>
