@@ -1,0 +1,15 @@
+﻿@model int?
+
+@(Html.Kendo().DropDownListFor(m => m)
+    .AutoBind(false)
+    .ValuePrimitive(true)
+    .OptionLabel("Select State..")
+    .DataValueField("ID")
+    .DataTextField("Description")
+    .DataSource(dataSource =>
+     {
+         dataSource.Read(read => read.Url(Url.Page("GridCascadingForeignKeys", "StateLookup")).Data("filterStates"))
+                 .ServerFiltering(true);
+     })
+    .CascadeFrom("Fk_CountryID")
+)

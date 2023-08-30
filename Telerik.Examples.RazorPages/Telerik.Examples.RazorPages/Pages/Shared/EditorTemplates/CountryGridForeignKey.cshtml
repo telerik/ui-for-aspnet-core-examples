@@ -1,0 +1,9 @@
+﻿@model int?
+
+@(Html.Kendo().DropDownListFor(m => m)
+    .ValuePrimitive(true)
+    .OptionLabel("Select Country..")
+    .DataValueField("ID")
+    .DataTextField("Description")
+    .DataSource(ds => ds.Read(read => read.Url(Url.Page("GridCascadingForeignKeys", "Countries"))))
+)
