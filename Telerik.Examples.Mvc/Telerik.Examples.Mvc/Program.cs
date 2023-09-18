@@ -52,6 +52,7 @@ builder.Services.Configure<RazorViewEngineOptions>(options =>
     options.ViewLocationFormats.Add("/Views/ImageEditor/{0}" + RazorViewEngine.ViewExtension);
     options.ViewLocationFormats.Add("/Views/Editor/{0}" + RazorViewEngine.ViewExtension);
     options.ViewLocationFormats.Add("/Views/Forms/{0}" + RazorViewEngine.ViewExtension);
+    options.ViewLocationFormats.Add("/Views/TreeList/{0}" + RazorViewEngine.ViewExtension);
     options.ViewLocationFormats.Add("/Views/MultiSelect/{0}" + RazorViewEngine.ViewExtension);
     options.ViewLocationFormats.Add("/Views/Scheduler/{0}" + RazorViewEngine.ViewExtension);
     options.ViewLocationFormats.Add("/Views/StylesAndLayout/{0}" + RazorViewEngine.ViewExtension);

@@ -1,0 +1,32 @@
+﻿@(Html.Kendo().TreeList<FoodModel>()
+    .Name("treelist")
+    .Columns(columns =>
+    {
+        columns.Add().Field(f => f.FoodName).Width(250);
+    })
+    .Sortable()
+    .DataSource(ds => ds
+        .Custom()
+        .Type("odata-v4")
+        .Schema(sch => sch.Model(m =>
+        {
+            m.Id(i => i.FoodID);
+            m.Field(f => f.FoodID);
+            m.Field("IsPartOf", typeof(int?));
+            m.Field("parentId", typeof(int?)).From("IsPartOf").DefaultValue(null);
+        }))
+        .Transport(transport =>
+        {
+            transport.Read(new { url = new Kendo.Mvc.ClientHandlerDescriptor() { HandlerName = "read" } });
+        })
+    )
+)
+
+<script>
+    function read(dataItem) {
+        if (!dataItem.hasOwnProperty('id')) {
+            return "/odata/Foods";
+        }
+        return `/odata/Foods?key=${dataItem.id}`;
+    }
+</script>
