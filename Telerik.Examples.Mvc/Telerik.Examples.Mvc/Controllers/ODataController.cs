@@ -11,6 +11,50 @@ namespace Telerik.Examples.Mvc.Controllers
 {
     public class ProductsController : ODataController
     {
+
+        #region Foods
+        private string[] ParseQuery()
+        {
+            return HttpContext.Request.QueryString.ToString()
+                                .Split("%")[0]
+                                .Replace('?', ' ')
+                                .Split("=");
+        }
+
+        private static List<FoodModel> Foods()
+        {
+            return new List<FoodModel>()
+            {
+                new FoodModel {FoodID = 1, IsPartOf = null, hasChildren = true, FoodName = "Fruit"},
+                new FoodModel {FoodID = 2, IsPartOf = 1, hasChildren = false, FoodName = "Banana"},
+                new FoodModel {FoodID = 3, IsPartOf = null, hasChildren = true, FoodName = "Vegatables"},
+                new FoodModel {FoodID = 4, IsPartOf = 3, hasChildren = false, FoodName = "Potato"},
+            };
+        }
+        [HttpGet("odata/Foods")]
+        [EnableQuery]
+        public List<FoodModel> GetFoods()
+        {
+            var queryKeyValuePairs = ParseQuery();
+
+            int? key = null;
+
+            if (queryKeyValuePairs[0].Trim() == "key")
+            {
+                key = int.Parse(queryKeyValuePairs[1].Replace("&", ""));
+
+            }
+            List<FoodModel> data = Foods();
+
+            data = data.Where(v => key.HasValue ? v.IsPartOf == key : v.IsPartOf == null)
+                   .ToList();
+
+            return data.ToList();
+        }
+
+        #endregion
+
+        #region Products
         [HttpGet]
         [EnableQuery]
         public List<Product> GetProducts()
@@ -31,6 +75,7 @@ namespace Telerik.Examples.Mvc.Controllers
 
             return data;
         }
+
         [HttpPut]
         [EnableQuery]
         public IActionResult Put([FromODataUri] int key, [FromBody] Product product)
@@ -66,5 +111,6 @@ namespace Telerik.Examples.Mvc.Controllers
             // Custom delete logic.
             return NoContent();
         }
+        #endregion
     }
 }
