@@ -1,0 +1,7 @@
+﻿@{
+    ViewData["Title"] = "View Component";
+}
+<h3>@ViewData["Title"]</h3>
+@model IEnumerable<Product>
+
+@await Component.InvokeAsync("Grid", Model)
