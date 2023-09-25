@@ -1,0 +1,10 @@
+﻿@page
+@model EditorViewComponentModel
+
+@{
+    ViewData["Title"] = "Editor - ViewComponent";
+}
+
+<h3>@ViewData["Title"]</h3>
+
+@await Component.InvokeAsync("Editor", EditorViewComponentModel.EditorModel)
