@@ -1,0 +1,23 @@
+﻿@using Telerik.Examples.Mvc.Models
+
+@model IEnumerable<Product>
+
+@(Html.Kendo().Grid(Model)
+    .Name("grid")
+    .DataSource(dataSource => dataSource
+        .Ajax()
+        .PageSize(5)
+        .ServerOperation(false)
+    )
+    .Columns(columns =>
+    {
+        columns.Bound(product => product.ProductID);
+        columns.Bound(product => product.ProductName);
+        columns.Bound(product => product.UnitsInStock);
+        columns.Bound(product => product.Discontinued);
+    })
+    .Pageable()
+    .Sortable()
+    .Filterable()
+    .Groupable()
+)
