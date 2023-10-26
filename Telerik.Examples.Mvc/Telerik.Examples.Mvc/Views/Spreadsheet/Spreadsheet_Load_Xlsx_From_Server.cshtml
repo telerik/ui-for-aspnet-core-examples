@@ -1,0 +1,31 @@
+﻿@(Html.Kendo().Spreadsheet()
+          .Name("spreadsheet")
+          .HtmlAttributes(new { style = "width:100%" })
+          .Toolbar(false)
+          .Sheetsbar(false)
+          .Excel(excel => excel
+              .ProxyURL(Url.Action("Index_Save", "Spreadsheet"))
+          )
+          .Pdf(pdf => pdf
+              .ProxyURL(Url.Action("Index_Save", "Spreadsheet"))
+          )
+      )
+
+<script>
+    $(document).ready(function(){
+        readFile();
+    })
+    function readFile(){
+        $.ajax({
+            url: "@Url.Action("ReadFile","Spreadsheet_Load_Xlsx_From_Server")",
+            success: function (e) {
+                console.log(e);
+                var spreadsheet = $("#spreadsheet").data("kendoSpreadsheet");
+                spreadsheet.fromJSON(e);
+            },
+            error: function (er) {
+                console.log(er);
+            }
+        })
+    }
+</script>
