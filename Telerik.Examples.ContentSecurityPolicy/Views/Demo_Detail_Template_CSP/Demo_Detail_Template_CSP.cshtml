@@ -33,7 +33,7 @@
             })
             .Events(e=>e.Select("onSelect"))
         ))
-        .HtmlAttributes(new { style = "height:430px;" })
+        .Height(430)
         .DataSource(dataSource => dataSource
             .Ajax()
             .PageSize(5)
@@ -71,7 +71,7 @@
     }
 </script>
 
-<style>
+<style nonce="Telerik-CSP-Examples">
     .k-detail-cell .k-tabstrip .demo-section {
         padding: 0.2em;
     }

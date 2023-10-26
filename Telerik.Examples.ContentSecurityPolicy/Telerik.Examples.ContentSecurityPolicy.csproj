@@ -39,7 +39,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Telerik.UI.for.AspNet.Core.Trial" Version="2023.2.718" />
+    <PackageReference Include="Telerik.UI.for.AspNet.Core.Trial" Version="2023.3.1010" />
   </ItemGroup>
 
   <ProjectExtensions><VisualStudio><UserProperties UseCdnSupport="" /></VisualStudio></ProjectExtensions>
