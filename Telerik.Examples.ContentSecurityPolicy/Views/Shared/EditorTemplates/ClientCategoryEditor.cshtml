@@ -1,0 +1,10 @@
+@model Telerik.Examples.ContentSecurityPolicy.Models.CategoryViewModel
+
+@(Html.Kendo().DropDownListFor(m => m)
+            .DataValueField("CategoryID")
+            .DataTextField("CategoryName")
+            .HtmlAttributes(new {data_bind="value: Category" })
+            .BindTo((System.Collections.IEnumerable)ViewData["categories"])
+)
+
+@(Html.Kendo().DeferredScriptFile("Telerik-CSP-Examples"))
