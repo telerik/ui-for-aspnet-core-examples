@@ -1,10 +1,16 @@
 @model Telerik.Examples.ContentSecurityPolicy.Models.CategoryViewModel
 
-@(Html.Kendo().DropDownListFor(m => m)
-            .DataValueField("CategoryID")
-            .DataTextField("CategoryName")
-            .HtmlAttributes(new {data_bind="value: Category" })
-            .BindTo((System.Collections.IEnumerable)ViewData["categories"])
+@(Html.Kendo().Template().AddComponent(x => x.DropDownListFor(m => m)
+          .DataValueField("CategoryID")
+          .DataTextField("CategoryName")
+          .HtmlAttributes(new { data_bind = "value: Category" })
+          .DataSource(dataSource=>dataSource
+            .Read(read=>read.Action("Read_Categories","Demo_Overview_CSP"))
+          )
+          //.BindTo((System.Collections.IEnumerable) ViewData["categories"])
+          .HtmlAttributes(new { style = "width:100%" })
+          .HtmlAttributes(new { title = Html.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName("") })
+          )
 )
 
-@(Html.Kendo().DeferredScriptFile("Telerik-CSP-Examples"))
+

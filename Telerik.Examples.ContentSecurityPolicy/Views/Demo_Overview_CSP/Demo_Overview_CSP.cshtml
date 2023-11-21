@@ -31,11 +31,13 @@
         columns.Bound(p => p.ProductName)
                 .ClientTemplate(Html.Kendo().Template().AddHtml(
                     @"<div class='product-photo'
-                        style='background-image: url(" + @Url.Content("~/shared/foods/${data.ProductID}.jpg") + ");'></div><div class='product-name'>${ data.ProductName }</div>")).Width(300);
-        columns.Bound(p => p.UnitPrice).Title("Price").Width(105);
+                        style='background-image: url(" + @Url.Content("~/shared/foods/${data.ProductID}.jpg") + ");'></div><div class='product-name'>${ data.ProductName }</div>"))
+                .EditorTemplateComponentName("String")
+                .Width(300);
+        columns.Bound(p => p.UnitPrice).EditorTemplateComponentName("Currency").Title("Price").Width(105);
         columns.Bound(p => p.Discontinued).Title("In Stock").Width(130)
     .ClientTemplate(Html.Kendo().Template().AddHtml("<span id='badge_${data.ProductID}' class='badgeTemplate'></span>"));
-        columns.Bound(p => p.Category.CategoryName).Title("Category").EditorTemplateName("ClientCategoryEditor").ClientGroupHeaderTemplateHandler("CategoryTemplateHandler").Width(125);
+        columns.Bound(p => p.Category.CategoryName).Title("Category").EditorTemplateComponentName("ClientCategoryEditor").ClientGroupHeaderTemplateHandler("CategoryTemplateHandler").Width(125);
         columns.Bound(p => p.CustomerRating).Title("Rating").Width(140).Editable("returnFalse").ClientTemplate(Html.Kendo().Template().AddComponent(rating => rating.Rating()
                 .Name("rating_${data.ProductID}")
                 .Min(1)
@@ -44,11 +46,11 @@
                 .HtmlAttributes(new { data_bind = "value: CustomerRating" })
                 .Selection("continuous")
             ));
-    columns.Bound(p => p.Country.CountryNameLong).Title("Country").EditorTemplateName("Country").ClientTemplate(Html.Kendo().Template().AddHtml(
+        columns.Bound(p => p.Country.CountryNameLong).Title("Country").EditorTemplateComponentName("Country").ClientTemplate(Html.Kendo().Template().AddHtml(
     @"<div class='k-text-center'><img src='" + @Url.Content("~/shared/country-flags/${data.Country.CountryNameShort}.png") + "' alt='${ data.Country.CountryNameLong}' title='${ data.Country.CountryNameLong}' width='30' /></div>")).Width(120);
-    columns.Bound(p => p.UnitsInStock).Title("Units").Width(105);
-    columns.Bound(p => p.TotalSales).Title("Total Sales").Width(140).Format("{0:c}");
-    columns.Bound(p => p.TargetSales).Editable("returnFalse").Title("Target Sales")
+        columns.Bound(p => p.UnitsInStock).EditorTemplateComponentName("Integer").Title("Units").Width(105);
+        columns.Bound(p => p.TotalSales).Title("Total Sales").Width(140).Format("{0:c}");
+        columns.Bound(p => p.TargetSales).Editable("returnFalse").Title("Target Sales")
       .ClientTemplate(Html.Kendo().Template().AddComponent(sparkline => sparkline.Sparkline()
       .Name("chart_${data.ProductID}")
       .Legend(legend => legend

@@ -1,5 +1,7 @@
 @model object 
 
-@Html.Kendo().TextBoxFor(model => model)
+@(Html.Kendo().Template().AddComponent(x => x.TextBoxFor(model => model)
+      .HtmlAttributes(new { style = "width:100%" })
+      .HtmlAttributes(new { title = Html.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName("") }))
+)
 
-@(Html.Kendo().DeferredScriptFile("Telerik-CSP-Examples"))

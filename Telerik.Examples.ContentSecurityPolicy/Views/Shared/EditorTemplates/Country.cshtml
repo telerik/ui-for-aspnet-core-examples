@@ -1,12 +1,13 @@
 @model Telerik.Examples.ContentSecurityPolicy.Models.CountryViewModel
 
-@(Html.Kendo().DropDownListFor(m => m)
+
+
+@(Html.Kendo().Template().AddComponent(x => x.DropDownListFor(m => m)
             .DataValueField("CountryNameShort")
             .DataTextField("CountryNameLong")
             .HtmlAttributes(new { data_bind = "value: Country" })
-            .Template(@"<div class='dropdown-country-wrap'><img src='" + @Url.Content("~/shared/country-flags/#:data.CountryNameShort#.png") + "' alt='#: data.CountryNameLong#' title='#: data.CountryNameLong#' width='20' /><span>#: data.CountryNameLong #</span></div>")
-            .BindTo((System.Collections.IEnumerable)ViewData["countries"])
+            .Template(@"<div class='dropdown-country-wrap'><img src='" + @Url.Content("~/shared/country-flags/${data.CountryNameShort}.png") + "' alt='${ data.CountryNameLong }' title='${ data.CountryNameLong }' width='20' /><span>${ data.CountryNameLong }</span></div>")
+            //.BindTo((System.Collections.IEnumerable) ViewData["countries"])
             .AutoWidth(true)
+            .HtmlAttributes(new { title = Html.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName("") }))
 )
-
-@(Html.Kendo().DeferredScriptFile("Telerik-CSP-Examples"))
