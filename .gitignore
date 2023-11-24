@@ -11,3 +11,4 @@ bin/
 packages/
 .DS_Store
 .vs/
+**/wwwroot/shared/Captcha/
