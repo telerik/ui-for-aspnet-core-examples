@@ -4,10 +4,10 @@
           .DataValueField("CategoryID")
           .DataTextField("CategoryName")
           .HtmlAttributes(new { data_bind = "value: Category" })
-          .DataSource(dataSource=>dataSource
+          @*.DataSource(dataSource=>dataSource
             .Read(read=>read.Action("Read_Categories","Demo_Overview_CSP"))
-          )
-          //.BindTo((System.Collections.IEnumerable) ViewData["categories"])
+          )*@
+          .BindTo((System.Collections.IEnumerable) ViewData["categories"])
           .HtmlAttributes(new { style = "width:100%" })
           .HtmlAttributes(new { title = Html.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName("") })
           )

@@ -13,10 +13,16 @@ namespace Telerik.Examples.ContentSecurityPolicy.Controllers.Grid
         public IActionResult Demo_Overview_CSP()
         {
             ViewData["countries"] = countries;
-           
 
-            //ViewData["categories"] = categories.ToList();
-            //ViewData["defaultCategory"] = categories.First();
+            var categories = GetAll()
+                           .Select(c => new CategoryViewModel
+                           {
+                               CategoryID = c.Category.CategoryID,
+                               CategoryName = c.Category.CategoryName
+                           }).OrderBy(e => e.CategoryName);
+            //remove duplicates from categories and add them to the ViewData
+            ViewData["categories"] = categories.GroupBy(i => i.CategoryID).Select(i => i.FirstOrDefault()).ToList();
+            ViewData["defaultCategory"] = categories.First();
             return View();
         }
         public virtual List<DetailProductViewModel> GetAll()
@@ -25,17 +31,6 @@ namespace Telerik.Examples.ContentSecurityPolicy.Controllers.Grid
             return results;
         }
 
-        public ActionResult Read_Categories()
-        {
-            var categories = GetAll()
-                           .Select(c => new CategoryViewModel
-                           {
-                               CategoryID = c.Category.CategoryID,
-                               CategoryName = c.Category.CategoryName
-                           })
-                           .OrderBy(e => e.CategoryName);
-            return Json(categories);
-        }
         public ActionResult DetailProducts_Read([DataSourceRequest] DataSourceRequest request)
         {
             var result = GetAll();
