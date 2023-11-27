@@ -19,7 +19,6 @@
         $.ajax({
             url: "@Url.Action("ReadFile","Spreadsheet_Load_Xlsx_From_Server")",
             success: function (e) {
-                console.log(e);
                 var spreadsheet = $("#spreadsheet").data("kendoSpreadsheet");
                 spreadsheet.fromJSON(e);
             },
