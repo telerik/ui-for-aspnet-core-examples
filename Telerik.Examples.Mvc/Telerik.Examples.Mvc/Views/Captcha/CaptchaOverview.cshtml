@@ -1,0 +1,51 @@
+﻿@model Person
+
+@(Html.Kendo().Form<Person>()
+        .Name("exampleForm")
+        .HtmlAttributes(new { action = "Save", controller = "CaptchaOverview", method = "POST" })
+        .Validatable(v =>
+        {
+            v.ValidateOnBlur(true);
+            v.ValidationSummary(vs => vs.Enable(false));
+        })
+        .FormData(Model)
+        .Items(i =>
+        {
+            i.Add()
+                .Field(f => f.Name)
+                .InputHtmlAttributes(new { required = "required" })
+                .Label(l => l.Text("Name"));
+            i.Add()
+                .Field(f => f.BirthDate)
+                .Label(l => l.Text("Date of birth:"));
+            i.Add().Field("Captcha")
+                .Hint("Type the characters you see in the picture above.")
+                .Label(l => l.Text("Anti-bot validation"))
+                .Editor(ed => ed.Captcha()
+                .CaptchaImage((string)ViewData["Captcha"])
+                .CaptchaId((string)ViewData["CaptchaID"])
+                .DataCaptchaField("Captcha")
+                .DataCaptchaIdField("CaptchaID")
+                .Handler(handler => handler.Action("Reset_Events", "CaptchaOverview"))
+                .AudioHandlerFunction("audioHandler")
+                .ValidationHandler(handler => handler.Action("Validate_Events", "CaptchaOverview"))
+            );
+        })
+    )
+
+<script>
+    function audioHandler(args) {
+        args.success("../shared/Captcha/" + args.data.CaptchaID + ".wav");
+    }
+</script>
+
+
+<style>
+    form {
+        display: flex;
+        flex-direction: column;
+        width: 500px;
+        margin: auto;
+    }
+</style>
+

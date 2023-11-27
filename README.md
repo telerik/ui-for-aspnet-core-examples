@@ -917,7 +917,7 @@ In order to add a reference to the commercial NuGet Package follow the steps bel
 1. Navigate to **Dependencies > Packages** from the Solution explorer in Visual Studio.
 2. Right click on **Telerik.UI.for.AspNet.Core.Trial** and select Remove from the context menu.
 3. Go to **Tools > NuGet Package Manager > Package Manager Settings**, select **Package Manager Sources** and then click the + button.
-4. Choose feed Name, set the feed URL to: https://nuget.telerik.com/nuget and click OK.
+4. Choose feed Name, set the feed URL to: https://nuget.telerik.com/v3/index.json and click OK.
 
     ![KendoUIResources](images/add-nuget-package-source.png)
 
