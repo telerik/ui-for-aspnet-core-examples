@@ -5,13 +5,13 @@
 }
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self'; script-src 'self' https://kendo.cdn.telerik.com https://code.jquery.com/ 'nonce-Telerik-CSP-Examples'; style-src 'self' 'unsafe-inline' https://kendo.cdn.telerik.com; font-src 'self' data:;" />
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; script-src 'self' https://kendo.cdn.telerik.com https://code.jquery.com/ 'nonce-Telerik-CSP-Examples'; style-src 'self' 'unsafe-inline' https://kendo.cdn.telerik.com; font-src 'self' data:;" />
 <title>@ViewData["Title"] - Telerik.Examples.Mvc</title>
 
 @{
-    var kendoVersion = "2023.2.718";
+    var kendoVersion = "2023.3.1010";
 }
-<link rel="stylesheet" href="https://kendo.cdn.telerik.com/themes/6.6.0/default/default-ocean-blue.css">
+<link rel="stylesheet" href="https://kendo.cdn.telerik.com/themes/7.0.1/default/default-ocean-blue.css">
 
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"
             integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g="
@@ -20,7 +20,7 @@
 <script src="https://kendo.cdn.telerik.com/@kendoVersion/js/kendo.all.min.js"></script>
 <script src="https://kendo.cdn.telerik.com/@kendoVersion/js/kendo.aspnetmvc.min.js"></script>
 
-<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+@*<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />*@
 <link rel="stylesheet" href="~/css/site.css" />
 
 @(Html.Kendo().Grid<Telerik.Examples.ContentSecurityPolicy.Models.DetailProductViewModel>()
@@ -31,11 +31,14 @@
         columns.Bound(p => p.ProductName)
                 .ClientTemplate(Html.Kendo().Template().AddHtml(
                     @"<div class='product-photo'
-                        style='background-image: url(" + @Url.Content("~/shared/foods/${data.ProductID}.jpg") + ");'></div><div class='product-name'>${ data.ProductName }</div>")).Width(300);
-        columns.Bound(p => p.UnitPrice).Title("Price").Width(105);
+                        style='background-image: url(" + @Url.Content("~/shared/foods/${data.ProductID}.jpg") + ");'></div><div class='product-name'>${ data.ProductName }</div>"))
+                .EditorTemplateComponentName("String")
+                .Width(300);
+        columns.Bound(p => p.UnitPrice).EditorTemplateComponentName("Currency").Title("Price").Width(105);
         columns.Bound(p => p.Discontinued).Title("In Stock").Width(130)
     .ClientTemplate(Html.Kendo().Template().AddHtml("<span id='badge_${data.ProductID}' class='badgeTemplate'></span>"));
-        columns.Bound(p => p.Category.CategoryName).Title("Category").EditorTemplateName("ClientCategoryEditor").ClientGroupHeaderTemplateHandler("CategoryTemplateHandler").Width(125);
+        columns.Bound(p => p.Category).ClientTemplateHandler("CategoryTemplateHandler").Title("Category").EditorTemplateComponentName("ClientCategoryEditor").Width(125);
+        columns.Bound(p => p.Category.CategoryName).ClientGroupHeaderTemplateHandler("CategoryHeaderTemplateHandler").Hidden();
         columns.Bound(p => p.CustomerRating).Title("Rating").Width(140).Editable("returnFalse").ClientTemplate(Html.Kendo().Template().AddComponent(rating => rating.Rating()
                 .Name("rating_${data.ProductID}")
                 .Min(1)
@@ -44,11 +47,11 @@
                 .HtmlAttributes(new { data_bind = "value: CustomerRating" })
                 .Selection("continuous")
             ));
-    columns.Bound(p => p.Country.CountryNameLong).Title("Country").EditorTemplateName("Country").ClientTemplate(Html.Kendo().Template().AddHtml(
+        columns.Bound(p => p.Country).Title("Country").EditorTemplateComponentName("Country").ClientTemplate(Html.Kendo().Template().AddHtml(
     @"<div class='k-text-center'><img src='" + @Url.Content("~/shared/country-flags/${data.Country.CountryNameShort}.png") + "' alt='${ data.Country.CountryNameLong}' title='${ data.Country.CountryNameLong}' width='30' /></div>")).Width(120);
-    columns.Bound(p => p.UnitsInStock).Title("Units").Width(105);
-    columns.Bound(p => p.TotalSales).Title("Total Sales").Width(140).Format("{0:c}");
-    columns.Bound(p => p.TargetSales).Editable("returnFalse").Title("Target Sales")
+        columns.Bound(p => p.UnitsInStock).EditorTemplateComponentName("Integer").Title("Units").Width(105);
+        columns.Bound(p => p.TotalSales).Title("Total Sales").Width(140).Format("{0:c}");
+        columns.Bound(p => p.TargetSales).Editable("returnFalse").Title("Target Sales")
       .ClientTemplate(Html.Kendo().Template().AddComponent(sparkline => sparkline.Sparkline()
       .Name("chart_${data.ProductID}")
       .Legend(legend => legend
@@ -140,7 +143,14 @@
         }
     }
     function CategoryTemplateHandler(data){
+        return `${data.Category.CategoryName}`;
+    } 
+    function CategoryHeaderTemplateHandler(data){
+
         return `Category: ${data.value}, Total Sales: ${kendo.format('{0:c}')}, ${data.aggregates.TotalSales.sum}`;
+    }
+    function CountryTemplateHandler(data){
+        return `<div class='dropdown-country-wrap'><img src='@Url.Content("~/shared/country-flags/${data.CountryNameShort}.png")' alt='${data.CountryNameLong}' title='${data.CountryNameLong}' width='20' /><span>${data.CountryNameLong}</span></div>`;
     }
     function onDataBound(e) {
         var grid = this;
