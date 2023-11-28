@@ -32,7 +32,7 @@ namespace Telerik.Examples.Mvc.Controllers.Spreadsheet
             }
             else
             {
-                return Content("rugda rugdil");
+                return Content("Request file does not exist.");
             }
         }
     }
