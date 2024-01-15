@@ -1,0 +1,31 @@
+﻿.hlError
+{
+    background-color:#fea;
+    color:#f33;
+}
+
+.header,.footer{
+    color:lightslategray
+}
+
+.footer{
+    position:absolute;
+    bottom:0px;    
+}
+
+.hlOK
+{
+    background-color:#aef;
+    color:#060;
+}
+
+.inlineCode
+{
+    font:bold 12px monospace;
+}
+
+body > img {
+    margin-top: 15px;
+    margin-left: 15px;
+    margin-right: 0px;
+}
