@@ -1,0 +1,66 @@
+﻿<script src="~/js/signalr/dist/browser/signalr.min.js"></script>
+<script>
+    var url = "/gridHub";
+
+    var hub = new signalR.HubConnectionBuilder()
+        .withUrl(url, {
+            transport: signalR.HttpTransportType.LongPolling
+        })
+        .build();
+
+    var hubStart = hub.start();
+</script>
+
+<div class="signalr-grid-container">
+    @(Html.Kendo().Grid<Telerik.Examples.Mvc.Models.ProductViewModel>()
+        .Name("grid")
+        .Columns(columns =>
+        {
+            columns.Bound(p => p.ProductName).Width(150);
+            columns.Bound(p => p.UnitsInStock).Width(120).Filterable(false);
+            columns.Command(command =>
+            {
+                command.Edit();
+                command.Destroy();
+            }).Width(80);
+        })
+        .ToolBar(toolbar =>
+        {
+            toolbar.Create();
+        })
+        .Groupable()
+        .Pageable()
+        .Editable(editable => editable.Mode(GridEditMode.InLine))
+        .Scrollable()
+        .HtmlAttributes(new { style = "height:100%;" })
+        .DataSource(dataSource => dataSource
+            .SignalR()
+            .PageSize(20)
+            .Transport(tr => tr
+                .Promise("hubStart")
+                .Hub("hub")
+                .Client(c => c
+                    .Read("read")
+                    .Create("create")
+                    .Update("update")
+                    .Destroy("destroy")
+                )
+                .Server(s => s
+                    .Read("read")
+                    .Create("create")
+                    .Update("update")
+                    .Destroy("destroy")
+                )
+            )
+            .Schema(schema => schema
+                .Model(model =>
+                {
+                    model.Id("ProductID");
+                    model.Field("ProductID", typeof(int)).Editable(false);
+                    model.Field("UnitsInStock", typeof(int));
+                    model.Field(m => m.Category).DefaultValue(new Category() { CategoryID = 1, CategoryName = "Beverages" });
+                })
+            )
+        )
+    )
+</div>

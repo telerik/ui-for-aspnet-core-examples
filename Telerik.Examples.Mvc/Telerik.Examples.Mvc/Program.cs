@@ -16,6 +16,7 @@ using Microsoft.AspNetCore.OData;
 using Microsoft.OData.Edm;
 using Microsoft.OData.ModelBuilder;
 
+
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
@@ -116,6 +117,7 @@ app.UseSession();
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapHub<MeetingHub>("/meetingHub");
+    endpoints.MapHub<GridHub>("/gridHub");
     endpoints.MapControllerRoute(
         name: "default",
         pattern: "{controller=Home}/{action=Index}/{id?}");
