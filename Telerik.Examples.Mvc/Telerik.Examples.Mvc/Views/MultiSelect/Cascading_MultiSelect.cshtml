@@ -1,0 +1,51 @@
+﻿<h4>Parent MultiSelect</h4>
+
+
+@(Html.Kendo().MultiSelect()
+		.Name("parent")
+		.Placeholder("Select ...")
+		.DataTextField("Text")
+		.DataValueField("Value")
+		.DataSource(source =>
+		{
+			source.Read(read => read.Action("ReadParent", "Cascading_MultiSelect"));
+		})
+		.AutoClose(false)
+		.Events(e => e.Change("onChange"))
+)
+
+<br />
+<br />
+<h4>Child MultiSelect</h4>
+
+@(Html.Kendo().MultiSelect()
+		.Name("child")
+		.AutoBind(false)
+		.Enable(false)
+		.Placeholder("Select ...")
+		.DataTextField("Text")
+		.DataValueField("Value")
+		.DataSource(source =>
+		{
+			source.Read(read => read.Action("ReadChild", "Cascading_MultiSelect").Data("parentData").Type(HttpVerbs.Post));
+		})
+)
+
+<script>
+
+	function onChange(e) {
+		var child = $("#child").data("kendoMultiSelect");
+		if (e.sender.value().length > 0) {
+			child.enable(true);
+			child.dataSource.read();
+		} else { 
+			child.enable(false);
+		}
+	}
+	function parentData() {
+		var parent = $("#parent").data("kendoMultiSelect");
+		var value = parent.value();
+		var additionalData = Object.assign({}, value);
+		return additionalData;
+	}
+</script>
