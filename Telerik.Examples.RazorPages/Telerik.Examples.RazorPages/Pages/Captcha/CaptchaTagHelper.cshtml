@@ -27,21 +27,14 @@
                    captcha-id="@ViewData["CaptchaId"]">
         <handler url="@Url.Page("CaptchaTagHelper", "Reset" )" />
         <audio-handler function-handler="audioHandler" />
+        <!-- the validation handler request is sent to the server when the Captcha is blurred -->
         <validation-handler url="@Url.Page("CaptchaTagHelper", "Validate")" />
     </kendo-captcha>
     
-    <button type="button" id="validate-captcha" class="form-button k-button k-button-md k-rounded-md k-button-solid">Validate Captcha</button>
     <button type="submit" class="form-button k-button k-button-md k-rounded-md k-button-solid  k-button-solid-primary">Submit</button>
 </form>
 
 <script>
-    $(document).ready(function(){
-        $("#validate-captcha").on("click",validateCaptcha)
-    })
-    function validateCaptcha(e){
-        $("#captcha").data("kendoCaptcha").validate();
-        $("#exampleForm").data("kendoForm").validate();
-    }
     function audioHandler(args) {
         args.success("../shared/UserFiles/Folders/captcha/" + args.data.CaptchaID + ".wav");
     }
