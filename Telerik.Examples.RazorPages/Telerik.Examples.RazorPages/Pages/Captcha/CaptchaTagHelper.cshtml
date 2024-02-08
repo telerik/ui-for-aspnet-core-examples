@@ -1,0 +1,52 @@
+﻿@page
+@model Telerik.Examples.RazorPages.Pages.Captcha.CaptchaTagHelperModel
+
+@using Telerik.Examples.RazorPages.Models
+@using Kendo.Mvc.UI
+
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Xsrf
+
+@{
+    var token = Xsrf.GetAndStoreTokens(HttpContext).RequestToken;
+}
+
+<form id="exampleForm" method="post" kendo-validator="true">
+    <input type='hidden' name='__RequestVerificationToken' value='@Html.AntiForgeryToken()'>
+    <kendo-textbox name="ShipName" style="width:50%;">
+        <textbox-label content="Ship Name:" />
+    </kendo-textbox>
+    <br/>
+    <kendo-numerictextbox name="Freight" style="width:50%;">
+        <numerictextbox-label content="Freight:" />
+    </kendo-numerictextbox>
+    <br/>
+    <kendo-captcha name="captcha"
+                   datacaptchafield="Captcha"
+                   datacaptchaidfield="CaptchaID"
+                   captcha-image="@ViewData["Captcha"]"
+                   captcha-id="@ViewData["CaptchaId"]">
+        <handler url="@Url.Page("CaptchaTagHelper", "Reset" )" />
+        <audio-handler function-handler="audioHandler" />
+        <!-- the validation handler request is sent to the server when the Captcha is blurred -->
+        <validation-handler url="@Url.Page("CaptchaTagHelper", "Validate")" />
+    </kendo-captcha>
+    
+    <button type="submit" class="form-button k-button k-button-md k-rounded-md k-button-solid  k-button-solid-primary">Submit</button>
+</form>
+
+<script>
+    function audioHandler(args) {
+        args.success("../shared/UserFiles/Folders/captcha/" + args.data.CaptchaID + ".wav");
+    }
+</script>
+
+<style>
+    form{
+        display: flex;
+        flex-direction: column;
+    }
+    .form-button {
+        margin-top:5px;
+        width: 150px;
+    }
+</style>
