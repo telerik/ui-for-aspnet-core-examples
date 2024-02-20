@@ -1,0 +1,111 @@
+﻿@{
+    ViewData["Title"] = "Hierarchy Persist Expanded Children";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<p>Expand the Detail Template of the Grid and click <b>Add new record</b></p>
+
+@(Html.Kendo().Grid<Product>()
+          .Name("grid")
+          .DataSource(dataSource => dataSource
+              .Ajax()
+              .Read(read => read.Action("Read_Products", "Hierarchy_Persist_Expanded_Children"))
+              .Update(update => update.Action("Update_Products", "Hierarchy_Persist_Expanded_Children"))
+              .Create(create => create.Action("Create_Products", "Hierarchy_Persist_Expanded_Children"))
+              .Model(m => {
+                  m.Id(id => id.ProductID);
+                  m.Field(f => f.ProductID).Editable(true);
+              })
+           )
+          .Editable(editable => editable.Mode(GridEditMode.InLine))
+          .ToolBar(t => t.Create())
+          .Columns(columns =>
+          {
+              columns.Bound(product => product.ProductID);
+              columns.Bound(product => product.ProductName);
+              columns.Bound(product => product.UnitsInStock);
+              columns.Bound(product => product.Discontinued);
+              columns.Bound(product => product.UnitPrice);
+              columns.Bound(product => product.UnitsOnOrder);
+              columns.Command(command => {
+                  command.Edit();
+                  command.Destroy();
+              });
+          })
+          .Pageable()
+          .Sortable()
+          .Filterable()
+          .Groupable()
+          .ClientDetailTemplateId("OrdersTemplate")
+          .Events(e => e.Edit("onEdit").DetailExpand("onDetailExpand").DetailCollapse("onDetailCollapse").DataBound("onDataBound"))
+)
+
+<script type="text/kendo" id="OrdersTemplate">
+  @(Html.Kendo().Grid<Person>()
+      .Name("People#=ProductID#")
+      .Columns(columns =>
+      {
+          columns.Bound(o => o.PersonID);
+          columns.Bound(o => o.Name);
+          columns.Bound(o => o.BirthDate).Format("{0:d}");
+
+          columns.Command(command =>
+          {
+              command.Edit();
+              command.Destroy();
+          });
+      })
+      .ToolBar(toolbar => toolbar.Create())
+      .Editable(editable=>editable.Mode(GridEditMode.InLine))
+      .Pageable().Sortable().Filterable()
+      .DataSource(source => source.Ajax()
+          .Model(model =>
+          {
+              model.Id(o => o.PersonID);
+              model.Field(o => o.ProductID).DefaultValue(0);
+              model.Field(o => o.PersonID).Editable(true);
+          })
+          .Create(create => create.Action("Create_People","Hierarchy_Persist_Expanded_Children"))
+          .Read(read => read.Action("Read_People", "Hierarchy_Persist_Expanded_Children", new { productID = "#=ProductID#" }))
+          .Update(update => update.Action("Update_People", "Hierarchy_Persist_Expanded_Children"))
+      )
+      .ToClientTemplate()
+   )
+</script>
+<script>
+    var expandedRows = new Set();
+    function onDetailExpand(e) {
+        console.log("detailExpand")
+        var grid = e.sender;
+        var dataItem = grid.dataItem(e.masterRow);
+        expandedRows.add(dataItem);
+    }
+    function onDetailCollapse(e) {
+        var grid = e.sender;
+        var dataItem = grid.dataItem(e.masterRow);
+        var idToRemove;
+        expandedRows.forEach((item, idx) => {
+            var modelId = item.idField;
+            console.log(modelId);
+            console.log(item[modelId], dataItem[modelId])
+            if (item[modelId] == dataItem[modelId]) {
+                expandedRows.delete(item)
+            }
+        })
+    }
+    function onEdit(e) {
+        var grid = e.sender;
+        expandedRows.forEach(item => {
+            var row = $(`tr[data-uid=${item.uid}]`);
+            grid.expandRow(row);
+        })
+    }
+    function onDataBound(e) {
+        var grid = $("#grid").data("kendoGrid");
+        expandedRows.forEach(item => {
+            var row = $(`tr[data-uid=${item.uid}]`);
+            grid.expandRow(row);
+        })
+    }
+</script>

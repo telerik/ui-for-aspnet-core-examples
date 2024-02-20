@@ -14,7 +14,7 @@
               .Destroy(destroy => destroy.Action("Destroy_Products", "HierarchyCrud"))
               .Model(m => {
                   m.Id(id => id.ProductID);
-                  m.Field(f => f.ProductID).Editable(false);
+                  m.Field(f => f.ProductID).Editable(true);
               })
            )
           .Editable(editable => editable.Mode(GridEditMode.InLine))
@@ -62,7 +62,7 @@
           {
               model.Id(o => o.PersonID);
               model.Field(o => o.ProductID).DefaultValue(0);
-              model.Field(o => o.PersonID).Editable(false);
+              model.Field(o => o.PersonID).Editable(true);
           })
           .Create(create => create.Action("Create_People","HierarchyCrud"))
           .Read(read => read.Action("Read_People", "HierarchyCrud", new { productID = "#=ProductID#" }))
