@@ -15,6 +15,8 @@ using Telerik.Examples.Mvc.Models;
 using Microsoft.AspNetCore.OData;
 using Microsoft.OData.Edm;
 using Microsoft.OData.ModelBuilder;
+using Telerik.Examples.Mvc.Database;
+using Telerik.Examples.Mvc.Seeders;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -49,6 +51,7 @@ builder.Services.AddMvc()
 
 builder.Services.Configure<RazorViewEngineOptions>(options =>
 {
+    options.ViewLocationFormats.Add("/Views/ListBox/{0}" + RazorViewEngine.ViewExtension);
     options.ViewLocationFormats.Add("/Views/Captcha/{0}" + RazorViewEngine.ViewExtension);
     options.ViewLocationFormats.Add("/Views/Grid/{0}" + RazorViewEngine.ViewExtension);
     options.ViewLocationFormats.Add("/Views/ImageEditor/{0}" + RazorViewEngine.ViewExtension);
@@ -63,6 +66,10 @@ builder.Services.Configure<RazorViewEngineOptions>(options =>
 
 builder.Services.AddDbContext<GeneralDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddDbContext<InMemoryDbContext>(options =>
+    options.UseInMemoryDatabase("TelerikCoreDb")
+);
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options =>
 {
@@ -84,7 +91,8 @@ builder.Services.AddSignalR()
 
 builder.Services
     .AddDistributedMemoryCache()
-    .AddSession(opts => {
+    .AddSession(opts =>
+    {
         opts.Cookie.IsEssential = true;
     });
 
@@ -124,9 +132,15 @@ app.UseEndpoints(endpoints =>
     endpoints.MapRazorPages();
 });
 
-using var serviceScope = app.Services.CreateScope();
-var context = serviceScope.ServiceProvider.GetRequiredService<GeneralDbContext>();
-context.Database.Migrate();
+
+using (var serviceScope = app.Services.CreateScope())
+{
+    var context = serviceScope.ServiceProvider.GetRequiredService<GeneralDbContext>();
+    context.Database.Migrate();
+
+    var inMemoryContext = serviceScope.ServiceProvider.GetRequiredService<InMemoryDbContext>();
+    DataSeeder.SeedListBoxItems(inMemoryContext);
+}
 
 app.Run();
 
