@@ -1,0 +1,55 @@
+﻿<div id="example">
+    <h3 id="heading">Remote Binding</h3>
+    <div class="demo-section wide">
+        @(Html.Kendo().ListBox()
+            .Name("optional")
+            .DataTextField("Name")
+            .DataValueField("Id")
+            .Toolbar(toolbar =>
+            {
+                toolbar.Position(ListBoxToolbarPosition.Right);
+                toolbar.Tools(tools => tools
+                .MoveUp()
+                .MoveDown()
+                .TransferTo()
+                .TransferFrom()
+                .TransferAllTo()
+                .TransferAllFrom()
+                .Remove()
+                );
+            })
+            .ConnectWith("selected")
+            .DataSource(dataSource => dataSource
+                .Read("GetEmployees", "RemoteBinding")
+            )
+        )
+
+        @(Html.Kendo().ListBox()
+            .Name("selected")
+            .DataTextField("Name")
+            .DataValueField("Id")
+            .BindTo(new List<EmployeeViewModel>())
+            .Selectable(ListBoxSelectable.Multiple)
+        )
+    </div>
+</div>
+
+<style>
+    #heading {
+        justify-content: center;
+        display: flex;
+    }
+    #example .demo-section {
+        text-align: center;
+    }
+
+    #example .k-listbox {
+        width: 236px;
+        height: 360px;
+    }
+
+    #example .k-listbox:first-of-type {
+        width: 270px;
+        margin-right: 5px;
+    }
+</style>
