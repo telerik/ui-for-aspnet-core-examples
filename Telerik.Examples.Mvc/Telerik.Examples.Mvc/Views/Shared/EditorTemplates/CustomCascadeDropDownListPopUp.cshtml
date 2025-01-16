@@ -1,0 +1,41 @@
+﻿@model License
+
+@(Html.Kendo().DropDownListFor(m => m.Customer)
+    .OptionLabel("Select Customer...")
+    .Label(l => l.Content("Customer"))
+    .DataTextField("CustomerName")
+    .DataValueField("CustomerId")
+    .DataSource(dataSource =>
+    {
+        dataSource.Read(read => read.Action("GetCustomers", "EditingWithCascadingDropDownLists"))
+                .ServerFiltering(true);
+    })
+)
+
+@(Html.Kendo().DropDownListFor(m => m.Vendor)
+    .AutoBind(false)
+    .OptionLabel("Select Vendor...")
+    .Label(l => l.Content("Vendor"))
+    .DataTextField("VendorName")
+    .DataValueField("VendorId")
+    .DataSource(dataSource =>
+    {
+        dataSource.Read(read => read.Action("GetVendors", "EditingWithCascadingDropDownLists").Data("filterVendors"))
+                .ServerFiltering(true);
+    })
+    .CascadeFrom("Customer")
+)
+
+@(Html.Kendo().DropDownListFor(m => m.Item)
+    .AutoBind(false)
+    .OptionLabel("Select Item...")
+    .Label(l => l.Content("Item"))
+    .DataTextField("ItemName")
+    .DataValueField("ItemId")
+    .DataSource(dataSource =>
+    {
+        dataSource.Read(read => read.Action("GetItems", "EditingWithCascadingDropDownLists").Data("filterItems"))
+                .ServerFiltering(true);
+    })
+    .CascadeFrom("Vendor")
+)
