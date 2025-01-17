@@ -1,0 +1,81 @@
+﻿@using Telerik.Examples.Mvc.Models
+
+<h1>Popup Editing</h1>
+
+@(Html.Kendo().Grid<License>()
+    .Name("popupGrid")
+    .Columns(columns =>
+    {
+        columns.Bound(p => p.Customer).Width(20).HeaderHtmlAttributes(new { @title = "Customer" }).ClientTemplate("#=Customer.CustomerName#");
+        columns.Bound(p => p.Vendor).Width(20).HeaderHtmlAttributes(new { @title = "Vendor" }).ClientTemplate("#=Vendor == null ? '' : Vendor.VendorName#");
+        columns.Bound(p => p.Item).Width(20).HeaderHtmlAttributes(new { @title = "Item" }).ClientTemplate("#=Item == null ? '' : Item.ItemName#");
+        columns.Command(p => p.Edit().Text("Edit").HtmlAttributes(new { @title = "Edit" })).Width(80);
+    })
+    .ToolBar(toolbar => toolbar.Create().Text("Add").HtmlAttributes(new { @title = "Add" }))
+    .Editable(editable => editable.Mode(GridEditMode.PopUp).TemplateName("CustomCascadeDropDownListPopUp"))
+    .Events(e => e.Edit("onEdit"))
+    .Pageable()
+    .DataSource(dataSource => dataSource
+        .Ajax()
+        .Model(model =>
+        {
+            model.Id(p => p.LicenseId);
+            model.Field(f => f.Customer).DefaultValue(new Customer { CustomerId = 1, CustomerName = "CustomerName 1" });
+            model.Field(f => f.Vendor).DefaultValue(new Vendor { VendorId = 1, VendorName = "VendorName 1", CustomerId = 1 });
+            model.Field(f => f.Item).DefaultValue(new Item { ItemId = 1, ItemName = "ItemName 1", VendorId = 1 });
+        })
+            .Create(create => create.Action("Create", "EditingWithCascadingDropDownLists").Type(HttpVerbs.Post))
+            .Read(read => read.Action("Read", "EditingWithCascadingDropDownLists").Type(HttpVerbs.Post))
+            .Update(update => update.Action("Update", "EditingWithCascadingDropDownLists").Type(HttpVerbs.Post))
+    )
+)
+
+<script>
+    function onEdit(e) {
+        //attach validator to the PopUp window
+        $("[data-role=window]").kendoValidator();
+    }
+</script>
+
+<h1>InLine Editing</h1>
+
+@(Html.Kendo().Grid<License>()
+    .Name("inlineGrid")
+    .Columns(columns =>
+    {
+        columns.Bound(p => p.Customer).Width(20).HeaderHtmlAttributes(new { @title = "Customer" }).ClientTemplate("#=Customer.CustomerName#");
+        columns.Bound(p => p.Vendor).Width(20).HeaderHtmlAttributes(new { @title = "Vendor" }).ClientTemplate("#=Vendor.VendorName#");
+        columns.Bound(p => p.Item).Width(20).HeaderHtmlAttributes(new { @title = "Item" }).ClientTemplate("#=Item.ItemName#");
+        columns.Command(p => p.Edit().Text("Edit").HtmlAttributes(new { @title = "Edit" })).Width(80);
+    })
+    .ToolBar(toolbar => toolbar.Create().Text("Add").HtmlAttributes(new { @title = "Add" }))
+    .Editable(editable => editable.Mode(GridEditMode.InLine))
+    .Pageable()
+    .DataSource(dataSource => dataSource
+        .Ajax()
+        .Model(model => 
+        {
+            model.Id(p => p.LicenseId);
+            model.Field(f => f.Customer).DefaultValue(new Customer { CustomerId = 1, CustomerName = "CustomerName 1" });
+            model.Field(f => f.Vendor).DefaultValue(new Vendor { VendorId = 1, VendorName = "VendorName 1", CustomerId = 1 });
+            model.Field(f => f.Item).DefaultValue(new Item { ItemId = 1, ItemName = "ItemName 1", VendorId = 1 });
+        })
+        .Create(create => create.Action("Create", "EditingWithCascadingDropDownLists").Type(HttpVerbs.Post))
+        .Read(read => read.Action("Read", "EditingWithCascadingDropDownLists").Type(HttpVerbs.Post))
+        .Update(update => update.Action("Update", "EditingWithCascadingDropDownLists").Type(HttpVerbs.Post))
+    )
+)
+
+<script>
+    function filterVendors() {
+        return {
+            customerId: $("#Customer").data("kendoDropDownList").value()
+        };
+    }
+
+    function filterItems() {
+        return {
+            vendorId: $("#Vendor").data("kendoDropDownList").value()
+        };
+    }
+</script>
