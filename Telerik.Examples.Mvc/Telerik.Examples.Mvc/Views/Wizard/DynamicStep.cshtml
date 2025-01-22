@@ -1,0 +1,65 @@
+﻿@{
+    ViewData["Title"] = "WizardDynamicStep";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+@(Html.Kendo().Wizard()
+        .Name("wizard")
+        .Tag("form")
+        .HtmlAttributes(new { @novalidate = "", action = Url.Action("DynamicStep", "DynamicStep"), method = "POST" })
+        .Steps(s =>
+        {
+            s.Add()
+            .Title("First")
+            .Form(f => f
+                .Validatable(v =>
+                {
+                    v.ValidateOnBlur(true);
+                    v.ValidationSummary(vs => vs.Enable(false));
+                })
+                .Items(items =>
+                {
+                    items.Add()
+                        .Field("Type")
+                        .Label(l => l.Text("Is Individual:"))
+                        .Editor(e => e.RadioGroup()
+                                  .Items(items =>
+                                  {
+                                      items.Add().Label("Individual").Value("Individual");
+                                      items.Add().Label("Company").Value("Company");
+                                  })
+                        );
+                })
+            )
+            .Buttons(b =>
+            {
+                b.Next();
+            });
+
+            s.Add().Title("Second").Content("<div id='secondStepContent'></div>").Buttons(b => b.Done());
+
+        })
+        .Events(e => e.Activate("onActivate"))
+
+
+)
+
+<script>
+    function onActivate(e) {
+        var secondStepWrapper = document.getElementById("secondStepContent");
+        if (e.step.options.title == "Second") {
+            var selectedType = $("#Type").data("kendoRadioGroup").value();
+
+            $.ajax({
+                url: "@Url.Action("Load_Step","DynamicStep")",
+                type: "GET",
+                data: { "type": selectedType },
+                success: function(response){
+                    secondStepWrapper.innerHTML = response;
+                }
+            })
+
+        }
+    }
+</script>
