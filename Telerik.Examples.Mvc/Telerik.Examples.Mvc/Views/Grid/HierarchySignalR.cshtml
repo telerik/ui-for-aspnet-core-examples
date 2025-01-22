@@ -1,0 +1,191 @@
+﻿
+<script src="~/js/signalr/dist/browser/signalr.min.js"></script>
+
+<script>
+    // SignalR configuration.
+
+    var parentHubUrl = "/parentGridHub";
+
+    var parentGridConnection = new signalR.HubConnectionBuilder()
+        .withUrl(parentHubUrl, {
+            transport: signalR.HttpTransportType.LongPolling
+        })
+        .build();
+
+    var parentGridConnectionStart = parentGridConnection.start()
+
+    var childHubUrl = "/childGridHub";
+
+    var childGridConnection = new signalR.HubConnectionBuilder()
+        .withUrl(childHubUrl, {
+            transport: signalR.HttpTransportType.LongPolling
+        })
+        .build();
+
+    var childGridConnectionStart = childGridConnection.start();
+
+</script>
+
+<div id="notification-container"></div>
+@(Html.Kendo().Notification() // Notification for CRUD operations of both the child and parent Grid components.
+      .Name("notification")
+      .Height("30%")
+      .Width("50%")
+      .AppendTo("#notification-container")
+)
+
+@(Html.Kendo().Grid<Product>() // Parent Grid.
+          .Name("grid")
+          .DataSource(dataSource => dataSource
+                .SignalR()
+                .AutoSync(false)
+                .Events(events => events.RequestEnd("onEnd"))
+                .Transport(tr => tr
+                    .Promise("parentGridConnectionStart")
+                    .Hub("parentGridConnection")
+                    .Client(c => c
+                        .Read("read")
+                        .Create("create")
+                        .Update("update")
+                        .Destroy("destroy"))
+                    .Server(s => s
+                        .Read("read")
+                        .Create("create")
+                        .Update("update")
+                        .Destroy("destroy"))
+                    )
+                    .Schema(schema => schema
+                        .Model(model => {
+                             model.Id(id => id.ProductID);
+                             model.Field(field => field.ProductID).Editable(false);
+                             model.Field(field => field.ProductName);
+                             model.Field(field => field.UnitsInStock);
+                             model.Field(field => field.Discontinued);
+                             model.Field(field => field.UnitPrice);
+                             model.Field(field => field.UnitsOnOrder);
+                        })
+                    )
+                    .PageSize(10)
+          )
+          .Events(events => events.DetailInit("onDetailInit"))
+          .Editable(editable => editable.Mode(GridEditMode.InLine))
+          .ToolBar(t => t.Create())
+          .Columns(columns =>
+          {
+              columns.Bound(product => product.ProductID);
+              columns.Bound(product => product.ProductName);
+              columns.Bound(product => product.UnitsInStock);
+              columns.Bound(product => product.Discontinued);
+              columns.Bound(product => product.UnitPrice);
+              columns.Bound(product => product.UnitsOnOrder);
+              columns.Command(command =>
+              {
+                  command.Edit();
+                  command.Destroy();
+              });
+          })
+          .Pageable()
+          .Sortable()
+          .Filterable()
+          .Groupable()
+          .ClientDetailTemplateId("OrdersTemplate")
+)
+
+<script type="text/kendo" id="OrdersTemplate"> 
+    @(Html.Kendo().Grid<Person>() // Child Grid.
+            .Name("People#=ProductID#")
+            .Columns(columns =>
+            {
+                columns.Bound(o => o.PersonID);
+                columns.Bound(o => o.Name);
+                columns.Bound(o => o.BirthDate).Format("{0:d}");
+                columns.Command(command =>
+                {
+                    command.Edit();
+                    command.Destroy();
+                });
+            })
+            .ToolBar(toolbar => toolbar.Create())
+            .Editable(editable => editable.Mode(GridEditMode.InLine))
+            .Pageable().Sortable().Filterable()
+            .AutoBind(false) // AutoBind is required to be set to false in order for the parent ID identifier to be supplemented programmatically.
+            .DataSource(dataSource => dataSource
+				.SignalR()
+				.AutoSync(false)
+				.Events(events => events.RequestEnd("onEnd2"))
+				.Transport(tr => tr
+					.ParameterMap("onMap")
+					.Promise("childGridConnectionStart")
+					.Hub("childGridConnection")
+					.Client(c => c
+						.Read("read")
+						.Create("create")
+						.Update("update")
+						.Destroy("destroy")
+					)
+					.Server(s => s
+						.Read("read")
+						.Create("create")
+						.Update("update")
+						.Destroy("destroy")
+						)
+					)
+					.Schema(schema => schema
+					.Model(model =>
+					{
+						model.Id("PersonID");
+						model.Field("PersonID", typeof(int)).Editable(false);
+						model.Field("Name", typeof(string));
+						model.Field("BirthDate", typeof(DateTime));
+					}))
+					.PageSize(10)
+			)
+            .ToClientTemplate()
+         )
+</script>
+
+<script>
+    var parentId; // Flag variable for Parent ID unique identifier.
+    function onDetailInit(e) { // Detail Init is required.
+        var dataItem = $("#grid").getKendoGrid().dataItem(e.masterRow);
+        parentId = dataItem.ProductID; // Gather the Parent id unique identifier.
+
+        $(e.detailRow).find(".k-grid").getKendoGrid().dataSource.read();
+    }
+    function onMap(data, type) {
+        switch (type) {
+            case "read": {
+                return readParameterMap(data, type, parentId)
+            }
+            default: {
+                return data;
+            }
+        }
+    }
+
+    function onEnd(e) { // Request End for Parent Grid.
+        if (e.type == "destroy") {
+            console.log("here");
+            $("#notification").getKendoNotification().show("Delete operation has occured for the parent Grid", "success")
+        } else if (e.type == "update") {
+            $("#notification").getKendoNotification().show("Update operation has occured for the parent Grid", "success")
+        } else if (e.type == "create") {
+            $("#notification").getKendoNotification().show("Create operation has occured for the parent Grid", "success")
+        }
+    }
+
+
+    function onEnd2(e) { // Request End for Child Grid.
+        if (e.type == "destroy") {
+            $("#notification").getKendoNotification().show("Delete operation has occured for the child Grid", "success")
+        } else if (e.type == "update") {
+            $("#notification").getKendoNotification().show("Update operation has occured for the child Grid", "success")
+        } else if (e.type == "create") {
+            $("#notification").getKendoNotification().show("Create operation has occured for the child Grid", "success")
+        }
+    }
+
+    function readParameterMap(data, operation, id) { // Paremeter Map handler for child Grid.
+        return { ProductID: id };
+    }
+</script>
