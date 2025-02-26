@@ -1,0 +1,50 @@
+﻿<div class="row">
+    <div class="col-12">
+        @(Html.Kendo().Grid<OrderViewModel>()
+            .Name("grid")
+            .Columns(columns =>
+            {
+                columns.Bound(p => p.OrderID).Filterable(false);
+                columns.Bound(p => p.EmployeeID).Filterable(false);
+                columns.Bound(p => p.CustomerID).Filterable(false);
+                columns.Bound(p => p.ShipAddress).Filterable(false);
+                columns.Bound(p => p.OrderDate).Format("{0:MM/dd/yyyy}");
+                columns.Bound(p => p.ShippedDate).Format("{0:MM/dd/yyyy}");
+                columns.Bound(p => p.Freight);
+                columns.Bound(p => p.ShipName);
+                columns.Bound(p => p.ShipCity);
+
+                columns.Command(c => {
+                    c.Edit();
+                    c.Destroy();
+                });
+            })
+            .ToolBar(toolbar => toolbar.Create())
+            .DataSource(dataSource => dataSource
+                .WebApi()
+                .PageSize(5)
+                .Model(model => {
+                    model.Id(p => p.OrderID);
+                    model.Field(f => f.OrderID).DefaultValue(0);
+                    model.Field(f => f.Freight).DefaultValue(0);
+                    model.Field(f => f.EmployeeID).DefaultValue(0);
+                    model.Field(f => f.CustomerID).DefaultValue("0");
+                    model.Field(f => f.ShippedDate).DefaultValue(DateTime.Now);
+                    model.Field(f => f.OrderDate).DefaultValue(DateTime.Now);
+                    model.Field(f => f.ShipAddress).DefaultValue("None");
+                    model.Field(f => f.ShipCity).DefaultValue("None");
+                    model.Field(f => f.ShipCountry).DefaultValue("None");
+                    model.Field(f => f.ShipName).DefaultValue("None");
+                })
+                .Create(create => create.Url("/api/minimalapi").Type(HttpVerbs.Post))
+                .Read(read => read.Url("/api/minimalapi").Type(HttpVerbs.Get))
+                .Update(update => update.Url("/api/minimalapi/{0}").Type(HttpVerbs.Put))
+                .Destroy(delete => delete.Url("/api/minimalapi/{0}").Type(HttpVerbs.Delete))
+            )
+            .Filterable()
+            .Editable(editable => editable.Mode(GridEditMode.InLine))
+            .Pageable()
+            .Sortable()
+      )
+    </div>
+</div>
