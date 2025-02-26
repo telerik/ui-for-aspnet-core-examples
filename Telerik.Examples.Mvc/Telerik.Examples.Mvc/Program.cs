@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
+using System.Text.Json;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
@@ -17,6 +17,16 @@ using Microsoft.OData.Edm;
 using Microsoft.OData.ModelBuilder;
 using Telerik.Examples.Mvc.Database;
 using Telerik.Examples.Mvc.Seeders;
+using Kendo.Mvc.UI;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using System.Linq;
+using System.Threading.Tasks;
+using System;
+using Kendo.Mvc.Extensions;
+using System.Collections.Generic;
+using System.Threading;
+using Telerik.SvgIcons;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -112,6 +122,59 @@ else
     app.UseExceptionHandler("/Home/Error");
     app.UseHsts();
 }
+
+app.MapGet($"/api/minimalapi", (MinimalAPIDataSourceRequest request) =>
+{
+    var data = MinimalAPIDataSourceRequest.GetData();
+
+    var dataSourceRequest = new DataSourceRequest
+    {
+        Page = request.Page,
+        PageSize = request.PageSize,
+        Aggregates = request.Aggregates,
+        Filters = request.Filters,
+        Groups = request.Groups,
+        Sorts = request.Sorts
+    };
+
+    return Results.Json(data.ToDataSourceResult(dataSourceRequest), new System.Text.Json.JsonSerializerOptions
+    {
+        PropertyNamingPolicy = null
+    });
+})
+.WithName("GetOrders");
+
+app.MapPost("/api/minimalapi", ([FromForm] OrderViewModel model) =>
+{
+    // Perform Database Create Operation
+
+    var result = new DataSourceResult
+    {
+        Data = new[] { model },
+        Total = 1
+    };
+
+    return Results.Json(result, new JsonSerializerOptions
+    {
+        PropertyNamingPolicy = null
+    });
+})
+.DisableAntiforgery();
+
+app.MapPut("/api/minimalapi/{id}", ([FromForm] OrderViewModel model, int id) =>
+{
+    // Perform Database Update Operation
+
+    return Results.NoContent();
+})
+.DisableAntiforgery();
+
+app.MapDelete("/api/minimalapi/{id}", (int id) =>
+{
+    // Perform Database Delete Operation
+
+    return Results.NoContent();
+});
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
