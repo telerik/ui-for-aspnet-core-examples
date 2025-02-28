@@ -118,6 +118,8 @@ app.UseEndpoints(endpoints =>
 {
     endpoints.MapHub<MeetingHub>("/meetingHub");
     endpoints.MapHub<GridHub>("/gridHub");
+    endpoints.MapHub<ParentGridHub>("/parentGridHub");
+    endpoints.MapHub<ChildGridHub>("/childGridHub");
     endpoints.MapControllerRoute(
         name: "default",
         pattern: "{controller=Home}/{action=Index}/{id?}");
