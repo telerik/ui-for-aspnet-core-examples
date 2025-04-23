@@ -63,6 +63,7 @@ builder.Services.Configure<RazorViewEngineOptions>(options =>
 {
     options.ViewLocationFormats.Add("/Views/ListBox/{0}" + RazorViewEngine.ViewExtension);
     options.ViewLocationFormats.Add("/Views/Captcha/{0}" + RazorViewEngine.ViewExtension);
+    options.ViewLocationFormats.Add("/Views/chat/{0}" + RazorViewEngine.ViewExtension);
     options.ViewLocationFormats.Add("/Views/Grid/{0}" + RazorViewEngine.ViewExtension);
     options.ViewLocationFormats.Add("/Views/ImageEditor/{0}" + RazorViewEngine.ViewExtension);
     options.ViewLocationFormats.Add("/Views/Editor/{0}" + RazorViewEngine.ViewExtension);
@@ -191,6 +192,7 @@ app.UseEndpoints(endpoints =>
     endpoints.MapHub<GridHub>("/gridHub");
     endpoints.MapHub<ParentGridHub>("/parentGridHub");
     endpoints.MapHub<ChildGridHub>("/childGridHub");
+    endpoints.MapHub<ChatHub>("/chat");
     endpoints.MapControllerRoute(
         name: "default",
         pattern: "{controller=Home}/{action=Index}/{id?}");
