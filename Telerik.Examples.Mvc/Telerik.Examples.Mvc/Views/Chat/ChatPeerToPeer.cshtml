@@ -1,0 +1,53 @@
+﻿<script src="~/js/signalr/dist/browser/signalr.min.js"></script>
+
+@{
+    var name = Guid.NewGuid().ToString();
+}
+
+@(Html.Kendo().Chat()
+    .Name("chat")
+    .User(user => user
+        .Name(@name)
+        .IconUrl("https://demos.telerik.com/kendo-ui/content/chat/avatar.png")
+    )
+    .Events(events => events
+        .TypingStart("onTypingStart")
+        .Post("onPost")
+    )
+)
+
+<script>
+    window.chatHub = new signalR.HubConnectionBuilder()
+        .withUrl('/chat')
+        .build();
+
+    chatHub.start()
+        .catch(function(err) {
+            console.error(err.toString());
+        });
+
+    $(function() {
+        window.chat = $("#chat").getKendoChat();
+
+        chatHub.on('broadcastMessage', function(sender, message) {
+            var message = {
+                type: 'text',
+                text: message
+            };
+
+            chat.renderMessage(message, sender);
+        });
+
+        chatHub.on('typing', function(sender) {
+            chat.renderMessage({ type: 'typing' }, sender);
+        });
+    });
+
+    function onTypingStart(e) {
+        chatHub.invoke("sendTyping", chat.getUser());
+    }
+
+    function onPost(args) {
+        chatHub.invoke("send", chat.getUser(), args.text);
+    }
+</script>
