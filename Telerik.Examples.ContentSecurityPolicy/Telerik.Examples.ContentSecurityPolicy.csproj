@@ -1,55 +1,59 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
-  <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
-    <Nullable>disable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net9.0</TargetFramework>
+		<Nullable>disable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+	</PropertyGroup>
 
-  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-    <DefineConstants>$(DefineConstants);RELEASE</DefineConstants>
-  </PropertyGroup>
+	<PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+		<DefineConstants>$(DefineConstants);RELEASE</DefineConstants>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <Compile Remove="Templates\**" />
-    <Content Remove="Templates\**" />
-    <EmbeddedResource Remove="Templates\**" />
-    <None Remove="Templates\**" />
-  </ItemGroup>
+	<ItemGroup>
+		<Compile Remove="Templates\**" />
+		<Content Remove="Templates\**" />
+		<EmbeddedResource Remove="Templates\**" />
+		<None Remove="Templates\**" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="wwwroot\shared\" />
-  </ItemGroup>
+	<ItemGroup>
+		<Folder Include="wwwroot\shared\" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <None Include="wwwroot\lib\bootstrap\css\bootstrap-grid.css.map" />
-    <None Include="wwwroot\lib\bootstrap\css\bootstrap-grid.min.css.map" />
-    <None Include="wwwroot\lib\bootstrap\css\bootstrap-reboot.css.map" />
-    <None Include="wwwroot\lib\bootstrap\css\bootstrap-reboot.min.css.map" />
-    <None Include="wwwroot\lib\bootstrap\css\bootstrap.css.map" />
-    <None Include="wwwroot\lib\bootstrap\css\bootstrap.min.css.map" />
-    <None Include="wwwroot\lib\bootstrap\js\bootstrap.bundle.js" />
-    <None Include="wwwroot\lib\bootstrap\js\bootstrap.bundle.js.map" />
-    <None Include="wwwroot\lib\bootstrap\js\bootstrap.bundle.min.js" />
-    <None Include="wwwroot\lib\bootstrap\js\bootstrap.bundle.min.js.map" />
-    <None Include="wwwroot\lib\bootstrap\js\bootstrap.js" />
-    <None Include="wwwroot\lib\bootstrap\js\bootstrap.js.map" />
-    <None Include="wwwroot\lib\bootstrap\js\bootstrap.min.js" />
-    <None Include="wwwroot\lib\bootstrap\js\bootstrap.min.js.map" />
-  </ItemGroup>
+	<ItemGroup>
+		<None Include="wwwroot\lib\bootstrap\css\bootstrap-grid.css.map" />
+		<None Include="wwwroot\lib\bootstrap\css\bootstrap-grid.min.css.map" />
+		<None Include="wwwroot\lib\bootstrap\css\bootstrap-reboot.css.map" />
+		<None Include="wwwroot\lib\bootstrap\css\bootstrap-reboot.min.css.map" />
+		<None Include="wwwroot\lib\bootstrap\css\bootstrap.css.map" />
+		<None Include="wwwroot\lib\bootstrap\css\bootstrap.min.css.map" />
+		<None Include="wwwroot\lib\bootstrap\js\bootstrap.bundle.js" />
+		<None Include="wwwroot\lib\bootstrap\js\bootstrap.bundle.js.map" />
+		<None Include="wwwroot\lib\bootstrap\js\bootstrap.bundle.min.js" />
+		<None Include="wwwroot\lib\bootstrap\js\bootstrap.bundle.min.js.map" />
+		<None Include="wwwroot\lib\bootstrap\js\bootstrap.js" />
+		<None Include="wwwroot\lib\bootstrap\js\bootstrap.js.map" />
+		<None Include="wwwroot\lib\bootstrap\js\bootstrap.min.js" />
+		<None Include="wwwroot\lib\bootstrap\js\bootstrap.min.js.map" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.3.0" />
-    <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="9.0.2" />
-    <PackageReference Include="Microsoft.CodeAnalysis" Version="4.12.0" />
-    <PackageReference Include="Microsoft.CodeAnalysis.Razor" Version="6.0.36" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-    <PackageReference Include="System.Security.Cryptography.Xml" Version="9.0.2" />
-    <PackageReference Include="System.Text.Encodings.Web" Version="9.0.2" />
-    <PackageReference Include="System.Text.RegularExpressions" Version="4.3.1" />
-    <PackageReference Include="Telerik.UI.for.AspNet.Core.Trial" Version="2023.3.1010" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.Http" Version="2.3.0" />
+		<PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="9.0.2" />
+		<PackageReference Include="Microsoft.CodeAnalysis" Version="4.14.0" />
+		<PackageReference Include="Microsoft.CodeAnalysis.Razor" Version="6.0.36" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+		<PackageReference Include="System.Security.Cryptography.Xml" Version="9.0.2" />
+		<PackageReference Include="System.Text.Encodings.Web" Version="9.0.2" />
+		<PackageReference Include="System.Text.RegularExpressions" Version="4.3.1" />
+		<PackageReference Include="Telerik.UI.for.AspNet.Core" Version="2025.2.520" />
+	</ItemGroup>
 
-  <ProjectExtensions><VisualStudio><UserProperties UseCdnSupport="" /></VisualStudio></ProjectExtensions>
+	<ProjectExtensions>
+		<VisualStudio>
+			<UserProperties UseCdnSupport="" />
+		</VisualStudio>
+	</ProjectExtensions>
 
 </Project>
