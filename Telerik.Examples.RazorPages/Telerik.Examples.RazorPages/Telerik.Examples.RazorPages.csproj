@@ -1,47 +1,47 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
-  <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net9.0</TargetFramework>
+	</PropertyGroup>
 
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.3.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="9.0.2" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="9.0.2" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.2" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.2">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.2" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="9.0.0" />
-    <PackageReference Include="System.Drawing.Common" Version="9.0.2" />
-    <PackageReference Include="System.Security.Cryptography.Xml" Version="9.0.2" />
-    <PackageReference Include="System.Text.RegularExpressions" Version="4.3.1" />
-    <PackageReference Include="Telerik.UI.for.AspNet.Core.Trial" Version="2023.1.425" />
-    <PackageReference Include="Telerik.Web.Captcha.Trial" Version="1.1.2" />
-    <PackageReference Include="Telerik.Web.PDF.Trial" Version="2021.2.616" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.Http" Version="2.3.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="9.0.5" />
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="9.0.2" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.2" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.2">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.2" />
+		<PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="9.0.0" />
+		<PackageReference Include="System.Drawing.Common" Version="9.0.2" />
+		<PackageReference Include="System.Security.Cryptography.Xml" Version="9.0.2" />
+		<PackageReference Include="System.Text.RegularExpressions" Version="4.3.1" />
+		<PackageReference Include="Telerik.UI.for.AspNet.Core" Version="2025.2.520" />
+		<PackageReference Include="Telerik.Web.Captcha" Version="2.0.2" />
+		<PackageReference Include="Telerik.Web.PDF" Version="2025.2.520" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Pages\Editor\" />
-    <Folder Include="Pages\Shared\EditorTemplates\" />
-  </ItemGroup>
-
-
-  <ItemGroup>
-    <None Include="Pages\ButtonGroup\ButtonGroupIndex.cshtml" />
-    <None Include="wwwroot\Content\TabStrip\ajaxContent1.html" />
-    <None Include="wwwroot\Content\TabStrip\ajaxContent2.html" />
-    <None Include="wwwroot\Content\TabStrip\ajaxContent7.html" />
-  </ItemGroup>
+	<ItemGroup>
+		<Folder Include="Pages\Editor\" />
+		<Folder Include="Pages\Shared\EditorTemplates\" />
+	</ItemGroup>
 
 
-  <ItemGroup>
-    <None Update="Pages\ScrollView\ScrollViewImages\image2.jpg">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
+	<ItemGroup>
+		<None Include="Pages\ButtonGroup\ButtonGroupIndex.cshtml" />
+		<None Include="wwwroot\Content\TabStrip\ajaxContent1.html" />
+		<None Include="wwwroot\Content\TabStrip\ajaxContent2.html" />
+		<None Include="wwwroot\Content\TabStrip\ajaxContent7.html" />
+	</ItemGroup>
+
+
+	<ItemGroup>
+		<None Update="Pages\ScrollView\ScrollViewImages\image2.jpg">
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
 
 </Project>
