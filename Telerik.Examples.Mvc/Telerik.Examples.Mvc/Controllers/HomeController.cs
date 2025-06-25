@@ -9,6 +9,8 @@ using Telerik.Examples.Mvc.Models;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Controllers;
 using System.Text.RegularExpressions;
+using System.IO;
+using System.Text.Json;
 
 namespace Telerik.Examples.Mvc.Controllers
 {
@@ -24,9 +26,8 @@ namespace Telerik.Examples.Mvc.Controllers
         }
 
         public IActionResult Index()
-        {
-
-            var demoEndpoints = this._actionDescriptorCollectionProvider.ActionDescriptors.Items
+        {          
+            var list = this._actionDescriptorCollectionProvider.ActionDescriptors.Items
                 .OfType<ControllerActionDescriptor>()
                 .Where(w => w.ControllerName.Replace("Controller",String.Empty) == w.ActionName)
                 .Select(s => new Demo
@@ -35,10 +36,11 @@ namespace Telerik.Examples.Mvc.Controllers
                     ControllerName = s.ControllerName,
                     ActionName = s.ActionName
                 })
-                .GroupBy(g => g.ComponentName)
                 .ToList();
+
+            System.IO.File.WriteAllBytes(Directory.GetCurrentDirectory() + "/wwwroot/files/ExamplesEndpoints.txt", JsonSerializer.SerializeToUtf8Bytes(list));
             
-            return View(demoEndpoints);
+            return View();
         }
 
         public IActionResult Privacy()
