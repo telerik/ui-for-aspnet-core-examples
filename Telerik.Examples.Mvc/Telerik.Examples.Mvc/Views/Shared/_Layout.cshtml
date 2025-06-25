@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using System.IO
+@using System.Text.Json
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -9,7 +11,7 @@
         var themeVersion = "11.0.2";
     }
     <link href="https://kendo.cdn.telerik.com/themes/@themeVersion/default/default-ocean-blue.css" rel="stylesheet" type="text/css" />
-                                              
+
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
     <script src="https://unpkg.com/jszip/dist/jszip.min.js"></script>
     <script src="https://kendo.cdn.telerik.com/@kendoVersion/js/kendo.all.min.js"></script>
@@ -17,6 +19,55 @@
 
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+
+    <script>
+        function searchExamples() {
+            sessionStorage["searchValue"] = $(".k-searchbox input").val();
+
+            $("#panelbar").data().kendoPanelBar.items().each(function (i, el) {
+                var item = $(el);
+                var condition = true;
+                var literals = $(".k-searchbox input").val().split(' ');
+                for (var i = 0; i < literals.length; i++) {
+                    if (!item.text().replaceAll(' ', '').toLowerCase().includes(literals[i].toLowerCase())) {
+                        condition = false;
+                        break;
+                    }
+                }
+                if (condition) {
+                    item.parent().show();
+                }
+                else {
+                    item.parent().hide();
+                }
+            })
+        }
+        function gridSelect(e) {
+            sessionStorage["position"] = e.sender.element.scrollTop();
+            var literalParts=e.item.textContent.split(" ");
+            literalParts.shift();
+            var exampleName= literalParts.toString().replaceAll(",", "");
+            window.location ="../"+ exampleName+"/"+exampleName;
+        }
+        $(document).ready(function () {
+            setTimeout(function () {
+                if (sessionStorage["searchValue"]) {
+                    $(".k-searchbox input").val(sessionStorage["searchValue"]);
+                    $(".k-searchbox input").trigger("onkeyup");
+                }
+
+                var item = $(".k-panelbar-item")
+                    .filter(function (index) {
+                        return $(this).find(".k-panelbar-item-text").text().endsWith($(".title-container").text().trim());
+                    })
+                var panelBar = $("#panelbar").data().kendoPanelBar;
+                panelBar.select(item);
+                if (sessionStorage["position"]) {
+                    panelBar.element.scrollTop(sessionStorage["position"]);
+                }
+            }, 20)
+        })
+    </script>
 </head>
 <body>
     <header>
@@ -33,23 +84,90 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                     </ul>
-                    @if(ViewContext.RouteData.Values.ContainsKey("controller") && ViewContext.RouteData.Values["controller"].ToString() == "SecurityTrimming")
+                    @if (ViewContext.RouteData.Values.ContainsKey("controller") && ViewContext.RouteData.Values["controller"].ToString() == "SecurityTrimming")
                     {
-                        <partial name="_LoginPartial"/>
+                        <partial name="_LoginPartial" />
                     }
                 </div>
             </div>
         </nav>
     </header>
+    <div class="toc">
+        <span class="k-searchbox k-input k-input-md k-rounded-md k-input-solid">
+            <span class="k-icon k-svg-icon k-svg-i-search k-input-icon">
+                <svg viewBox="0 0 512 512" focusable="false" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M365.3 320h-22.7l-26.7-26.7C338.5 265.7 352 230.4 352 192c0-88.4-71.6-160-160-160S32 103.6 32 192s71.6 160 160 160c38.4 0 73.7-13.5 101.3-36.1l26.7 26.7v22.7L434.7 480l45.3-45.3zM64 192c0-70.7 57.3-128 128-128s128 57.3 128 128-57.3 128-128 128S64 262.7 64 192">
+                    </path>
+                </svg>
+            </span>
+            <input autocomplete="off" placeholder="Search..." title="Search..." aria-label="Search..." class="k-input-inner" onkeyup="searchExamples();">
+        </span>
+        @(Html.Kendo().PanelBar()
+            .Name("panelbar")
+            .Events(e => e.Select("gridSelect"))
+            .ExpandMode(PanelBarExpandMode.Single)
+            .Items(panelbar =>
+            {
+                foreach (var example in (List<Demo>)JsonSerializer.Deserialize<List<Demo>>(File.ReadAllBytes(Directory.GetCurrentDirectory() + "/wwwroot/files/ExamplesEndpoints.txt")))
+                {
+                    panelbar.Add().Text(example.ComponentName + " " + System.Text.RegularExpressions.Regex.Replace(example.ActionName, "(\\B[A-Z])", " $1"));
+                }
+            }))
+    </div>
     <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
+        <h4 class="title-container">@(System.Text.RegularExpressions.Regex.Replace(ViewContext.HttpContext.Request.Path.Value.Split('/')[1], "(\\B[A-Z])", " $1"))</h4>
+        @{
+            RenderBody();
+            var controllerPath = ViewContext.View.Path.Replace("Views","Controllers").Replace(".cshtml", "")+"Controller.cs";
+        }
+        @(Html.Kendo().TabStrip()
+                .Name("tabstrip-images")
+                .Items(tabstrip =>
+                {
+                    tabstrip.Add().Text("Sample")
+                .Selected(true)
+                .Content(@<text>
+            <main role="main" class="pb-3">
+                @RenderBody()
+            </main>
+        </text>);
+                    if (!ViewContext.View.Path.Contains("/Home/")){
+                    tabstrip.Add().Text(ViewContext.View.Path.Split("/")[3])
+                           .Content(@<text>
+                                  @{
+                                   string line;
+                                  System.IO.StreamReader file = new System.IO.StreamReader(Directory.GetCurrentDirectory() + ViewContext.View.Path);
+                                     var fileLines = new List<string>();
+                                   while ((line = file.ReadLine()) != null)
+                                     {
+                                           <pre>@line</pre>
+                                     }
+                                     }
+                         </text>);
+                    }
+
+                    if (File.Exists(Directory.GetCurrentDirectory()+ViewContext.View.Path.Replace("Views", "Controllers").Replace(".cshtml", "") + "Controller.cs"))
+                    {
+                          tabstrip.Add().Text(ViewContext.View.Path.Split("/")[3].Replace(".cshtml","")+"Controller.cs")
+                           .Content(@<text>
+                                  @{
+                                   string line;
+                                  System.IO.StreamReader file = new System.IO.StreamReader(Directory.GetCurrentDirectory()+
+                                        ViewContext.View.Path.Replace("Views","Controllers").Replace(".cshtml", "")+"Controller.cs");
+                                     var fileLines = new List<string>();
+                                   while ((line = file.ReadLine()) != null)
+                                     {
+                                           <pre>@line</pre>
+                                     }
+                                     }
+                         </text>);
+                    }
+                }))
     </div>
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; @DateTime.Now.Year Telerik.Examples.Mvc 
+            <p>Copyright &copy; @DateTime.Now.Year Progress Software Corporation and/or its subsidiaries or affiliates. All Rights Reserved.</p>
         </div>
     </footer>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
