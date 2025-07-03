@@ -16,7 +16,7 @@
                 .HtmlAttributes(new { style = "width: 100%;" })
                 .DataSource(x =>
                         x.Custom()
-                         .Transport(y => y.Read(z => z.Url("https://demos.telerik.com/kendo-ui/service/Products").DataType("jsonp")))
+                .Transport(y => y.Read(z => z.Url("https://demos.telerik.com/service/v2/core/Products")))
                         )
             )
         </li>
