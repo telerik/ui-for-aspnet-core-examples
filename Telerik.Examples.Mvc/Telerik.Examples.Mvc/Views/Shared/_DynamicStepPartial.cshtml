@@ -1,0 +1,43 @@
+﻿@{
+    Layout = "";
+}
+
+@model string
+@{
+    if (Model.Equals("Individual"))
+    {
+        <form id="accountDetailsForm" class="k-form k-form-vertical" data-role="validator" novalidate="novalidate">
+            <div class="k-form-field">
+                <label for="AccountDetails.Username" class="k-form-label">Username:</label>
+                <span class="k-form-field-wrap">
+                    <input type="text" class="k-input k-textbox k-input-solid k-input-md k-rounded-md" name="AccountDetails.Username" id="AccountDetails.Username" required="required" />
+                </span>
+            </div>
+            <div class="k-form-field">
+                <label for="AccountDetails.Email" class="k-form-label">Email:</label>
+                <span class="k-form-field-wrap">
+                    <input type="text" class="k-input k-textbox k-input-solid k-input-md k-rounded-md" name="AccountDetails.Email" id="AccountDetails.Email" required="required" />
+                </span>
+            </div>
+
+        </form>
+
+    }
+    else
+    {
+        <form id="companyDetailsForm" class="k-form k-form-vertical" data-role="validator" novalidate="novalidate">
+            <div class="k-form-field">
+                <label for="CompanyDetails.CompanyName" class="k-form-label">CompanyName:</label>
+                <span class="k-form-field-wrap">
+                    <input type="text" class="k-input k-textbox k-input-solid k-input-md k-rounded-md" name="CompanyDetails.CompanyName" id="CompanyDetails.CompanyName" required="required" />
+                </span>
+            </div>
+            <div class="k-form-field">
+                <label for="CompanyDetails.Country" class="k-form-label">Country:</label>
+                <span class="k-form-field-wrap">
+                    <input type="text" class="k-input k-textbox k-input-solid k-input-md k-rounded-md" name="CompanyDetails.Country" id="CompanyDetails.Country" required="required" />
+                </span>
+            </div>
+        </form>
+    }
+}
