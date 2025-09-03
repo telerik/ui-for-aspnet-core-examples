@@ -1,18 +1,23 @@
-﻿using Microsoft.AspNetCore.SignalR;
+﻿using Kendo.Mvc.UI;
+using Microsoft.AspNetCore.SignalR;
+using System.Collections.Generic;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace Telerik.Examples.Mvc.Hubs
 {
     public class ChatHub : Hub
     {
-        public async Task Send(object sender, string message)
+        public async Task Send(string senderId, string senderName, string message)
         {
-            await Clients.Others.SendAsync("broadcastMessage", sender, message);
+            // Broadcast the message to all clients except the sender.
+            await Clients.Others.SendAsync("broadcastMessage", senderId, senderName, message);
         }
 
-        public async Task SendTyping(object sender)
+        public async Task SendTyping(string senderId, string senderName)
         {
-            await Clients.Others.SendAsync("typing", sender);
+            // Broadcast the typing notification to all clients except the sender.
+            await Clients.Others.SendAsync("typing", senderId, senderName);
         }
     }
 }
