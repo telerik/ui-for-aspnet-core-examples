@@ -47,7 +47,7 @@
 		<PackageReference Include="System.Security.Cryptography.Xml" Version="9.0.2" />
 		<PackageReference Include="System.Text.Encodings.Web" Version="9.0.2" />
 		<PackageReference Include="System.Text.RegularExpressions" Version="4.3.1" />
-		<PackageReference Include="Telerik.UI.for.AspNet.Core" Version="2025.2.520" />
+		<PackageReference Include="Telerik.UI.for.AspNet.Core" Version="2025.3.825" />
 	</ItemGroup>
 
 	<ProjectExtensions>

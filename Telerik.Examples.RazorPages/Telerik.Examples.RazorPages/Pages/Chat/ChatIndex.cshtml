@@ -7,37 +7,53 @@
 @inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Xsrf
 @Html.AntiForgeryToken()
 
-<h1>ChatIndex</h1>
+<h1>Chat bound to remote data</h1>
 
-    @(Html.Kendo().Chat()
-        .Name("chat")
-        .Toolbar(toolbar =>
-        {
-            toolbar.Toggleable(Model.Toggable);
-            toolbar.Scrollable(Model.Scrollable);
-            toolbar.Buttons(buttons =>
-            {
-                buttons.Add().Name("Settings").IconClass("k-icon k-i-gear");
-                buttons.Add().Name("Hand").IconClass("k-icon k-i-hand");
-                buttons.Add().Name("Bold").IconClass("k-icon k-i-bold");
-                buttons.Add().Name("Italic").IconClass("k-icon k-i-italic");
-                buttons.Add().Name("Underline").IconClass("k-icon k-i-underline");
-            });
-        })
-        .Messages(messages =>
-        {
-            messages.Placeholder(Model.Placeholder);
-            messages.SendButton(Model.SendButton);
-        })
-        .Events(e =>
-        {
-            e.ToolClick("onToolClick");
-        })
+@(Html.Kendo().Chat()
+    .Name("chat")
+    .Height("600px")
+    .Width("400px")
+    .AuthorId("1")
+    .TextField("Text")
+    .AuthorNameField("AuthorName")
+    .FilesField("Files")
+    .AuthorIdField("AuthorId")
+    .AuthorImageUrlField("AuthorImageUrl")
+    .AuthorImageAltTextField("AuthorImageAltText")
+    .TimestampField("TimeStamp")
+    .IdField("Id")
+    .IsPinnedField("IsPinned")
+    .IsDeletedField("IsDeleted")
+    .IsTypingField("IsTyping")
+    .DataSource(dataSource => dataSource
+        .Ajax()
+        .Read(r => r.Url("/Chat/ChatIndex?handler=ReadMessages").Data("forgeryToken"))
+        .Create(r => r.Url("/Chat/ChatIndex?handler=CreateMessage").Data("forgeryToken"))
+        .Update(r => r.Url("/Chat/ChatIndex?handler=UpdateMessage").Data("forgeryToken"))
     )
-   
+    .Events(events => events.SendMessage("onSendMessage"))
+)
 
 <script>
-    function onToolClick(e) {
-        console.log(e.name)
-    }        
+    function forgeryToken() {
+        return kendo.antiForgeryTokens();
+    }
+
+    function onSendMessage(e) {
+        const currentUser = {
+            id: 1,
+            name: "John Doe",
+            iconUrl: "https://demos.telerik.com/aspnet-core/shared/web/Customers/RICSU.jpg",
+            iconAltText: "John's profile picture"
+        };
+
+        e.message.authorId = currentUser.id;
+        e.message.authorName = currentUser.name;
+        e.message.authorImageUrl = currentUser.iconUrl;
+        e.message.authorImageAltText = currentUser.iconAltText;
+
+        setTimeout(() => {
+            e.sender.scrollToBottom();
+        }, 30);
+    }
 </script>

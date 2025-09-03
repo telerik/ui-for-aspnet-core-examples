@@ -7,7 +7,7 @@
 
 	<ItemGroup>
 		<PackageReference Include="Microsoft.AspNetCore.Http" Version="2.3.0" />
-		<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="9.0.5" />
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="9.0.8" />
 		<PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="9.0.2" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.2" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.2">
@@ -19,9 +19,9 @@
 		<PackageReference Include="System.Drawing.Common" Version="9.0.2" />
 		<PackageReference Include="System.Security.Cryptography.Xml" Version="9.0.2" />
 		<PackageReference Include="System.Text.RegularExpressions" Version="4.3.1" />
-		<PackageReference Include="Telerik.UI.for.AspNet.Core" Version="2025.2.520" />
-		<PackageReference Include="Telerik.Web.Captcha" Version="2.0.2" />
-		<PackageReference Include="Telerik.Web.PDF" Version="2025.2.520" />
+		<PackageReference Include="Telerik.UI.for.AspNet.Core" Version="2025.3.825" />
+		<PackageReference Include="Telerik.Web.Captcha" Version="2.0.3" />
+		<PackageReference Include="Telerik.Web.PDF" Version="2025.3.812" />
 	</ItemGroup>
 
 	<ItemGroup>

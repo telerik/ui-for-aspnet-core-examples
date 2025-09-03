@@ -6,48 +6,105 @@
 
 @(Html.Kendo().Chat()
     .Name("chat")
-    .User(user => user
-        .Name(@name)
-        .IconUrl("https://demos.telerik.com/kendo-ui/content/chat/avatar.png")
-    )
+    .AuthorId(@name)
+    .IsTypingField("isTyping")
+    .FileAttachment(false)
     .Events(events => events
-        .TypingStart("onTypingStart")
-        .Post("onPost")
+        .Input("onInput")
+        .SendMessage("onSendMessage")
     )
 )
 
 <script>
+    const currentUser = {
+        id: '@name',
+        name: 'User123',
+        iconUrl: "https://demos.telerik.com/kendo-ui/content/chat/avatar.png"
+    };
+    let isTyping = false;
+
     window.chatHub = new signalR.HubConnectionBuilder()
         .withUrl('/chat')
         .build();
 
     chatHub.start()
+        .then(function () {
+            console.log('SignalR connection started.');
+        })
         .catch(function(err) {
-            console.error(err.toString());
+            console.error('Error starting SignalR connection: ' + err.toString());
         });
 
     $(function() {
-        window.chat = $("#chat").getKendoChat();
+        chatHub.on('broadcastMessage', function(senderId, senderName, message) {
+            const chat = $("#chat").getKendoChat();
 
-        chatHub.on('broadcastMessage', function(sender, message) {
-            var message = {
-                type: 'text',
-                text: message
-            };
+            // Check for a "typing" message.
+            let typingMessages = $.grep(chat.dataSource.data(), function(item){
+                return item.isTyping == true ? item.id : "";
+            });
 
-            chat.renderMessage(message, sender);
+            if(typingMessages.length > 0) {
+                if(typingMessages[0].id != null) {
+                    let messageObject = chat.dataSource.get(typingMessages[0].id);
+                    if (messageObject) {
+                        // Update the "typing" message with the received message text.
+                        let updatedMessage = chat.updateMessage(messageObject, {
+                            text: message,
+                            isTyping: false
+                        });
+                    }
+                }
+            } else {
+                // Post the received message in the Chat.
+                chat.postMessage({
+                    id: kendo.guid(),
+                    authorId: senderId,
+                    authorName: senderId,
+                    authorImageUrl:currentUser.iconUrl,
+                    text: message,
+                    isTyping: false
+                });
+            }
         });
 
-        chatHub.on('typing', function(sender) {
-            chat.renderMessage({ type: 'typing' }, sender);
+        chatHub.on('typing', function(senderId, senderName) {
+            console.log(senderName + ' is typing');
+            const chat = $("#chat").getKendoChat();
+
+            chat.postMessage({
+                id: kendo.guid(),
+                isTyping: true,
+                authorId: senderId,
+                authorName: senderId,
+                authorImageUrl: currentUser.iconUrl
+            });
         });
     });
 
-    function onTypingStart(e) {
-        chatHub.invoke("sendTyping", chat.getUser());
+    // The 'Input' will notify the SignallR Hub that the current client is typing.
+    // The Hub, in turn, will notify all the other clients that the user has started typing.
+    function onInput(e) {
+        // If not already typing, send typing notification.
+        if (!isTyping) {
+            isTyping = true;
+            chatHub.invoke("sendTyping", currentUser.id, currentUser.name);
+        }
     }
 
-    function onPost(args) {
-        chatHub.invoke("send", chat.getUser(), args.text);
+    // The 'SendMessage' handler will send the user data and the typed text to the SignalR Hub.
+    // The Hub will then forward that info to the other clients.
+    function onSendMessage(args) {
+        // Update the message data based on the current user's data.
+        args.message.id = kendo.guid();
+        args.message.authorId = currentUser.id;
+        args.message.authorName = currentUser.name;
+        args.message.authorImageUrl = currentUser.iconUrl;
+
+        // Stop typing when sending a message.
+        if (isTyping) {
+            isTyping = false;
+        }
+        chatHub.invoke("send", args.message.authorId, args.message.authorName, args.message.text);
     }
 </script>
