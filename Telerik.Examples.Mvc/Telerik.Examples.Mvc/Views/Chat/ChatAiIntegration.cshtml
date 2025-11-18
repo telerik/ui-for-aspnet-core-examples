@@ -1,0 +1,34 @@
+﻿<div class="k-d-flex k-justify-content-center main-container">
+    @(Html.Kendo().Chat()
+        .Name("aiChat")
+        .SkipSanitization(true)
+        .Width("400px")
+        .Height("600px")
+        .MessageWidthMode(MessageWidthMode.Full)
+        .Messages(m => m.Placeholder("Ask the AI..."))
+        .Events(e => e.SendMessage("onSendMessage"))
+        )
+</div>
+
+<script>
+    async function onSendMessage(e) {
+
+        e.message.authorName = "John Smith";
+        const chat = $("#aiChat").data("kendoChat");
+        const response = await fetch('/ChatAiIntegration/Ask', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ prompt: e.message.text })
+        });
+        const data = await response.json();
+
+        chat.postMessage({
+            authorId: 'ai-assistant',
+            authorName: 'AI Assistant',
+            text: data.answer,
+            id: kendo.guid(),
+            timestamp: new Date()
+        });
+    }
+</script>
+
