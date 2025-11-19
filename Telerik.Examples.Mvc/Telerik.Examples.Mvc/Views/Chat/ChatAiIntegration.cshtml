@@ -12,23 +12,47 @@
 
 <script>
     async function onSendMessage(e) {
-
         e.message.authorName = "John Smith";
         const chat = $("#aiChat").data("kendoChat");
-        const response = await fetch('/ChatAiIntegration/Ask', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ prompt: e.message.text })
-        });
-        const data = await response.json();
 
-        chat.postMessage({
-            authorId: 'ai-assistant',
-            authorName: 'AI Assistant',
-            text: data.answer,
-            id: kendo.guid(),
-            timestamp: new Date()
-        });
+        try {
+            const response = await fetch('/ChatAiIntegration/Ask', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ prompt: e.message.text })
+            });
+
+            if (!response.ok) {
+                chat.postMessage({
+                    authorId: 'ai-assistant',
+                    authorName: 'AI Assistant',
+                    text: "Please add your Azure OpenAI keys in the AiService.cs file.",
+                    id: kendo.guid(),
+                    timestamp: new Date()
+                });
+                return;
+            }
+
+            const data = await response.json();
+
+            chat.postMessage({
+                authorId: 'ai-assistant',
+                authorName: 'AI Assistant',
+                text: data.answer,
+                id: kendo.guid(),
+                timestamp: new Date()
+            });
+
+        } catch (error) {
+            chat.postMessage({
+                authorId: 'ai-assistant',
+                authorName: 'AI Assistant',
+                text: "The AI Service is currently unavailable. Please check your configuration.",
+                id: kendo.guid(),
+                timestamp: new Date()
+            });
+        }
     }
 </script>
+
 
