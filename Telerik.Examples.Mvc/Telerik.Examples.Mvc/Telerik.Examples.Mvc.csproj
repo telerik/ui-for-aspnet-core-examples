@@ -24,7 +24,7 @@
     <PackageReference Include="System.Net.Http" Version="4.3.4" />
     <PackageReference Include="System.Text.RegularExpressions" Version="4.3.1" />
     <PackageReference Include="Telerik.Core.Export" Version="2025.3.812" />
-    <PackageReference Include="Telerik.UI.for.AspNet.Core" Version="2025.3.825" />
+    <PackageReference Include="Telerik.UI.for.AspNet.Core" Version="2025.4.1111" />
     <PackageReference Include="Telerik.Web.Captcha" Version="2.0.3" />
     <PackageReference Include="Telerik.Web.Spreadsheet" Version="2025.3.812" />
   </ItemGroup>

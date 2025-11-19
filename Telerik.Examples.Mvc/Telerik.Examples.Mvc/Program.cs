@@ -1,31 +1,32 @@
+using AutoMapper;
+using AutoMapper.Internal;
+using Kendo.Mvc.Extensions;
+using Kendo.Mvc.UI;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using System.Text.Json;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Razor;
+using Microsoft.AspNetCore.OData;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Newtonsoft.Json.Serialization;
-using Telerik.Examples.Mvc.Hubs;
-using AutoMapper;
-using AutoMapper.Internal;
-using Telerik.Examples.Mvc.Models;
-using Microsoft.AspNetCore.OData;
 using Microsoft.OData.Edm;
 using Microsoft.OData.ModelBuilder;
-using Telerik.Examples.Mvc.Database;
-using Telerik.Examples.Mvc.Seeders;
-using Kendo.Mvc.UI;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using System.Linq;
-using System.Threading.Tasks;
+using Newtonsoft.Json.Serialization;
 using System;
-using Kendo.Mvc.Extensions;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text.Json;
 using System.Threading;
+using System.Threading.Tasks;
+using Telerik.Examples.Mvc.Controllers.Chat;
+using Telerik.Examples.Mvc.Database;
+using Telerik.Examples.Mvc.Hubs;
+using Telerik.Examples.Mvc.Models;
+using Telerik.Examples.Mvc.Seeders;
 using Telerik.SvgIcons;
 
 
@@ -54,6 +55,7 @@ IMapper mapper = mappingConfig.CreateMapper();
 builder.Services.AddSingleton(mapper);
 
 builder.Services.AddTransient<CarsService>();
+builder.Services.AddTransient<AiService>();
 
 builder.Services.AddMvc()
     .AddNewtonsoftJson(options =>
