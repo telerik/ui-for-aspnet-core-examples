@@ -1,0 +1,82 @@
+name: "Update Kendo, Themes, Core Export, Web PDF, Web Captcha, and Web Spreadsheet versions"
+
+on:
+  workflow_dispatch:
+    inputs:
+      old_kendo_version:
+        description: "The old Kendo version to replace"
+        type: string
+        required: true
+      new_kendo_version:
+        description: "The new Kendo version to apply"
+        type: string
+        required: true
+
+      old_themes_version:
+        description: "The old themes version to apply"
+        type: string
+        required: true
+
+      new_themes_version:
+        description: "The new themes version to apply"
+        type: string
+        required: true
+
+      old_web_captcha_version:
+        description: "The old Web Captcha version to apply"
+        type: string
+        required: true
+
+      new_web_captcha_version:
+        description: "The new Web Captcha version to apply"
+        type: string
+        required: true
+
+      old_common_web_versions:
+        description: "The old common Web versions to apply"
+        type: string
+        required: true
+
+      new_common_web_versions:
+        description: "The new common Web versions to apply"
+        type: string
+        required: true
+
+jobs:
+  update-versions:
+    runs-on: ubuntu-latest
+
+    permissions:
+        pull-requests: write
+
+    env:
+      old_kendo_version: ${{ github.event.inputs.old_kendo_version }}
+      new_kendo_version:  ${{ github.event.inputs.new_kendo_version }}
+      old_themes_version: ${{ github.event.inputs.old_themes_version }}
+      new_themes_version: ${{ github.event.inputs.new_themes_version }}
+      old_common_web_versions: ${{ github.event.inputs.old_common_web_versions }}
+      new_common_web_versions: ${{ github.event.inputs.new_common_web_versions }}
+      old_web_captcha_version: ${{ github.event.inputs.old_web_captcha_version }}
+      new_web_captcha_version:  ${{ github.event.inputs.new_web_captcha_version }}
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Update dependencies
+        shell: pwsh
+        run: |
+          ./scripts/update_versions.ps1 -oldKendoVersion "$env:old_kendo_version" -newKendoVersion "$env:new_kendo_version" -oldThemesVersion "$env:old_themes_version" -newThemesVersion "$env:new_themes_version" -oldWebCaptchaVersion "$env:old_web_captcha_version" -newWebCaptchaVersion "$env:new_web_captcha_version" -oldCommonWebVersions "$old_common_web_versions" -newCommonWebVersions "$env:new_common_web_versions"
+
+      - name: Create PR
+        run: |
+          git checkout -b ${{ inputs.new_kendo_version }}
+          git config user.email "kendo-bot@progress.com"
+          git config user.name "kendo-bot"
+          git add .
+          git status
+          git commit -m "chore: update kendo, themes, export, pdf, and captcha versions"
+          git push --set-upstream origin ${{ inputs.new_kendo_version }}
+          gh pr create --base master --head ${{ inputs.new_kendo_version }} --title "Update dependencies" --body "Updated kendo, themes, export, pdf, and captcha versions"
