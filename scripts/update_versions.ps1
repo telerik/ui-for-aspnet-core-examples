@@ -46,7 +46,7 @@ function Update_ProjectVersions {
     foreach($csprojPath in $csprojPathsToUpdate) {
         Replace_Reference -path $csprojPath -oldReference $oldKendoVersion -newReference $newKendoVersion
         Replace_Reference -path $csprojPath -oldReference "Include=""Telerik.Web.Captcha"" Version=""$oldWebCaptchaVersion""" -newReference "Include=""Telerik.Web.Captcha"" Version=""$newWebCaptchaVersion"""
-        Replace_Reference -path $csprojPath -oldReference "Include=""Telerik.Web.PDF"" Version=""$oldCommonWebVersions""" -newReference "Include=""Telerik.Web.PDF"" Version=""$newWebPDFVersion"""
+        Replace_Reference -path $csprojPath -oldReference "Include=""Telerik.Web.PDF"" Version=""$oldCommonWebVersions""" -newReference "Include=""Telerik.Web.PDF"" Version=""$newCommonWebVersions"""
         Replace_Reference -path $csprojPath -oldReference "Include=""Telerik.Web.Spreadsheet"" Version=""$oldCommonWebVersions""" -newReference "Include=""Telerik.Web.Spreadsheet"" Version=""$newCommonWebVersions"""
         Replace_Reference -path $csprojPath -oldReference "Include=""Telerik.Core.Export"" Version=""$oldCommonWebVersions""" -newReference "Include=""Telerik.Core.Export"" Version=""$newCommonWebVersions"""
     }
