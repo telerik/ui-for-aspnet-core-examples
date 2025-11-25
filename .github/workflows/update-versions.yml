@@ -47,6 +47,7 @@ jobs:
     runs-on: ubuntu-latest
 
     permissions:
+        contents: write
         pull-requests: write
 
     env:
@@ -80,3 +81,5 @@ jobs:
           git commit -m "chore: update kendo, themes, export, pdf, and captcha versions"
           git push --set-upstream origin ${{ inputs.new_kendo_version }}
           gh pr create --base master --head ${{ inputs.new_kendo_version }} --title "Update dependencies" --body "Updated kendo, themes, export, pdf, and captcha versions"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
