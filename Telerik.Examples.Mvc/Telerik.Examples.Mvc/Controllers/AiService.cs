@@ -23,20 +23,8 @@ namespace Telerik.Examples.Mvc.Controllers
             _deployment = config["OpenAI:DeploymentName"];
         }
 
-        public async Task<string> ProcessAsync(string prompt)
+        private async Task<string> SendAsync(string url, object payload)
         {
-            var url = $"{_endpoint}openai/deployments/{_deployment}/chat/completions?api-version=2024-02-15-preview";
-            var payload = new
-            {
-                messages = new[]
-                {
-                    new { role = "system", content = "You are a helpful assistant." },
-                    new { role = "user", content = prompt }
-                },
-                temperature = 0.3,
-                max_tokens = 1500
-            };
-
             _http.DefaultRequestHeaders.Clear();
             _http.DefaultRequestHeaders.Add("api-key", _apiKey);
 
@@ -49,6 +37,30 @@ namespace Telerik.Examples.Mvc.Controllers
 
             var json = JObject.Parse(text);
             return json["choices"]?[0]?["message"]?["content"]?.ToString()?.Trim() ?? "";
+        }
+
+        public async Task<string> ProcessAsync(string prompt)
+        {
+            try
+            {
+                var url = $"{_endpoint}openai/deployments/{_deployment}/chat/completions?api-version=2024-02-15-preview";
+                var payload = new
+                {
+                    messages = new[]
+                    {
+                        new { role = "system", content = "You are a helpful assistant." },
+                        new { role = "user", content = prompt }
+                    },
+                    temperature = 0.3,
+                    max_tokens = 1500
+                };
+
+                return await SendAsync(url, payload);
+            }
+            catch
+            {
+                return "AI configuration missing";
+            }
         }
 
         public async Task<string> AnalyzeGridDataAsync(string instructions, string gridDataJson)
@@ -78,72 +90,55 @@ namespace Telerik.Examples.Mvc.Controllers
             try
             {
                 var url = $"{_endpoint}openai/deployments/{_deployment}/chat/completions?api-version=2024-02-15-preview";
-
                 var payload = new
                 {
                     messages = new[]
                     {
-                new { role = "system", content = systemPrompt },
-                new { role = "user", content = $"Grid Data:\n{gridDataJson}" },
-                new { role = "user", content = $"Question:\n{instructions}" }
-            },
+                        new { role = "system", content = systemPrompt },
+                        new { role = "user", content = $"Grid Data:\n{gridDataJson}" },
+                        new { role = "user", content = $"Question:\n{instructions}" }
+                    },
                     temperature = 0.3,
                     max_tokens = 1500
                 };
 
-                _http.DefaultRequestHeaders.Clear();
-                _http.DefaultRequestHeaders.Add("api-key", _apiKey);
-
-                var content = new StringContent(JsonConvert.SerializeObject(payload), Encoding.UTF8, "application/json");
-                var response = await _http.PostAsync(url, content);
-                var text = await response.Content.ReadAsStringAsync();
-
-                if (!response.IsSuccessStatusCode)
-                    return $"Azure OpenAI API error: {response.StatusCode}";
-
-                var json = JObject.Parse(text);
-                return json["choices"]?[0]?["message"]?["content"]?.ToString()?.Trim() ?? "";
+                return await SendAsync(url, payload);
             }
             catch
             {
                 return "AI configuration missing";
             }
         }
+
         public async Task<string> EditTextAsync(string text, string instruction)
         {
             try
             {
                 var url = $"{_endpoint}openai/deployments/{_deployment}/chat/completions?api-version=2024-02-15-preview";
-
                 var payload = new
                 {
                     messages = new[]
                     {
-                new { role = "system", content =
-                    "You are an AI text editor. Modify the text ONLY according to the user's instruction while preserving existing formatting. " +
-                    "If the user requests color, bold, or styles, return the text wrapped in proper HTML inline styles (e.g., <span style='color: green;'>text</span>). " +
-                    "Do not apply additional formatting unless explicitly requested."
-                },
-                new { role = "user", content =
-                    $"Modify this text:\n\n{text}\n\nInstruction: {instruction}\n\nReturn the modified text as valid HTML with inline styles only if formatting changes are required."
-                }
-            },
+                        new
+                        {
+                            role = "system",
+                            content =
+                                "You are an AI text editor. Modify the text ONLY according to the user's instruction while preserving existing formatting. " +
+                                "If the user requests color, bold, or styles, return the text wrapped in proper HTML inline styles (e.g., <span style='color: green;'>text</span>). " +
+                                "Do not apply additional formatting unless explicitly requested."
+                        },
+                        new
+                        {
+                            role = "user",
+                            content =
+                                $"Modify this text:\n\n{text}\n\nInstruction: {instruction}\n\nReturn the modified text as valid HTML with inline styles only if formatting changes are required."
+                        }
+                    },
                     temperature = 0.3,
                     max_tokens = 500
                 };
 
-                _http.DefaultRequestHeaders.Clear();
-                _http.DefaultRequestHeaders.Add("api-key", _apiKey);
-
-                var content = new StringContent(JsonConvert.SerializeObject(payload), Encoding.UTF8, "application/json");
-                var response = await _http.PostAsync(url, content);
-                var responseText = await response.Content.ReadAsStringAsync();
-
-                if (!response.IsSuccessStatusCode)
-                    return $"Azure OpenAI API error: {response.StatusCode} - {responseText}";
-
-                var json = JObject.Parse(responseText);
-                return json["choices"]?[0]?["message"]?["content"]?.ToString()?.Trim() ?? "No AI response.";
+                return await SendAsync(url, payload);
             }
             catch
             {
@@ -159,30 +154,17 @@ namespace Telerik.Examples.Mvc.Controllers
             {
                 messages = new[]
                 {
-            new { role = "system", content = "Return ONLY valid JSON for a Kendo UI Chart." },
-            new { role = "user", content = $"Generate a Kendo UI Chart JSON configuration. Instructions: {instructions}" }
-        },
+                    new { role = "system", content = "Return ONLY valid JSON for a Kendo UI Chart." },
+                    new { role = "user", content = $"Generate a Kendo UI Chart JSON configuration. Instructions: {instructions}" }
+                },
                 temperature = 0.2,
                 max_tokens = 600
             };
 
-            _http.DefaultRequestHeaders.Clear();
-            _http.DefaultRequestHeaders.Add("api-key", _apiKey);
+            var raw = await SendAsync(url, payload);
+            if (string.IsNullOrWhiteSpace(raw)) return "{}";
 
-            var content = new StringContent(JsonConvert.SerializeObject(payload), Encoding.UTF8, "application/json");
-            var response = await _http.PostAsync(url, content);
-
-            if (!response.IsSuccessStatusCode)
-                return "{}";
-
-            var raw = await response.Content.ReadAsStringAsync();
-            dynamic json = JsonConvert.DeserializeObject(raw);
-
-            string config = json?.choices?[0]?.message?.content?.ToString() ?? "";
-            if (string.IsNullOrWhiteSpace(config))
-                return "{}";
-
-            config = config.Trim();
+            string config = raw.Trim();
 
             int start = config.IndexOf('{');
             int end = config.LastIndexOf('}');
@@ -218,7 +200,7 @@ namespace Telerik.Examples.Mvc.Controllers
                                
                                The JSON object MUST contain:
                                {
-                                 ""date"": ""2025-01-10T00:00:00Z"",   // optional
+                                 ""date"": ""2025-01-10T00:00:00Z"",
                                  ""events"": [
                                      {
                                        ""id"": 1,
@@ -239,27 +221,17 @@ namespace Telerik.Examples.Mvc.Controllers
             {
                 messages = new[]
                 {
-            new { role = "system", content = systemPrompt },
-            new { role = "user", content = instructions }
-        },
+                    new { role = "system", content = systemPrompt },
+                    new { role = "user", content = instructions }
+                },
                 temperature = 0.2,
                 max_tokens = 600
             };
 
-            _http.DefaultRequestHeaders.Clear();
-            _http.DefaultRequestHeaders.Add("api-key", _apiKey);
+            var raw = await SendAsync(url, payload);
+            if (string.IsNullOrWhiteSpace(raw)) return "{}";
 
-            var content = new StringContent(JsonConvert.SerializeObject(payload), Encoding.UTF8, "application/json");
-            var response = await _http.PostAsync(url, content);
-
-            var raw = await response.Content.ReadAsStringAsync();
-            if (!response.IsSuccessStatusCode)
-                return "{}";
-
-            dynamic json = JsonConvert.DeserializeObject(raw);
-            string config = json?.choices?[0]?.message?.content?.ToString() ?? "{}";
-
-            config = config.Trim();
+            string config = raw.Trim();
 
             int start = config.IndexOf("{");
             int end = config.LastIndexOf("}");
