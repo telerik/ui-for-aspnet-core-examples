@@ -1,0 +1,177 @@
+﻿@{
+    ViewData["Title"] = "Smart AI Editor";
+}
+
+<style>
+    body {
+        font-family: "Inter", sans-serif;
+        background-color: #f4f7f9;
+    }
+
+    .container {
+        max-width: 800px;
+        margin: 0 auto;
+        background: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+        text-align: center;
+        font-weight: 600;
+    }
+
+    .ai-input {
+        width: 100%;
+        padding: 10px;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+        margin-bottom: 10px;
+        font-size: 14px;
+    }
+
+    .k-editor-toolbar .k-tool.aiEditorButton::before {
+        content: "🤖";
+        font-size: 20px;
+        color: #5ce500;
+    }
+
+    .k-window {
+        border: 3px solid #5ce500;
+    }
+</style>
+
+<div class="container">
+    <h2>Smart AI-Powered Editor</h2>
+
+    <div class="editor-container">
+        @(Html.Kendo().Editor()
+                .Name("textEditor")
+                .Tools(tools => tools
+                    .Clear().Bold().Italic().Underline()
+                    .InsertUnorderedList().InsertOrderedList()
+                    .FontSize().ForeColor().BackColor()
+                    .CustomButton(c => c.Name("aiEditorButton")
+                    .Tooltip("Improve with AI")
+                    .Exec("openAIWindow")
+                    .Icon("none")
+                    )
+                )
+                .Value("I am a Smart AI-Powered Editor")
+                .HtmlAttributes(new { style = "width:100%; height:300px;" })
+        )
+    </div>
+
+    @(Html.Kendo().Window()
+        .Name("window")
+        .Title("Smart AI Editor")
+        .Visible(false)
+        .Content(@<text>
+        <h4>AI-Powered Refinement</h4>
+        <p>Describe how you want AI to improve the text and click 'Refine with AI'.</p>
+
+        <input type="text" id="aiInstruction" class="ai-input" placeholder="Describe what you want AI to do (e.g., 'Make it more professional')">
+
+        @(Html.Kendo().Button()
+                .Name("aiEditButton")
+                .ThemeColor(ThemeColor.Success)
+                .Content("Refine with AI")
+                )
+    </text>)
+        .Width(600)
+        .Position(p => p.Top(450).Left(650))
+        .Actions(actions => actions.Pin().Minimize().Maximize().Close())
+        .Events(e => e.Open("onWindowOpen").Close("onWindowClose"))
+        )
+
+</div>
+
+<script>
+    $(document).ready(function() {
+        setTimeout(() => {
+            var aiButton = $(".k-aiEditorButton");
+            if (aiButton.length) {
+                aiButton.find(".k-button-icon").html(`
+                    <svg width="100%" height="100%" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="2" y="2" width="28" height="28" rx="6" fill="#5ce500"/>
+                        <text x="50%" y="55%" font-family="Arial, sans-serif" font-size="22" font-weight="bold" fill="white" text-anchor="middle" alignment-baseline="middle">AI</text>
+                    </svg>
+                `);
+            }
+        }, 200);
+    });
+
+
+    function openAIWindow() {
+        var window = $("#window").data("kendoWindow");
+        window.open();
+    }
+
+    function onWindowOpen() {
+        $(".k-aiEditorButton").hide();
+
+        setTimeout(() => {
+            $("#aiEditButton").kendoButton({
+                themeColor: "success"
+            });
+        }, 100);
+    }
+
+    function onWindowClose() {
+        $(".k-aiEditorButton").show();
+    }
+
+
+    $(document).on("click", "#aiEditButton", async function() {
+        var editor = $("#textEditor").data("kendoEditor");
+        var textContent = editor.value();
+        var instruction = $("#aiInstruction").val().trim();
+        var selection = editor.getSelection();
+        var selectedText = selection ? selection.toString().trim() : "";
+
+        if (!textContent.trim() || !instruction) {
+            alert("Please enter text and an AI instruction!");
+            return;
+        }
+
+        $("#aiEditButton").prop("disabled", true).text("Processing...");
+
+        try {
+                const response = await fetch("/api/smarteditor/edit", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        Text: selectedText ? selectedText : textContent,
+                        Instruction: instruction
+                    })
+                });
+
+
+            if (!response.ok) {
+                alert("Error processing request. Try again.");
+                return;
+            }
+
+            const result = await response.json();
+            let aiGeneratedText = result.Suggestions.trim();
+
+            if (selectedText.length > 0) {
+                editor.exec("inserthtml", { value: aiGeneratedText });
+            } else {
+                editor.value(aiGeneratedText);
+            }
+        } catch (error) {
+            alert("Error communicating with AI.");
+        } finally {
+            $("#aiEditButton").prop("disabled", false).text("Refine with AI");
+        }
+    });
+</script>
+
+
+
+
+
+
+

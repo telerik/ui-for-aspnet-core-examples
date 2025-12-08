@@ -22,7 +22,7 @@ using System.Linq;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
-using Telerik.Examples.Mvc.Controllers.Chat;
+using Telerik.Examples.Mvc.Controllers;
 using Telerik.Examples.Mvc.Database;
 using Telerik.Examples.Mvc.Hubs;
 using Telerik.Examples.Mvc.Models;
@@ -67,6 +67,7 @@ builder.Services.Configure<RazorViewEngineOptions>(options =>
     options.ViewLocationFormats.Add("/Views/Captcha/{0}" + RazorViewEngine.ViewExtension);
     options.ViewLocationFormats.Add("/Views/chat/{0}" + RazorViewEngine.ViewExtension);
     options.ViewLocationFormats.Add("/Views/Grid/{0}" + RazorViewEngine.ViewExtension);
+    options.ViewLocationFormats.Add("/Views/Charts/{0}" + RazorViewEngine.ViewExtension);
     options.ViewLocationFormats.Add("/Views/ImageEditor/{0}" + RazorViewEngine.ViewExtension);
     options.ViewLocationFormats.Add("/Views/Editor/{0}" + RazorViewEngine.ViewExtension);
     options.ViewLocationFormats.Add("/Views/Forms/{0}" + RazorViewEngine.ViewExtension);

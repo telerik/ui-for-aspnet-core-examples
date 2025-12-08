@@ -1,0 +1,132 @@
+﻿<div style="margin-bottom: 10px; font-size: 14px; color: #bbb;">
+    Try one of these examples:
+    <ul id="exampleList" style="margin-top: 5px; list-style: none; padding-left: 0;">
+        <li style="color: #00ffe5;">
+            • Generate a Kendo UI Bar Chart showing the latest global smartphone vendor market share using data from https://www.statista.com/statistics/271496/global-market-share-held-by-smartphone-vendors/.
+        </li>
+        <li style="color: #00ffe5;">
+            • Create a Kendo UI Line Chart showing historical unemployment rate in the European Union from https://tradingeconomics.com/european-union/unemployment-rate.
+        </li>
+        <li style="color: #00ffe5;">
+            • Generate a Kendo UI Pie Chart using the latest Global browser market share data from https://gs.statcounter.com/browser-market-share. Only use desktop and mobile combined.
+        </li>
+    </ul>
+</div>
+
+@(Html.Kendo().TextArea()
+    .Name("chartInstructions")
+    .Placeholder("Enter your chart instructions here...")
+    .Rows(10)
+    .Rounded(Rounded.Medium)
+    .MaxLength(200)
+    .HtmlAttributes(new
+    {
+        style = "width: 60%",
+        required = true,
+        data_required_msg = "Please enter a text.",
+        data_max_msg = "Enter value between 1 and 200"
+    })
+)
+
+<br />
+<br />
+
+@(Html.Kendo().Button()
+    .Name("generateChart")
+    .ThemeColor(ThemeColor.Success)
+    .Content("Generate Chart")
+)
+
+<div id="chartContainer">
+    <div id="smartChart"></div>
+</div>
+
+<script>
+    $("#exampleList li").css("cursor", "pointer").on("click", function () {
+        var text = $(this).text().trim().replace(/^•\s*/, "");
+        $("#chartInstructions").data("kendoTextArea").value(text);
+    });
+
+    $("#generateChart").click(function() {
+        var instructions = $("#chartInstructions").val();
+
+        $.ajax({
+            url: "/SmartChart/GenerateChart",
+            method: "POST",
+            contentType: "application/json",
+            data: JSON.stringify({ instructions: instructions }),
+            success: function(response) {
+                if(response.config == "{}"){
+                    alert("The AI Service is currently unavailable. Please check your configuration.");
+                    return;
+                }
+                var chartConfig = JSON.parse(response.config);
+
+                const electricColors = [
+                    "#5ce500",
+                    "#00ffe5",
+                    "#ff00cc",
+                    "#ffd700",
+                    "#ff6600",
+                    "#8000ff",
+                    "#00ff44",
+                    "#00aaff"
+                ];
+
+                if (Array.isArray(chartConfig.series)) {
+                    for (var i = 0; i < chartConfig.series.length; i++) {
+                        var series = chartConfig.series[i];
+
+                        if (series.type === "pie" && Array.isArray(series.data)) {
+                            for (var j = 0; j < series.data.length; j++) {
+                                series.data[j].color = electricColors[j % electricColors.length];
+                            }
+                        } else {
+                            series.color = electricColors[i % electricColors.length];
+                        }
+                    }
+                }
+
+                chartConfig.title = chartConfig.title || {};
+                chartConfig.title.color = "#00ffe5";
+                chartConfig.title.font = "bold 18px 'Segoe UI', sans-serif";
+
+                chartConfig.legend = chartConfig.legend || {};
+                chartConfig.legend.labels = {
+                    color: "#ffffff",
+                    font: "14px 'Segoe UI'"
+                };
+
+                chartConfig.categoryAxis = chartConfig.categoryAxis || {};
+                chartConfig.categoryAxis.labels = {
+                    color: "#ffffff",
+                    font: "13px 'Segoe UI'"
+                };
+                chartConfig.categoryAxis.line = { color: "#00ffe5" };
+                chartConfig.categoryAxis.majorGridLines = { color: "#333333" };
+
+                chartConfig.valueAxis = chartConfig.valueAxis || {};
+                chartConfig.valueAxis.labels = {
+                    color: "#ffffff",
+                    font: "13px 'Segoe UI'"
+                };
+                chartConfig.valueAxis.line = { color: "#ff00cc" };
+                chartConfig.valueAxis.majorGridLines = { color: "#333333" };
+
+                chartConfig.background = "#121212";
+
+                $("#smartChart").empty().kendoChart(chartConfig);
+            },
+            error: function(xhr) {
+                console.error("Request failed:", xhr.responseText);
+                alert("The AI Service is currently unavailable. Please check your configuration.");
+            }
+        });
+    });
+</script>
+
+<style>
+    .k-chart-legend-item[aria-checked="false"] text {
+        fill: #777 !important;
+    }
+</style>
