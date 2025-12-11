@@ -1,0 +1,66 @@
+﻿@{
+    ViewData["Title"] = "File Manager - Blob Storage Demo (Alternative)";
+}
+
+<div class="container-fluid">
+    <div id="fileManager"></div>
+</div>
+
+<script>
+    $(document).ready(function() {
+        $("#fileManager").kendoFileManager({
+            dataSource: {
+                // Use the built-in FileManager schema to parse server responses correctly
+                schema: kendo.data.schemas.filemanager,
+                // Define CRUD operations that communicate with the backend controller
+                transport: {
+                    // Read operation: Retrieves files and folders from Azure Blob Storage
+                    read: {
+                        method: "POST",
+                        url: "Home/FileManager_Read",
+                        dataType: "json"
+                    },
+                    // Update operation: Handles rename operations for files/folders
+                    update: {
+                        method: "POST",
+                        url: "Home/FileManager_Update",
+                        dataType: "json"
+                    },
+                    // Create operation: Creates new folders or copies/pastes files
+                    create: {
+                        method: "POST",
+                        url: "Home/FileManager_Create",
+                        dataType: "json"
+                    },
+                    // Destroy operation: Deletes files or folders from Azure Blob Storage
+                    destroy: {
+                        method: "POST",
+                        url: "Home/FileManager_Destroy",
+                        dataType: "json"
+                    }
+                },
+                // Error handler for debugging server-side issues
+                error: function(e) {
+                    console.error("DataSource error:", e);
+                    if (e.xhr) {
+                        console.error("Response text:", e.xhr.responseText);
+                    }
+                }
+            },
+            // Separate endpoint for file upload operations
+            uploadUrl: "Home/FileManager_Upload",
+            // Configure the toolbar with buttons for common file operations
+            toolbar: {
+                items: ["createFolder", "upload", "sortDirection", "sortField", "changeView", "spacer", "details", "search"]
+            },
+            // Define right-click context menu options for file/folder actions
+            contextMenu: {
+                items: ["rename", "|", "cut", "copy", "paste", "|", "download", "|", "delete"]
+            },
+            resizable: true,
+            draggable: true,
+            // Set the fixed height of the FileManager component
+            height: "600px",
+        });
+    });
+</script>
