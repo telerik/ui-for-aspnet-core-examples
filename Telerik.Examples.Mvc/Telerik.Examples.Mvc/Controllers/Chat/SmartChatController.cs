@@ -6,15 +6,15 @@ using Telerik.Examples.Mvc.Models;
 
 namespace Telerik.Examples.Mvc.Controllers.Chat
 {
-    public class ChatAiIntegrationController : Controller  
+    public class SmartChatController : Controller  
     {
-        public IActionResult ChatAiIntegration()
+        public IActionResult SmartChat()
         {
             return View();
         }
 
         private readonly AiService _ai;
-        public ChatAiIntegrationController(AiService ai) { _ai = ai; }
+        public SmartChatController(AiService ai) { _ai = ai; }
 
         [HttpPost]
         public async Task<IActionResult> Ask([FromBody] AiPrompt req)

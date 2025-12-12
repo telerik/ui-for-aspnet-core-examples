@@ -102,17 +102,33 @@
             </span>
             <input autocomplete="off" placeholder="Search..." title="Search..." aria-label="Search..." class="k-input-inner" onkeyup="searchExamples();">
         </span>
-        @(Html.Kendo().PanelBar()
-            .Name("panelbar")
-            .Events(e => e.Select("gridSelect"))
-            .ExpandMode(PanelBarExpandMode.Single)
-            .Items(panelbar =>
+
+        @{
+            var list = (List<Demo>)JsonSerializer.Deserialize<List<Demo>>(File.ReadAllBytes(Directory.GetCurrentDirectory() + "/wwwroot/files/ExamplesEndpoints.txt"));
+            foreach (var example in list)
             {
-                foreach (var example in (List<Demo>)JsonSerializer.Deserialize<List<Demo>>(File.ReadAllBytes(Directory.GetCurrentDirectory() + "/wwwroot/files/ExamplesEndpoints.txt")))
+                if (example.ActionName.Contains("Smart"))
                 {
-                    panelbar.Add().Text(example.ComponentName + " " + System.Text.RegularExpressions.Regex.Replace(example.ActionName, "(\\B[A-Z])", " $1"));
+                    example.ComponentName = "AI";
                 }
-            }))
+            }
+
+            list = list.OrderBy(x => x.ComponentName).ToList();
+        }
+
+        @(
+            Html.Kendo().PanelBar()
+                    .Name("panelbar")
+                    .Events(e => e.Select("gridSelect"))
+                    .ExpandMode(PanelBarExpandMode.Single)
+                    .Items(panelbar =>
+                    {
+                        foreach (var example in list)
+                        {
+                                panelbar.Add().Text(example.ComponentName + " " + System.Text.RegularExpressions.Regex.Replace(example.ActionName, "(\\B[A-Z])", " $1"));
+                        }
+                    })
+        )
     </div>
     <div class="container">
         <h4 class="title-container">@(System.Text.RegularExpressions.Regex.Replace(ViewContext.HttpContext.Request.Path.Value.Split('/')[1], "(\\B[A-Z])", " $1"))</h4>
