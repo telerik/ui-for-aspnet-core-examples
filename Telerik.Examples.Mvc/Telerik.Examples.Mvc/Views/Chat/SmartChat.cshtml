@@ -16,7 +16,7 @@
         const chat = $("#aiChat").data("kendoChat");
 
         try {
-            const response = await fetch('/ChatAiIntegration/Ask', {
+            const response = await fetch('/SmartChat/Ask', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ prompt: e.message.text })
