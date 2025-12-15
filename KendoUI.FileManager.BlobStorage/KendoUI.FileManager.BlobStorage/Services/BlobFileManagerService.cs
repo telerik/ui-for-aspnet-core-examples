@@ -2,27 +2,34 @@ using System.Text;
 using Azure.Storage.Blobs;
 using Azure.Storage.Blobs.Models;
 using KendoUI.FileManager.BlobStorage.Models;
+using static KendoUI.FileManager.BlobStorage.Helpers.BlobPathHelper;
+using static KendoUI.FileManager.BlobStorage.Models.FileManagerEntryFactory;
 
 namespace KendoUI.FileManager.BlobStorage.Services
 {
     public sealed class BlobFileManagerService : IBlobFileManagerService
     {
-        // The Azure Blob Storage container name where all files will be stored
-        private const string ContainerName = "filemanager-demo";
         private const string PlaceholderFileName = "Somerandomfile.scg";
 
         private readonly BlobServiceClient _blobServiceClient;
         private readonly ILogger<BlobFileManagerService> _logger;
+        private readonly string _containerName;
 
-        public BlobFileManagerService(BlobServiceClient blobServiceClient, ILogger<BlobFileManagerService> logger)
+        public BlobFileManagerService(BlobServiceClient blobServiceClient, IConfiguration configuration, ILogger<BlobFileManagerService> logger)
         {
             _blobServiceClient = blobServiceClient;
             _logger = logger;
+            var containerName = configuration["BlobStorage:ContainerName"];
+            if (string.IsNullOrWhiteSpace(containerName))
+            {
+                throw new InvalidOperationException("Blob container name must be configured under 'BlobStorage:ContainerName'.");
+            }
+
+            _containerName = containerName.Trim();
         }
 
         public async Task<IEnumerable<FileManagerEntry>> ReadAsync(string? target)
         {
-            // Get or create the blob container and build directory listing from Azure Storage
             var containerClient = await GetOrCreateContainerAsync();
             var prefix = BuildPrefix(target);
             return await BuildDirectoryListingAsync(containerClient, prefix);
@@ -37,20 +44,17 @@ namespace KendoUI.FileManager.BlobStorage.Services
 
             var containerClient = await GetOrCreateContainerAsync();
 
-            // Handle file upload scenario
             if (context.UploadedFile is { Length: > 0 })
             {
                 return await HandleFileCreationAsync(containerClient, target, name, context.UploadedFile);
             }
 
-            // Handle copy/paste scenario - copy existing blob to new location
             if (!string.IsNullOrWhiteSpace(context.SourcePath))
             {
                 var fileExtension = context.Extension ?? Path.GetExtension(name) ?? string.Empty;
                 return await HandleFileCopyAsync(containerClient, context.SourcePath!, target, name, fileExtension);
             }
 
-            // Handle folder creation scenario
             if (ShouldTreatAsDirectory(name, context.IsDirectoryFlag, entry))
             {
                 return await HandleFolderCreationAsync(containerClient, target, name);
@@ -73,29 +77,22 @@ namespace KendoUI.FileManager.BlobStorage.Services
             var blobPath = string.IsNullOrEmpty(targetPath) ? uniqueFileName : targetPath + uniqueFileName;
             var blobClient = containerClient.GetBlobClient(blobPath);
 
-            // Upload the file stream directly to Azure Blob Storage
             using var stream = file.OpenReadStream();
             await blobClient.UploadAsync(stream, overwrite: false);
 
             var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(uniqueFileName) ?? string.Empty;
             var fileExtension = Path.GetExtension(uniqueFileName) ?? string.Empty;
+            var now = DateTimeOffset.UtcNow;
 
-            var now = DateTime.UtcNow;
-            return new FileManagerEntry
-            {
-                Name = fileNameWithoutExtension,
-                IsDirectory = false,
-                HasDirectories = false,
-                Path = blobPath,
-                Extension = fileExtension,
-                Size = file.Length,
-                Created = now,
-                CreatedUtc = now,
-                Modified = now,
-                ModifiedUtc = now,
-                DateCreated = now,
-                DateModified = now
-            };
+            return Create(
+                fileNameWithoutExtension,
+                false,
+                false,
+                blobPath,
+                fileExtension,
+                file.Length,
+                now,
+                now);
         }
 
         public async Task<FileManagerEntry> UpdateAsync(string targetPath, string newName)
@@ -179,7 +176,7 @@ namespace KendoUI.FileManager.BlobStorage.Services
             var fileNameWithoutExt = Path.GetFileNameWithoutExtension(fileName) ?? string.Empty;
             var fileExt = Path.GetExtension(fileName) ?? string.Empty;
 
-            return CreateEntry(
+            return Create(
                 fileNameWithoutExt,
                 false,
                 false,
@@ -223,7 +220,7 @@ namespace KendoUI.FileManager.BlobStorage.Services
             }
 
             var newProperties = await targetBlobClient.GetPropertiesAsync();
-            return CreateEntry(
+            return Create(
                 name,
                 false,
                 false,
@@ -238,7 +235,7 @@ namespace KendoUI.FileManager.BlobStorage.Services
         {
             var targetPath = CombinePath(target, name);
             var extension = Path.GetExtension(name) ?? string.Empty;
-            return CreatePlaceholderEntry(name, targetPath, extension);
+            return Placeholder(name, targetPath, extension);
         }
 
         private async Task<FileManagerEntry> HandleFolderCreationAsync(BlobContainerClient containerClient, string? target, string name)
@@ -257,7 +254,7 @@ namespace KendoUI.FileManager.BlobStorage.Services
                 throw new InvalidOperationException($"Failed to create folder '{uniqueName}'");
             }
 
-            return CreateEntry(
+            return Create(
                 uniqueName,
                 true,
                 false,
@@ -288,7 +285,7 @@ namespace KendoUI.FileManager.BlobStorage.Services
                     _logger.LogWarning(ex, "Failed to load folder metadata for {Path}", folderPath);
                 }
 
-                return CreateEntry(
+                return Create(
                     Path.GetFileName(path),
                     true,
                     false,
@@ -305,7 +302,7 @@ namespace KendoUI.FileManager.BlobStorage.Services
             var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fileName) ?? string.Empty;
             var extension = Path.GetExtension(fileName) ?? string.Empty;
 
-            return CreateEntry(
+            return Create(
                 fileNameWithoutExtension,
                 false,
                 false,
@@ -357,7 +354,7 @@ namespace KendoUI.FileManager.BlobStorage.Services
             }
 
             var now = DateTime.UtcNow;
-            return CreateEntry(
+            return Create(
                 newName,
                 true,
                 false,
@@ -392,7 +389,7 @@ namespace KendoUI.FileManager.BlobStorage.Services
             var resultFileNameWithoutExt = Path.GetFileNameWithoutExtension(resultFileName) ?? string.Empty;
             var resultExtension = Path.GetExtension(newPath) ?? string.Empty;
 
-            return CreateEntry(
+            return Create(
                 resultFileNameWithoutExt,
                 false,
                 false,
@@ -406,7 +403,7 @@ namespace KendoUI.FileManager.BlobStorage.Services
         private async Task<BlobContainerClient> GetOrCreateContainerAsync()
         {
             // Get reference to blob container and create it if it doesn't exist
-            var containerClient = _blobServiceClient.GetBlobContainerClient(ContainerName);
+            var containerClient = _blobServiceClient.GetBlobContainerClient(_containerName);
             await containerClient.CreateIfNotExistsAsync(PublicAccessType.None);
             return containerClient;
         }
@@ -444,26 +441,6 @@ namespace KendoUI.FileManager.BlobStorage.Services
             return timestamp?.UtcDateTime ?? DateTime.UtcNow;
         }
 
-        private static bool HasExtension(string? name)
-        {
-            return !string.IsNullOrEmpty(name) && !string.IsNullOrEmpty(Path.GetExtension(name));
-        }
-
-        private static bool ShouldTreatAsDirectory(string name, string? isDirectoryFlag, int entry)
-        {
-            if (!string.IsNullOrEmpty(isDirectoryFlag) && bool.TryParse(isDirectoryFlag, out var isDirectory) && isDirectory)
-            {
-                return true;
-            }
-
-            if (entry == 1)
-            {
-                return true;
-            }
-
-            return !HasExtension(name);
-        }
-
         private async Task<List<FileManagerEntry>> BuildDirectoryListingAsync(BlobContainerClient containerClient, string prefix)
         {
             var files = new List<FileManagerEntry>();
@@ -488,7 +465,7 @@ namespace KendoUI.FileManager.BlobStorage.Services
                     if (processedFolders.Add(folderName))
                     {
                         var hasSubdirectories = await HasSubdirectoriesAsync(containerClient, folderPath);
-                        files.Add(CreateEntry(folderName, true, hasSubdirectories, folderPath, string.Empty, 0, blobItem.Properties.CreatedOn, blobItem.Properties.LastModified));
+                        files.Add(Create(folderName, true, hasSubdirectories, folderPath, string.Empty, 0, blobItem.Properties.CreatedOn, blobItem.Properties.LastModified));
                     }
 
                     continue;
@@ -502,7 +479,7 @@ namespace KendoUI.FileManager.BlobStorage.Services
                     if (processedFolders.Add(folderName))
                     {
                         var hasSubdirectories = await HasSubdirectoriesAsync(containerClient, folderPath);
-                        files.Add(CreateEntry(folderName, true, hasSubdirectories, folderPath, string.Empty, 0, blobItem.Properties.CreatedOn, blobItem.Properties.LastModified));
+                        files.Add(Create(folderName, true, hasSubdirectories, folderPath, string.Empty, 0, blobItem.Properties.CreatedOn, blobItem.Properties.LastModified));
                     }
 
                     continue;
@@ -515,7 +492,7 @@ namespace KendoUI.FileManager.BlobStorage.Services
 
                 var fileNameWithoutExt = Path.GetFileNameWithoutExtension(relativePath) ?? string.Empty;
                 var fileExt = Path.GetExtension(relativePath) ?? string.Empty;
-                files.Add(CreateEntry(fileNameWithoutExt, false, false, blobName, fileExt, blobItem.Properties.ContentLength ?? 0, blobItem.Properties.CreatedOn, blobItem.Properties.LastModified));
+                files.Add(Create(fileNameWithoutExt, false, false, blobName, fileExt, blobItem.Properties.ContentLength ?? 0, blobItem.Properties.CreatedOn, blobItem.Properties.LastModified));
             }
 
             return files;
@@ -600,39 +577,6 @@ namespace KendoUI.FileManager.BlobStorage.Services
             }
         }
 
-        private static FileManagerEntry CreateEntry(
-            string displayName,
-            bool isDirectory,
-            bool hasDirectories,
-            string path,
-            string extension,
-            long size,
-            DateTimeOffset? createdOn,
-            DateTimeOffset? modifiedOn)
-        {
-            return new FileManagerEntry
-            {
-                Name = displayName ?? string.Empty,
-                IsDirectory = isDirectory,
-                HasDirectories = hasDirectories,
-                Path = path ?? string.Empty,
-                Extension = extension ?? string.Empty,
-                Size = size,
-                Created = ResolveLocalDate(createdOn),
-                CreatedUtc = ResolveUtcDate(createdOn),
-                Modified = ResolveLocalDate(modifiedOn),
-                ModifiedUtc = ResolveUtcDate(modifiedOn),
-                DateCreated = ResolveLocalDate(createdOn),
-                DateModified = ResolveLocalDate(modifiedOn)
-            };
-        }
-
-        private static FileManagerEntry CreatePlaceholderEntry(string name, string path, string extension)
-        {
-            var now = DateTimeOffset.UtcNow;
-            return CreateEntry(name, false, false, path, extension, 0, now, now);
-        }
-
         private async Task<bool> IsDirectoryAsync(BlobContainerClient containerClient, string path)
         {
             if (path.EndsWith('/'))
@@ -691,28 +635,5 @@ namespace KendoUI.FileManager.BlobStorage.Services
             }
         }
 
-        private static string BuildNewPath(string targetPath, string newName, bool isDirectory)
-        {
-            var lastSlashIndex = targetPath.LastIndexOf('/');
-
-            if (isDirectory)
-            {
-                return lastSlashIndex >= 0
-                    ? targetPath.Substring(0, lastSlashIndex + 1) + newName
-                    : newName;
-            }
-
-            var originalExtension = Path.GetExtension(targetPath);
-            var newExtension = Path.GetExtension(newName);
-
-            if (string.IsNullOrEmpty(newExtension) && !string.IsNullOrEmpty(originalExtension))
-            {
-                newName += originalExtension;
-            }
-
-            return lastSlashIndex >= 0
-                ? targetPath.Substring(0, lastSlashIndex + 1) + newName
-                : newName;
-        }
     }
 }

@@ -1,8 +1,8 @@
 using KendoUI.FileManager.BlobStorage.Models;
-using KendoUI.FileManager.BlobStorage.Helpers;
 using Microsoft.AspNetCore.Mvc;
 using KendoUI.FileManager.BlobStorage.Services;
 using System.Diagnostics;
+using System.Text.Json;
 
 namespace KendoUI.FileManager.BlobStorage.Controllers
 {
@@ -47,11 +47,12 @@ namespace KendoUI.FileManager.BlobStorage.Controllers
 
         // Handles reading files and folders from Azure Blob Storage for the FileManager
         [HttpPost]
-        public async Task<IActionResult> FileManager_Read([FromForm] string target)
+        public async Task<IActionResult> FileManager_Read([FromForm] FileManagerReadRequest request)
         {
             try
             {
                 // Retrieve the list of blobs/folders from the specified path
+                var target = NormalizePath(request.Target ?? request.Path ?? string.Empty);
                 var files = await _fileManagerService.ReadAsync(target);
                 return Json(files);
             }
@@ -64,12 +65,25 @@ namespace KendoUI.FileManager.BlobStorage.Controllers
 
         // Handles creating new folders or copying/pasting files in Azure Blob Storage
         [HttpPost]
-        public async Task<IActionResult> FileManager_Create([FromForm] string target, [FromForm] string name, [FromForm] int entry)
+        public async Task<IActionResult> FileManager_Create([FromForm] FileManagerCreateRequest request)
         {
             try
             {
+                var target = NormalizePath(request.Target ??
+                                            request.Path ??
+                                            request.Source ??
+                                            request.SourcePath ??
+                                            string.Empty);
+                var name = request.Name?.Trim();
+                var entry = request.Entry;
+
+                if (string.IsNullOrWhiteSpace(name))
+                {
+                    return BadRequest(new { error = "Name is required for create operation" });
+                }
+
                 // Parse the form data to determine if this is a folder creation, file upload, or copy operation
-                var context = FileManagerCreateContext.FromForm(Request.Form);
+                var context = FileManagerCreateContext.FromRequest(request);
                 var result = await _fileManagerService.CreateAsync(target, name, entry, context);
                 return Json(result);
             }
@@ -82,12 +96,12 @@ namespace KendoUI.FileManager.BlobStorage.Controllers
 
         // Handles renaming files or folders in Azure Blob Storage
         [HttpPost]
-        public async Task<IActionResult> FileManager_Update()
+        public async Task<IActionResult> FileManager_Update([FromForm] FileManagerUpdateRequest request)
         {
             try
             {
-                var targetPath = Request.Form["path"];
-                var newName = Request.Form["name"];
+                var targetPath = request.Path;
+                var newName = request.Name;
 
                 if (string.IsNullOrEmpty(targetPath) || string.IsNullOrEmpty(newName))
                 {
@@ -107,16 +121,15 @@ namespace KendoUI.FileManager.BlobStorage.Controllers
 
         // Handles deleting files or folders from Azure Blob Storage
         [HttpPost]
-        public async Task<IActionResult> FileManager_Destroy([FromForm] string models)
+        public async Task<IActionResult> FileManager_Destroy([FromForm] FileManagerDestroyRequest request)
         {
             try
             {
                 // Parse the request to extract the path of the item to delete
-                var targetPath = FileManagerRequestParser.ResolveTargetPath(Request.Form, models);
+                var targetPath = ResolveTargetPath(request);
                 if (string.IsNullOrEmpty(targetPath))
                 {
-                    var formData = string.Join(", ", Request.Form.Select(kvp => $"{kvp.Key}={kvp.Value}"));
-                    return BadRequest(new { error = "No target path provided for deletion. Received: " + formData });
+                    return BadRequest(new { error = "No target path provided for deletion." });
                 }
 
                 await _fileManagerService.DeleteAsync(targetPath);
@@ -131,18 +144,18 @@ namespace KendoUI.FileManager.BlobStorage.Controllers
 
         // Handles file uploads to Azure Blob Storage
         [HttpPost]
-        public async Task<IActionResult> FileManager_Upload([FromForm] string target, IFormFile file)
+        public async Task<IActionResult> FileManager_Upload([FromForm] FileManagerUploadRequest request)
         {
             try
             {
-                if (file == null || file.Length == 0)
+                if (request.File == null || request.File.Length == 0)
                 {
                     return BadRequest(new { error = "No file uploaded" });
                 }
 
                 // Normalize the target path and upload the file to the blob container
-                var resolvedTarget = NormalizeUploadTarget(target);
-                var result = await _fileManagerService.UploadAsync(resolvedTarget, file);
+                var resolvedTarget = NormalizeUploadTarget(request);
+                var result = await _fileManagerService.UploadAsync(resolvedTarget, request.File);
                 return Json(result);
             }
             catch (Exception ex)
@@ -152,16 +165,54 @@ namespace KendoUI.FileManager.BlobStorage.Controllers
             }
         }
 
-        private string NormalizeUploadTarget(string? target)
+        private static string NormalizePath(string? target)
         {
-            var resolvedTarget = target ??
-                                 Request.Form["target"].FirstOrDefault() ??
-                                 Request.Form["path"].FirstOrDefault() ??
-                                 string.Empty;
+            if (string.IsNullOrWhiteSpace(target))
+            {
+                return string.Empty;
+            }
 
-            return string.IsNullOrEmpty(resolvedTarget)
-                ? string.Empty
-                : resolvedTarget.Trim('/');
+            return target.Trim('/');
+        }
+
+        private static string NormalizeUploadTarget(FileManagerUploadRequest request)
+        {
+            var resolvedTarget = request.Target ?? request.Path ?? string.Empty;
+            return NormalizePath(resolvedTarget);
+        }
+
+        private static string? ResolveTargetPath(FileManagerDestroyRequest request)
+        {
+            var targetPath = request.Path ?? request.Target ?? request.Name;
+
+            if (!string.IsNullOrWhiteSpace(targetPath))
+            {
+                return targetPath;
+            }
+
+            if (string.IsNullOrWhiteSpace(request.Models))
+            {
+                return null;
+            }
+
+            try
+            {
+                var modelsArray = JsonSerializer.Deserialize<JsonElement[]>(request.Models);
+                if (modelsArray is { Length: > 0 })
+                {
+                    var firstModel = modelsArray[0];
+                    if (firstModel.TryGetProperty("path", out var pathElement))
+                    {
+                        return pathElement.GetString();
+                    }
+                }
+            }
+            catch
+            {
+                // Swallow JSON parsing errors and fall back to form values
+            }
+
+            return null;
         }
     }
 }

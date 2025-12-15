@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Http;
+using System.Linq;
 
 namespace KendoUI.FileManager.BlobStorage.Models
 {
@@ -9,21 +10,21 @@ namespace KendoUI.FileManager.BlobStorage.Models
         public string? Extension { get; init; }
         public string? IsDirectoryFlag { get; init; }
 
-        public static FileManagerCreateContext FromForm(IFormCollection form)
+        public static FileManagerCreateContext FromRequest(FileManagerCreateRequest request)
         {
-            if (form is null)
+            if (request is null)
             {
-                throw new ArgumentNullException(nameof(form));
+                throw new ArgumentNullException(nameof(request));
             }
 
             return new FileManagerCreateContext
             {
-                UploadedFile = form.Files.FirstOrDefault(),
-                SourcePath = form["path"].FirstOrDefault() ??
-                             form["source"].FirstOrDefault() ??
-                             form["sourcePath"].FirstOrDefault(),
-                Extension = form["extension"].FirstOrDefault(),
-                IsDirectoryFlag = form["isDirectory"].FirstOrDefault()
+                UploadedFile = request.Files?.FirstOrDefault(),
+                SourcePath = request.Path ??
+                             request.Source ??
+                             request.SourcePath,
+                Extension = request.Extension,
+                IsDirectoryFlag = request.IsDirectoryFlag
             };
         }
     }
