@@ -2,22 +2,32 @@
 using Kendo.Mvc.UI;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.AI;
+using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
+using OpenAI.Chat;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
+using Telerik.AI.SmartComponents.Extensions;
 using Telerik.Examples.Mvc.Models;
+using Telerik.SvgIcons;
 
 namespace Telerik.Examples.Mvc.Controllers.Grid
 {
     public class SmartGridController : Controller
     {
         private readonly AiService _smartGridService;
+        IChatClient _chatClient;
 
-        public SmartGridController(AiService smartGridService)
+        public SmartGridController(IChatClient smartGridService)
         {
-            _smartGridService = smartGridService;
+            _chatClient = smartGridService;
         }
 
         public IActionResult SmartGrid()
@@ -32,10 +42,37 @@ namespace Telerik.Examples.Mvc.Controllers.Grid
         }
 
         [HttpPost]
-        public async Task<IActionResult> Analyze([FromBody] GridAnalysisRequest request)
+        public async Task<IActionResult> Analyze([FromBody] GridAIRequest request)
         {
-            var result = await _smartGridService.AnalyzeGridDataAsync(request.Instructions, request.GridJson);
-            return Json(new { result });
+            var messages = request.Contents.Select(dto => dto).ToList();
+
+            var options = new ChatOptions();
+            options.AddGridChatTools(request.Columns);
+
+            List<Microsoft.Extensions.AI.ChatMessage> conversationMessages = request.Contents
+                .Select(m => new Microsoft.Extensions.AI.ChatMessage(ChatRole.User, m.Text))
+                .ToList();
+
+            if (_chatClient == null)
+            {
+                return StatusCode(500, "Chat service is not available.");
+            }
+
+            ChatResponse completion = await _chatClient.GetResponseAsync(conversationMessages, options);
+
+            GridAIResponse response = completion.ExtractGridResponse();
+
+            return new ContentResult
+            {
+                Content = System.Text.Json.JsonSerializer.Serialize(
+                    response,
+                    new System.Text.Json.JsonSerializerOptions
+                    {
+                        PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+                    }),
+                ContentType = "application/json"
+            };
+
         }
 
         private List<SaleRecord> GetFullSalesData()

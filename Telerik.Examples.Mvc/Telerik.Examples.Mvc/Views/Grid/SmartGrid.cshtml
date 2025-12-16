@@ -6,6 +6,14 @@
 
 @(Html.Kendo().Grid<SaleRecord>()
     .Name("salesGrid")
+    .ToolBar(t =>
+    {
+        t.AIAssistant();
+        t.Spacer();
+        t.Custom().Name("resetChanges")
+            .Text("Reset changes")
+            .IconClass("k-icon k-i-arrow-rotate-ccw");
+    })
     .Columns(columns =>
     {
         columns.Bound(c => c.Id).Width(80);
@@ -17,137 +25,22 @@
     })
     .Scrollable(s => s.Height("300px"))
     .DataSource(ds => ds.Ajax()
+        .Model(m => m.Id(x => x.Id))
         .Read(read => read.Url("/SmartGrid/GetSales"))
+    )
+    .AI(ai => ai
+        .Service("/SmartGrid/Analyze")
+        .AIAssistant(aiAsst => aiAsst
+            .PromptSuggestions(new[]
+            {
+                "Sort the grid by Total descending.",
+                "Filter to only show data from July.",
+                "Show only rows where Units Sold is greater than 130.",
+            })
+            .PromptTextArea(p => p.Rows(2).Resize(TextAreaResize.Auto).MaxRows(5))
+        )
+        .AIAssistantWindow(ws => ws.Width(558).Actions(a => a.Minimize().Close()))
     )
     .Sortable()
     .Filterable()
 )
-
-<div class="k-mt-4" style="color: #ffffff;">
-    <label for="instructionBox" class="k-label">Ask AI about the data:</label>
-
-    <ul style="margin-top: 5px; list-style: disc; padding-left: 20px; font-size: 14px; color: #00ffe5;">
-        <li class="ai-suggestion">Which salesperson has the highest total sales?</li>
-        <li class="ai-suggestion">What is the average units sold per region?</li>
-        <li class="ai-suggestion">Show the month with the lowest performance.</li>
-        <li class="ai-suggestion">Sort the grid by Total descending</li>
-        <li class="ai-suggestion">Filter to only show data from July</li>
-        <li class="ai-suggestion">Show only rows where Units Sold is greater than 130</li>
-        <li class="ai-suggestion">What is the total revenue by month?</li>
-        <li class="ai-suggestion">How many units did Alice sell in total?</li>
-    </ul>
-
-
-    @(Html.Kendo().TextArea()
-        .Name("instructionBox")
-        .Placeholder("e.g. Which region had the lowest total?")
-        .Rows(4)
-        .HtmlAttributes(new { style = "width:100%; background-color:#1f1f1f; color:white;", @class = "k-textbox" })
-        )
-
-    <div class="k-mt-2">
-        @(Html.Kendo().Button()
-                .Name("analyzeButton")
-                .Content("Analyze")
-                .ThemeColor(ThemeColor.Success)
-                .HtmlAttributes(new { onclick = "analyzeGrid()" })
-                )
-    </div>
-</div>
-
-<div id="aiResponse" class="k-mt-4">
-    <strong>AI Response:</strong>
-    <div id="aiText" style="margin-top:10px;"></div>
-</div>
-
-@section scripts {
-    <script>
-        $(document).on("click", ".ai-suggestion", function () {
-            const text = $(this).text().trim();
-            $("#instructionBox").data("kendoTextArea").value(text);
-        });
-
-
-        async function analyzeGrid() {
-            const grid = $("#salesGrid").data("kendoGrid");
-            const allData = grid.dataSource.view().map(item => item.toJSON());
-            const instructions = $("#instructionBox").val();
-
-            if (!instructions.trim()) {
-                alert("Please enter a question or instruction for the AI.");
-                return;
-            }
-
-            $("#aiText").html("<em>Thinking...</em>");
-
-            const response = await fetch('/SmartGrid/Analyze', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    instructions: instructions,
-                    gridJson: JSON.stringify(allData)
-                })
-            });
-
-            const result = await response.json();
-
-            try {
-                const json = JSON.parse(result.result);
-
-                if (json.action === "filter") {
-                    grid.dataSource.filter({
-                        field: json.field,
-                        operator: json.operator,
-                        value: json.value
-                    });
-                    $("#aiText").html(`<strong>Applied filter:</strong> ${json.field} ${json.operator} ${json.value}`);
-                } else if (json.action === "sort") {
-                    grid.dataSource.sort({
-                        field: json.field,
-                        dir: json.dir
-                    });
-                    $("#aiText").html(`<strong>Sorted by:</strong> ${json.field} (${json.dir})`);
-                } else {
-                    $("#aiText").text(result.result);
-                }
-            } catch {
-                $("#aiText").text(result.result);
-            }
-        }
-    </script>
-}
-
-<style>
-    textarea.k-textbox,
-    .k-input {
-        background-color: #1f1f1f;
-        color: #ffffff;
-        border-color: #444;
-    }
-
-        textarea.k-textbox::placeholder {
-            color: #888888;
-        }
-
-    #aiResponse {
-        background-color: #1f1f1f;
-        border: 1px solid #444;
-        padding: 1em;
-        border-radius: 6px;
-        margin-top: 1em;
-        color: #00ffe5;
-        font-size: 14px;
-    }
-
-        #aiResponse strong {
-            display: block;
-            margin-bottom: 6px;
-            color: #ffffff;
-            font-weight: 600;
-            font-size: 15px;
-        }
-
-    #aiText {
-        white-space: pre-line;
-    }
-</style>

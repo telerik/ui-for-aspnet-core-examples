@@ -1,5 +1,7 @@
 using AutoMapper;
 using AutoMapper.Internal;
+using Azure;
+using Azure.AI.OpenAI;
 using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
 using Microsoft.AspNetCore.Builder;
@@ -13,6 +15,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.AI;
 using Microsoft.OData.Edm;
 using Microsoft.OData.ModelBuilder;
 using Newtonsoft.Json.Serialization;
@@ -23,6 +26,7 @@ using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using Telerik.Examples.Mvc.Controllers;
+using Telerik.AI.SmartComponents.Extensions;
 using Telerik.Examples.Mvc.Database;
 using Telerik.Examples.Mvc.Hubs;
 using Telerik.Examples.Mvc.Models;
@@ -56,6 +60,18 @@ builder.Services.AddSingleton(mapper);
 
 builder.Services.AddTransient<CarsService>();
 builder.Services.AddTransient<AiService>();
+
+// Register the Azure OpenAI client.
+builder.Services.AddSingleton(new AzureOpenAIClient(
+    new Uri(builder.Configuration["OpenAI:Endpoint"]),
+    new AzureKeyCredential(builder.Configuration["OpenAI:ApiKey"])
+));
+
+// Register the Chat client with the specified model.
+builder.Services.AddChatClient(services =>
+    services.GetRequiredService<AzureOpenAIClient>()
+        .GetChatClient("gpt-4.1-nano").AsIChatClient()
+);
 
 builder.Services.AddMvc()
     .AddNewtonsoftJson(options =>
