@@ -63,53 +63,6 @@ namespace Telerik.Examples.Mvc.Controllers
             }
         }
 
-        public async Task<string> AnalyzeGridDataAsync(string instructions, string gridDataJson)
-        {
-            var systemPrompt = @"
-                        You are an AI assistant analyzing Kendo UI Grid data.
-                        
-                        You ALWAYS receive:
-                        1) The full raw data (JSON array)
-                        2) A user question
-                        
-                        RULES:
-                        1. If the user explicitly asks for filtering or sorting:
-                           Return ONLY a JSON object such as:
-                           { ""action"": ""filter"", ""field"": ""Month"", ""operator"": ""eq"", ""value"": ""July"" }
-                        
-                           or:
-                        
-                           { ""action"": ""sort"", ""field"": ""Total"", ""dir"": ""desc"" }
-                        
-                        2. For ALL OTHER QUESTIONS:
-                           Return a short natural language answer using ONLY the supplied data.
-                        
-                        No code, no markdown, no explanations.
-                        ";
-
-            try
-            {
-                var url = $"{_endpoint}openai/deployments/{_deployment}/chat/completions?api-version=2024-02-15-preview";
-                var payload = new
-                {
-                    messages = new[]
-                    {
-                        new { role = "system", content = systemPrompt },
-                        new { role = "user", content = $"Grid Data:\n{gridDataJson}" },
-                        new { role = "user", content = $"Question:\n{instructions}" }
-                    },
-                    temperature = 0.3,
-                    max_tokens = 1500
-                };
-
-                return await SendAsync(url, payload);
-            }
-            catch
-            {
-                return "AI configuration missing";
-            }
-        }
-
         public async Task<string> EditTextAsync(string text, string instruction)
         {
             try
