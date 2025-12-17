@@ -1,0 +1,55 @@
+name: Build Mvc, Razor Pages and ContentSecurityPolicy Solutions
+
+on:
+  push
+
+jobs:
+  build:
+    runs-on: windows-latest
+    env:
+      TELERIK_LICENSE: ${{ secrets.TELERIK_LICENSE }}
+
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v4
+      
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 9.x.x
+
+    #  Telerik.Examples.Mvc Project Restore & Build
+    - name: Restore NuGet Packages for Telerik.Examples.Mvc
+      run: |
+        dotnet restore Telerik.Examples.Mvc/Telerik.Examples.Mvc/Telerik.Examples.Mvc.csproj --configfile NuGet.Config -r win-x64
+      env:
+        TELERIK_NUGET_KEY: ${{secrets.TELERIK_NUGET_KEY}}
+    
+    - name: Build Telerik.Examples.Mvc Project
+      run: dotnet build Telerik.Examples.Mvc/Telerik.Examples.Mvc/Telerik.Examples.Mvc.csproj -r win-x64 --no-restore
+      env:
+        TELERIK_LICENSE: ${{secrets.TELERIK_LICENSE_KEY}}
+
+    #  Telerik.Examples.RazorPages Project Restore & Build
+    - name: Restore NuGet Packages for Telerik.Examples.RazorPages
+      run: |
+        dotnet restore Telerik.Examples.RazorPages/Telerik.Examples.RazorPages/Telerik.Examples.RazorPages.csproj --configfile NuGet.Config -r win-x64
+      env:
+        TELERIK_NUGET_KEY: ${{secrets.TELERIK_NUGET_KEY}}
+
+    - name: Build Telerik.Examples.RazorPages Project
+      run: dotnet build Telerik.Examples.RazorPages/Telerik.Examples.RazorPages/Telerik.Examples.RazorPages.csproj -r win-x64 --no-restore
+      env:
+        TELERIK_LICENSE: ${{secrets.TELERIK_LICENSE_KEY}}
+
+    #  Telerik.Examples.ContentSecurityPolicy Project Restore & Build
+    - name: Restore NuGet Packages for Telerik.Examples.ContentSecurityPolicy Project
+      run: |
+        dotnet restore Telerik.Examples.ContentSecurityPolicy/Telerik.Examples.ContentSecurityPolicy.csproj --configfile NuGet.Config -r win-x64
+      env:
+        TELERIK_NUGET_KEY: ${{secrets.TELERIK_NUGET_KEY}}
+    
+    - name: Build Telerik.Examples.ContentSecurityPolicy Project
+      run: dotnet build Telerik.Examples.ContentSecurityPolicy/Telerik.Examples.ContentSecurityPolicy.csproj -r win-x64 --no-restore
+      env:
+        TELERIK_LICENSE: ${{secrets.TELERIK_LICENSE_KEY}}
