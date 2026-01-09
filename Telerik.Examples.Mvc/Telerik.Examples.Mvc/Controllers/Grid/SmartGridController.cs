@@ -58,21 +58,26 @@ namespace Telerik.Examples.Mvc.Controllers.Grid
                 return StatusCode(500, "Chat service is not available.");
             }
 
-            ChatResponse completion = await _chatClient.GetResponseAsync(conversationMessages, options);
-
-            GridAIResponse response = completion.ExtractGridResponse();
-
-            return new ContentResult
+            try
             {
-                Content = System.Text.Json.JsonSerializer.Serialize(
-                    response,
-                    new System.Text.Json.JsonSerializerOptions
-                    {
-                        PropertyNamingPolicy = JsonNamingPolicy.CamelCase
-                    }),
-                ContentType = "application/json"
-            };
+                ChatResponse completion = await _chatClient.GetResponseAsync(conversationMessages, options);
+                GridAIResponse response = completion.ExtractGridResponse();
 
+                return new ContentResult
+                {
+                    Content = System.Text.Json.JsonSerializer.Serialize(
+                        response,
+                        new System.Text.Json.JsonSerializerOptions
+                        {
+                            PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+                        }),
+                    ContentType = "application/json"
+                };
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.ToString());
+            }
         }
 
         private List<SaleRecord> GetFullSalesData()
