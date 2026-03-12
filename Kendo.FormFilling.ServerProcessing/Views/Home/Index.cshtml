@@ -1,0 +1,55 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<br />
+<button id="save">Save to Server</button>
+<br />
+<br />
+<div id="pdfViewer">
+
+</div>
+<script>
+    $("#pdfViewer").kendoPDFViewer({
+        toolbar:{
+            contextMenu: true
+        },
+        pdfjsProcessing: {
+            renderForms:true,
+            file: "../Form-Filling.pdf"
+        },
+        scale:0.75,
+        width: "100%",
+        height: 1200
+    });
+
+    $("#save").kendoButton({
+        click: onSave,
+        themeColor: "primary"
+    });
+
+    function onSave(e) {
+       $("#pdfViewer").data().kendoPDFViewer.document.saveDocument().then((uint8Array) => {
+        // Convert Uint8Array to Blob
+        const blob = new Blob([uint8Array], { type: 'application/pdf' });
+
+        // Create FormData
+        const formData = new FormData();
+        formData.append('file', blob, 'test.pdf');
+
+         $.ajax({
+             url: '@Url.Action("Save_Document", "Home")',
+             type: 'POST',
+             data: formData,
+             processData: false,  // Important: don't process the data
+             contentType: false,  // Important: don't set content type
+             success: function(response) {
+                 console.log('File saved successfully:', response);
+             },
+             error: function(xhr, status, error) {
+                 console.error('Error saving file:', error);
+             }
+        });
+      });
+    }
+</script>
