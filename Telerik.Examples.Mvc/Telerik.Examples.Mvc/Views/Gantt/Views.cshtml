@@ -1,0 +1,178 @@
+<div class="gantt-view-configurator">
+    <h4 class="gantt-view-configurator-title">Select View</h4>
+    <div class="gantt-view-buttons">
+        <button type="button" class="gantt-view-btn" data-view="day">
+            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="5" fill="currentColor" stroke="none" />
+                <line x1="12" y1="1" x2="12" y2="3" />
+                <line x1="12" y1="21" x2="12" y2="23" />
+                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+                <line x1="1" y1="12" x2="3" y2="12" />
+                <line x1="21" y1="12" x2="23" y2="12" />
+                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+            </svg>
+            <span>Day</span>
+        </button>
+        <button type="button" class="gantt-view-btn" data-view="week">
+            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <!-- Calendar body -->
+                <rect x="3" y="4" width="18" height="17" rx="2" ry="2" fill="none" />
+                <!-- Binding posts -->
+                <line x1="8" y1="2" x2="8" y2="6" />
+                <line x1="16" y1="2" x2="16" y2="6" />
+                <!-- Header separator -->
+                <line x1="3" y1="9" x2="21" y2="9" />
+                <!-- Vertical dividers (3 columns) -->
+                <line x1="9" y1="9" x2="9" y2="21" />
+                <line x1="15" y1="9" x2="15" y2="21" />
+                <!-- Horizontal dividers (3 rows) -->
+                <line x1="3" y1="13" x2="21" y2="13" />
+                <line x1="3" y1="17" x2="21" y2="17" />
+            </svg>
+            <span>Week</span>
+        </button>
+        <button type="button" class="gantt-view-btn active" data-view="month">
+            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+            </svg>
+            <span>Month</span>
+        </button>
+        <button type="button" class="gantt-view-btn" data-view="year">
+            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24">
+                <circle cx="12" cy="14" r="8" fill="currentColor" />
+                <path d="M12 1 C12 1, 15 5, 13 7 C15 5.5, 17 7, 16 9.5 C17.5 8, 19 9, 18 11 C16.5 9.5, 14.5 10, 14 12 C13.5 10, 11 9, 10 11 C10 9, 11.5 7.5, 10 6 C11 8, 9 9, 9 11 C8 9.5, 9 7.5, 8 6.5 C7 8, 8 10, 9.5 11.5 C8 10.5, 6.5 11, 6 13 C5 11, 7 8, 8 6 C6 7, 5 9, 6 11 C4.5 9, 5 6, 7 4 C6 5, 6 7, 7 7.5 C7.5 5, 9 3, 12 1 Z" fill="currentColor" stroke="none" />
+            </svg>
+            <span>Year</span>
+        </button>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $(".gantt-view-btn").on("click", function () {
+            var gantt = $("#gantt").data("kendoGantt");
+            var selectedView = $(this).data("view");
+
+            $(".gantt-view-btn").removeClass("active");
+            $(this).addClass("active");
+
+            gantt.view(selectedView);
+        });
+    });
+
+    function onGanttNavigate(e) {
+        var viewName = e.view;
+        $(".gantt-view-btn").removeClass("active");
+        $(".gantt-view-btn[data-view='" + viewName + "']").addClass("active");
+    }
+</script>
+
+@(Html.Kendo().Gantt<GanttTaskViewModel, GanttDependencyViewModel>()
+    .Name("gantt")
+    .Columns(columns =>
+    {
+        columns.Bound(c => c.TaskID).Title("ID").Width(50);
+        columns.Bound(c => c.Title).Editable(true).Sortable(true);
+        columns.Bound(c => c.Start).Title("Start Time").Format("{0:MM/dd/yyyy}").Width(100).Editable(true).Sortable(true);
+    })
+    .Views(views =>
+    {
+        views.DayView();
+        views.WeekView();
+        views.MonthView(monthView => monthView.Selected(true));
+        views.YearView();
+    })
+    .Height(430)
+    .ShowWorkHours(false)
+    .ShowWorkDays(false)
+    .Snap(false)
+    .Editable(false)
+    .Events(events => events.Navigate("onGanttNavigate"))
+    .DataSource(d => d
+        .Model(m =>
+        {
+            m.Id(f => f.TaskID);
+            m.ParentId(f => f.ParentID);
+            m.OrderId(f => f.OrderId);
+            m.Field(f => f.Expanded).DefaultValue(true);
+        })
+        .Read("Views_Read_Tasks", "Views")
+    )
+    .DependenciesDataSource(d => d
+        .Model(m =>
+        {
+            m.Id(f => f.DependencyID);
+            m.PredecessorId(f => f.PredecessorID);
+            m.SuccessorId(f => f.SuccessorID);
+            m.Type(f => f.Type);
+        })
+        .Read("Views_Read_Dependencies", "Views")
+    )
+)
+
+<style>
+    .gantt-view-configurator {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px 24px;
+        margin-bottom: 20px;
+        border-radius: 8px;
+        border: 1px solid var(--kendo-component-border, rgba(0, 0, 0, 0.08));
+    }
+
+    .gantt-view-configurator-title {
+        margin: 0 0 16px 0;
+        font-size: 15px;
+        font-weight: 600;
+        color: var(--kendo-color-on-app-surface, #F5F5F5);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .gantt-view-buttons {
+        display: flex;
+        gap: 12px;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .gantt-view-btn {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        width: 100px;
+        height: 90px;
+        padding: 12px 8px;
+        border: 2px solid var(--kendo-component-border, rgba(0, 0, 0, 0.08));
+        border-radius: 10px;
+        background: var(--kendo-component-bg, #fff);
+        color: var(--kendo-component-text, #272727);
+        cursor: pointer;
+        transition: all 0.2s ease;
+        font-size: 13px;
+        font-weight: 500;
+        font-family: inherit;
+        line-height: 1;
+    }
+
+        .gantt-view-btn:hover {
+            border-color: var(--kendo-color-primary, #ff6358);
+            color: var(--kendo-color-primary, #ff6358);
+            background: var(--kendo-hover-bg, var(--kendo-component-bg, #fff));
+        }
+
+        .gantt-view-btn.active {
+            border-color: var(--kendo-color-primary, #ff6358);
+            background: var(--kendo-color-primary, #ff6358);
+            color: var(--kendo-color-on-primary, #fff);
+        }
+
+        .gantt-view-btn svg {
+            flex-shrink: 0;
+        }
+</style>
