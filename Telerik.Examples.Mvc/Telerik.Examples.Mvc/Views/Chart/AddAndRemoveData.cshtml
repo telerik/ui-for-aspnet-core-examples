@@ -1,0 +1,363 @@
+<div class="demo-section wide">
+    <div class="configurator" style="justify-content: center;">
+        <h3 style="flex: 0 0 100%; text-align: center;">Line Chart with Dynamic Data</h3>
+        <div class="box-col" style="float: none;">
+            <ul class="options" style="display: flex; gap: 10px; flex-wrap: wrap; justify-content: center;">
+                <li>
+                    <button id="addDataBtn" class="k-button k-button-md k-rounded-md k-button-solid k-button-solid-base">Add Data</button>
+                </li>
+                <li>
+                    <button id="addDatasetBtn" class="k-button k-button-md k-rounded-md k-button-solid k-button-solid-base">Add Dataset</button>
+                </li>
+                <li>
+                    <button id="removeDataBtn" class="k-button k-button-md k-rounded-md k-button-solid k-button-solid-base">Remove Data</button>
+                </li>
+                <li>
+                    <button id="randomizeBtn" class="k-button k-button-md k-rounded-md k-button-solid k-button-solid-base">Randomize</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+    @(Html.Kendo().Chart()
+        .Name("lineChart")
+        .HtmlAttributes(new { style = "height: 400px; border: 1px solid #dee2e6; border-radius: 4px;" })
+        .Title("Volume Inspection")
+        .Legend(legend => legend
+        .Visible(false)
+        )
+        .SeriesDefaults(seriesDefaults =>
+        seriesDefaults.Line().Style(ChartLineStyle.Smooth)
+        )
+        .Series(series =>
+        {
+            series.Line(new double[] { 6, 5.47, 8, 5.24, 4.76, 4.72, 4.67, 5.05, 4.76, 3.96, 1, 6.1, 2.85 })
+            .Name("East Asia & Pacific");
+        })
+        .CategoryAxis(axis => axis
+        .MajorGridLines(lines => lines.Visible(false))
+        )
+        .ValueAxis(axis => axis
+        .Numeric()
+        .Line(line => line.Visible(false))
+        )
+        .Tooltip(tooltip => tooltip
+        .Visible(true)
+        .Format("{0}")
+        )
+        )
+</div>
+
+<div class="demo-section wide">
+    <div class="configurator" style="justify-content: center;">
+        <h3 style="flex: 0 0 100%; text-align: center;">Candlestick Chart with Live Data</h3>
+        <div class="box-col" style="float: none;">
+            <ul class="options" style="display: flex; gap: 10px; flex-wrap: wrap; justify-content: center;">
+                <li>
+                    <button id="togglePlayBtn" class="k-button k-button-md k-rounded-md k-button-solid k-button-solid-base">Pause</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+    @(Html.Kendo().Chart()
+        .Name("stockChart")
+        .HtmlAttributes(new { style = "height: 600px; border: 1px solid #dee2e6; border-radius: 4px;" })
+        .Title("The Boeing Company\nNYSE:BA")
+        .Legend(legend => legend
+        .Visible(false)
+        )
+        .Series(series =>
+        {
+            series.Candlestick(new object[] { })
+            .Name("Boeing");
+        })
+        .CategoryAxis(axis => axis
+        .Labels(labels => labels.Rotation("auto"))
+        .MajorGridLines(lines => lines.Visible(true))
+        )
+        .ValueAxis(axis => axis
+        .Numeric()
+        .Line(line => line.Visible(false))
+        )
+        .Tooltip(tooltip => tooltip
+        .Visible(true)
+        )
+        )
+</div>
+
+@section Scripts {
+    <script>
+        var initialLineData = [6, 5.47, 8, 5.24, 4.76, 4.72, 4.67, 5.05, 4.76, 3.96, 1, 6.1, 2.85];
+
+        var stockData = [
+            { Date: "2020-12", Close: 40.635, Volume: 1650185491, Open: 40.64, High: 40.68, Low: 39.09 },
+            { Date: "2021-01", Close: 40.13, Volume: 1979918237, Open: 40.13, High: 40.292, Low: 36.46 },
+            { Date: "2021-02", Close: 38.44, Volume: 1572505911, Open: 38.44, High: 38.48, Low: 36.697 },
+            { Date: "2021-03", Close: 38.24, Volume: 1922276774, Open: 38.24, High: 38.29, Low: 35.94 },
+            { Date: "2021-04", Close: 37.031, Volume: 2078426778, Open: 37.032, High: 37.07, Low: 34.35 },
+            { Date: "2021-05", Close: 38.2402, Volume: 1727585885, Open: 38.25, High: 38.27, Low: 34.886 },
+            { Date: "2021-06", Close: 38.65, Volume: 1776948280, Open: 38.63, High: 38.68, Low: 36.7 },
+            { Date: "2021-07", Close: 39.9002, Volume: 1456330078, Open: 39.9, High: 39.921, Low: 36.5498 },
+            { Date: "2021-08", Close: 40.1, Volume: 1557166494, Open: 40.095, High: 40.14, Low: 38.26 },
+            { Date: "2021-09", Close: 39.841, Volume: 1506305343, Open: 39.84, High: 39.91, Low: 38.24 },
+            { Date: "2021-10", Close: 39.8592, Volume: 2034928239, Open: 39.8515, High: 39.88, Low: 37.33 },
+            { Date: "2021-11", Close: 41.993, Volume: 1542204312, Open: 41.99, High: 42.02, Low: 38.71 },
+            { Date: "2021-12", Close: 42.3, Volume: 1255678260, Open: 42.298, High: 42.31, Low: 40.36 },
+            { Date: "2022-01", Close: 43.29, Volume: 1685490186, Open: 43.29, High: 43.31, Low: 40.16 },
+            { Date: "2022-02", Close: 42.13, Volume: 1445458017, Open: 42.04, High: 42.17, Low: 40.26 },
+            { Date: "2022-03", Close: 42.14, Volume: 1958550854, Open: 42.14, High: 42.15, Low: 40.5 },
+            { Date: "2022-04", Close: 42.86, Volume: 1533883066, Open: 42.89, High: 43.05, Low: 41.39 },
+            { Date: "2022-05", Close: 42.23, Volume: 2396221596, Open: 42.24, High: 42.28, Low: 38.23 },
+            { Date: "2022-06", Close: 39.8, Volume: 2709886930, Open: 39.96, High: 40, Low: 37.16 },
+            { Date: "2022-07", Close: 39, Volume: 2091835303, Open: 38.938, High: 39, Low: 36.5 },
+            { Date: "2022-08", Close: 38.96, Volume: 1986978146, Open: 38.97, High: 39.03, Low: 36.26 },
+            { Date: "2022-09", Close: 40.91, Volume: 1860762246, Open: 40.91, High: 40.95, Low: 38.32 },
+            { Date: "2022-10", Close: 42.88, Volume: 1974572432, Open: 42.89, High: 42.92, Low: 39.88 },
+            { Date: "2022-11", Close: 44.78, Volume: 1903112379, Open: 44.77, High: 44.86, Low: 41.61 },
+            { Date: "2022-12", Close: 44.7, Volume: 1533161602, Open: 44.7, High: 44.8, Low: 41.5 },
+            { Date: "2023-01", Close: 45.36, Volume: 1823989418, Open: 45.35, High: 45.4, Low: 42.53 },
+            { Date: "2023-02", Close: 45.47, Volume: 1730644867, Open: 45.485, High: 45.55, Low: 42.93 },
+            { Date: "2023-03", Close: 44.42, Volume: 1749294085, Open: 44.44, High: 44.44, Low: 42.06 },
+            { Date: "2023-04", Close: 46.59, Volume: 1171507724, Open: 46.5, High: 46.6, Low: 43.5 },
+            { Date: "2023-05", Close: 47.5, Volume: 1282648621, Open: 47.5, High: 47.52, Low: 45.66 },
+            { Date: "2023-06", Close: 47.88, Volume: 1228561577, Open: 47.88, High: 47.92, Low: 46.16 },
+            { Date: "2023-07", Close: 50.64, Volume: 992870269, Open: 50.64, High: 50.654, Low: 47.47 },
+            { Date: "2023-08", Close: 49.02, Volume: 981208528, Open: 49.02, High: 49.06, Low: 44.39 },
+            { Date: "2023-09", Close: 51.631, Volume: 573031521, Open: 51.63, High: 51.68, Low: 47.81 },
+            { Date: "2023-10", Close: 55.01, Volume: 1103427032, Open: 54.959, High: 55.06, Low: 51.34 },
+            { Date: "2023-11", Close: 54.68, Volume: 995365278, Open: 54.66, High: 54.77, Low: 48.66 },
+            { Date: "2023-12", Close: 52.84, Volume: 1234567890, Open: 52.84, High: 52.9, Low: 50.0 },
+            { Date: "2024-01", Close: 51.37, Volume: 849837840, Open: 51.38, High: 51.46, Low: 41.6299 },
+            { Date: "2024-02", Close: 45.65, Volume: 569927484, Open: 45.65, High: 45.87, Low: 42.16 },
+            { Date: "2024-03", Close: 45.02, Volume: 563447812, Open: 45.04, High: 45.07, Low: 41.05 },
+            { Date: "2024-04", Close: 47.92, Volume: 579215682, Open: 47.93, High: 48.0, Low: 45.5 },
+            { Date: "2024-05", Close: 50.4499, Volume: 589335627, Open: 50.45, High: 50.4692, Low: 47.22 },
+            { Date: "2024-06", Close: 50.54, Volume: 633735895, Open: 50.48, High: 50.61, Low: 44.98 },
+            { Date: "2024-07", Close: 46.06, Volume: 558670899, Open: 46.05, High: 46.12, Low: 43.3 },
+            { Date: "2024-08", Close: 48.49, Volume: 629930051, Open: 48.48, High: 48.5, Low: 44.0 },
+            { Date: "2024-09", Close: 46.93, Volume: 808574022, Open: 46.92, High: 47.07, Low: 37.18 },
+            { Date: "2024-10", Close: 38.89, Volume: 799617379, Open: 38.86, High: 38.97, Low: 28.09 },
+            { Date: "2024-11", Close: 33.9201, Volume: 394335489, Open: 33.93, High: 34.01, Low: 25.06 },
+            { Date: "2024-12", Close: 30.72, Volume: 715467389, Open: 30.73, High: 30.82, Low: 26.85 },
+            { Date: "2025-01", Close: 31.59, Volume: 1176242873, Open: 31.59, High: 31.63, Low: 27.96 },
+            { Date: "2025-02", Close: 31.65, Volume: 1194157236, Open: 31.65, High: 31.68, Low: 27.39 }
+        ];
+
+        $(document).ready(function () {
+            addButtonIcons();
+            initLineChart();
+            initStockChart();
+        });
+
+        function addButtonIcons() {
+            var icons = {
+                "#addDataBtn": "plus",
+                "#addDatasetBtn": "plus-circle",
+                "#removeDataBtn": "minus",
+                "#randomizeBtn": "arrow-rotate-cw",
+                "#togglePlayBtn": "pause-sm"
+            };
+
+            $.each(icons, function (selector, icon) {
+                var btn = $(selector);
+                var text = btn.text();
+                btn.empty()
+                    .append(kendo.ui.icon({ icon: icon, iconClass: "k-button-icon" }))
+                    .append("<span class='k-button-text'>" + text + "</span>");
+            });
+        }
+
+        function initLineChart() {
+            var lineChart = $("#lineChart").data("kendoChart");
+
+            lineChart.setOptions({
+                transitions: false,
+                series: [{
+                    type: "line",
+                    style: "smooth",
+                    name: "East Asia & Pacific",
+                    data: initialLineData.slice()
+                }]
+            });
+
+            $("#addDataBtn").on("click", function () {
+                var chart = $("#lineChart").data("kendoChart");
+                var series = chart.options.series[0];
+                var data = series.data.concat([parseFloat((Math.random() * 10).toFixed(2))]);
+
+                chart.setOptions({
+                    series: [{
+                        type: "line",
+                        style: "smooth",
+                        name: series.name,
+                        data: data
+                    }]
+                });
+            });
+
+            $("#addDatasetBtn").on("click", function () {
+                var chart = $("#lineChart").data("kendoChart");
+                var series = chart.options.series[0];
+                var data = series.data.concat([
+                    parseFloat((Math.random() * 10).toFixed(2)),
+                    parseFloat((Math.random() * 10).toFixed(2)),
+                    parseFloat((Math.random() * 10).toFixed(2))
+                ]);
+
+                chart.setOptions({
+                    series: [{
+                        type: "line",
+                        style: "smooth",
+                        name: series.name,
+                        data: data
+                    }]
+                });
+            });
+
+            $("#removeDataBtn").on("click", function () {
+                var chart = $("#lineChart").data("kendoChart");
+                var series = chart.options.series[0];
+
+                if (series.data.length > 0) {
+                    var data = series.data.slice(0, -1);
+
+                    chart.setOptions({
+                        series: [{
+                            type: "line",
+                            style: "smooth",
+                            name: series.name,
+                            data: data
+                        }]
+                    });
+                }
+            });
+
+            $("#randomizeBtn").on("click", function () {
+                var chart = $("#lineChart").data("kendoChart");
+                var series = chart.options.series[0];
+                var data = series.data.map(function () {
+                    return parseFloat((Math.random() * 10).toFixed(2));
+                });
+
+                chart.setOptions({
+                    series: [{
+                        type: "line",
+                        style: "smooth",
+                        name: series.name,
+                        data: data
+                    }]
+                });
+            });
+        }
+
+        function initStockChart() {
+            var stockChart = $("#stockChart").data("kendoChart");
+
+            stockChart.setOptions({
+                transitions: false,
+                series: [{
+                    type: "candlestick",
+                    openField: "Open",
+                    highField: "High",
+                    lowField: "Low",
+                    closeField: "Close",
+                    data: stockData.slice()
+                }],
+                categoryAxis: {
+                    field: "Date",
+                    labels: { rotation: "auto" }
+                }
+            });
+
+            var isPlaying = true;
+            var updateInterval = startStockUpdate();
+
+            $("#togglePlayBtn").on("click", function () {
+                var btn = $(this);
+                var iconElement = btn.find(".k-icon, .k-svg-icon");
+
+                if (isPlaying) {
+                    clearInterval(updateInterval);
+                    kendo.ui.icon(iconElement, { icon: "play-sm" });
+                    btn.find(".k-button-text").text("Play");
+                } else {
+                    updateInterval = startStockUpdate();
+                    kendo.ui.icon(iconElement, { icon: "pause-sm" });
+                    btn.find(".k-button-text").text("Pause");
+                }
+
+                isPlaying = !isPlaying;
+            });
+        }
+
+        function startStockUpdate() {
+            return setInterval(function () {
+                var chart = $("#stockChart").data("kendoChart");
+                var series = chart.options.series[0];
+                var currentData = series.data.slice();
+                var lastEntry = currentData[currentData.length - 1];
+                var lastDate = lastEntry.Date;
+                var nextDate = incrementMonth(lastDate);
+                var sourceEntry = stockData[currentData.length % stockData.length];
+
+                var newCandlestick = {
+                    Date: nextDate,
+                    Open: sourceEntry.Open,
+                    High: sourceEntry.High,
+                    Low: sourceEntry.Low,
+                    Close: sourceEntry.Close,
+                    Volume: sourceEntry.Volume
+                };
+
+                currentData.push(newCandlestick);
+
+                chart.setOptions({
+                    series: [{
+                        type: "candlestick",
+                        openField: "Open",
+                        highField: "High",
+                        lowField: "Low",
+                        closeField: "Close",
+                        data: currentData
+                    }]
+                });
+            }, 1000);
+        }
+
+        function incrementMonth(dateStr) {
+            var parts = dateStr.split("-");
+            var year = parseInt(parts[0], 10);
+            var month = parseInt(parts[1], 10);
+
+            month++;
+            if (month > 12) {
+                month = 1;
+                year++;
+            }
+
+            return year + "-" + (month < 10 ? "0" : "") + month;
+        }
+    </script>
+}
+<style>
+    .configurator {
+        height: 120px;
+        background: none;
+        box-shadow: none;
+    }
+
+        .configurator .k-button {
+            height: 33px;
+        }
+
+        .configurator h3 {
+            margin-bottom: 4px;
+        }
+
+        .configurator .k-icon {
+            margin-top: -2px;
+        }
+
+    .demo-section {
+        padding-bottom: 0;
+    }
+</style>

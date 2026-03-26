@@ -92,6 +92,8 @@ builder.Services.Configure<RazorViewEngineOptions>(options =>
     options.ViewLocationFormats.Add("/Views/Scheduler/{0}" + RazorViewEngine.ViewExtension);
     options.ViewLocationFormats.Add("/Views/StylesAndLayout/{0}" + RazorViewEngine.ViewExtension);
     options.ViewLocationFormats.Add("/Views/Spreadsheet/{0}" + RazorViewEngine.ViewExtension);
+    options.ViewLocationFormats.Add("/Views/Chart/{0}" + RazorViewEngine.ViewExtension);
+    options.ViewLocationFormats.Add("/Views/Gantt/{0}" + RazorViewEngine.ViewExtension);
 });
 
 builder.Services.AddDbContext<GeneralDbContext>(options =>
