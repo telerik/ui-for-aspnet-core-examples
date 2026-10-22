@@ -10,15 +10,15 @@ namespace Telerik.Examples.RazorPages.Pages.ListView
 {
     public class ListViewCrudOperationsModel : PageModel
     {
-        public static IList<Product> products;
+        public static IList<Models.Product> products;
 
         public void OnGet()
         {
             if (products == null)
             {
-                products = new List<Product>();
+                products = new List<Models.Product>();
 
-                Enumerable.Range(1, 50).ToList().ForEach(i => products.Add(new Product
+                Enumerable.Range(1, 50).ToList().ForEach(i => products.Add(new Models.Product()
                 {
                     ProductID = i,
                     ProductName = "Product Name " + i,
@@ -34,7 +34,7 @@ namespace Telerik.Examples.RazorPages.Pages.ListView
             return new JsonResult(products.ToDataSourceResult(request));
         }
 
-        public JsonResult OnPostCreate([DataSourceRequest] DataSourceRequest request, Product product)
+        public JsonResult OnPostCreate([DataSourceRequest] DataSourceRequest request, Models.Product product)
         {
             product.ProductID = products.Count + 2;
             products.Add(product);
@@ -42,14 +42,14 @@ namespace Telerik.Examples.RazorPages.Pages.ListView
             return new JsonResult(new[] { product }.ToDataSourceResult(request, ModelState));
         }
 
-        public JsonResult OnPostUpdate([DataSourceRequest] DataSourceRequest request, Product product)
+        public JsonResult OnPostUpdate([DataSourceRequest] DataSourceRequest request, Models.Product product)
         {
             products.Where(x => x.ProductID == product.ProductID).Select(x => product);
 
             return new JsonResult(new[] { product }.ToDataSourceResult(request, ModelState));
         }
 
-        public JsonResult OnPostDestroy([DataSourceRequest] DataSourceRequest request, Product product)
+        public JsonResult OnPostDestroy([DataSourceRequest] DataSourceRequest request, Models.Product product)
         {
             products.Remove(products.FirstOrDefault(x => x.ProductID == product.ProductID));
 

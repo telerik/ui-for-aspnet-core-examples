@@ -46,6 +46,7 @@ namespace Telerik.Examples.Mvc.Models
         public int? RecurrenceID { get; set; }
         public string RecurrenceException { get; set; }
         public bool IsAllDay { get; set; }
+        public bool IsReadonly { get; set; }
 
         public Task ToEntity()
         {

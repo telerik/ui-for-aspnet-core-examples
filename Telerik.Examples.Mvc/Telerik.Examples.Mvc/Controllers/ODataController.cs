@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Telerik.Examples.Mvc.Models;
+using ProductModel = Telerik.Examples.Mvc.Models.Product;
 
 namespace Telerik.Examples.Mvc.Controllers
 {
@@ -57,11 +58,11 @@ namespace Telerik.Examples.Mvc.Controllers
         #region Products
         [HttpGet]
         [EnableQuery]
-        public List<Product> GetProducts()
+        public List<ProductModel> GetProducts()
         {
             var random = new Random();
 
-            var data = Enumerable.Range(1, 100).Select(x => new Product
+            var data = Enumerable.Range(1, 100).Select(x => new ProductModel
             {
                 Discontinued = x % 2 == 1,
                 ProductID = x,
@@ -78,7 +79,7 @@ namespace Telerik.Examples.Mvc.Controllers
 
         [HttpPut]
         [EnableQuery]
-        public IActionResult Put([FromODataUri] int key, [FromBody] Product product)
+        public IActionResult Put([FromODataUri] int key, [FromBody] ProductModel product)
         {
             if (!ModelState.IsValid)
             {
@@ -90,7 +91,7 @@ namespace Telerik.Examples.Mvc.Controllers
         }
         [HttpPost]
         [EnableQuery]
-        public IActionResult Post([FromBody] Product product)
+        public IActionResult Post([FromBody] ProductModel product)
         {
             if (!ModelState.IsValid)
             {
