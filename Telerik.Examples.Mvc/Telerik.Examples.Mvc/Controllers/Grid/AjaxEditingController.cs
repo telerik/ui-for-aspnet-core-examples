@@ -6,19 +6,20 @@ using Telerik.Examples.Mvc.Models;
 using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
 using Microsoft.AspNetCore.Mvc;
+using ProductModel = Telerik.Examples.Mvc.Models.Product;
 
 namespace Telerik.Examples.Mvc.Controllers.Grid
 {
     public class AjaxEditingController : Controller
     {
-        private static ICollection<Product> products;
+        private static ICollection<ProductModel> products;
 
         public AjaxEditingController()
         {
             if (products == null)
             {
                 var random = new Random();
-                products = Enumerable.Range(1, 100).Select(x => new Product
+                products = Enumerable.Range(1, 100).Select(x => new ProductModel
                 {
                     Discontinued = x % 2 == 1,
                     ProductID = x,
@@ -41,14 +42,14 @@ namespace Telerik.Examples.Mvc.Controllers.Grid
         }
 
         [AcceptVerbs("Post")]
-        public ActionResult Create([DataSourceRequest] DataSourceRequest request, Product product)
+        public ActionResult Create([DataSourceRequest] DataSourceRequest request, ProductModel product)
         {
             //save item to database
             return Json(new[] { product }.ToDataSourceResult(request, ModelState));
         }
 
         [AcceptVerbs("Post")]
-        public ActionResult Update([DataSourceRequest] DataSourceRequest request, Product product)
+        public ActionResult Update([DataSourceRequest] DataSourceRequest request, ProductModel product)
         {
             //save item to database
             products.Add(product);
@@ -56,7 +57,7 @@ namespace Telerik.Examples.Mvc.Controllers.Grid
         }
 
         [AcceptVerbs("Post")]
-        public ActionResult Destroy([DataSourceRequest] DataSourceRequest request, Product product)
+        public ActionResult Destroy([DataSourceRequest] DataSourceRequest request, ProductModel product)
         {
             //remove item from database
             products.Remove(product);

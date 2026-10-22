@@ -6,12 +6,13 @@ using Telerik.Examples.Mvc.Models;
 using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
 using Microsoft.AspNetCore.Mvc;
+using ProductModel = Telerik.Examples.Mvc.Models.Product;
 
 namespace Telerik.Examples.Mvc.Controllers.Grid
 {
     public class GridInlineEditingWithNullableBooleanController : Controller
     {
-        public static IList<Product> Products
+        public static IList<ProductModel> Products
         {
             get;
             set;
@@ -21,7 +22,7 @@ namespace Telerik.Examples.Mvc.Controllers.Grid
         {
             var random = new Random();
 
-            Products = Enumerable.Range(0, 20).Select(index => new Product
+            Products = Enumerable.Range(0, 20).Select(index => new ProductModel
             {
                 ProductID = index + 1,
                 ProductName = "Product " + index,
@@ -38,7 +39,7 @@ namespace Telerik.Examples.Mvc.Controllers.Grid
             return Json(Products.ToDataSourceResult(request));
         }
 
-        public IActionResult Update([DataSourceRequest]DataSourceRequest request, Product product)
+        public IActionResult Update([DataSourceRequest]DataSourceRequest request, ProductModel product)
         {
             if (ModelState.IsValid)
             {
