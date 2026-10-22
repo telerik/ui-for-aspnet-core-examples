@@ -4,7 +4,7 @@
         .SkipSanitization(true)
         .Width("400px")
         .Height("600px")
-        .MessageWidthMode(MessageWidthMode.Full)
+        .MessageWidthMode(ChatMessageWidth.Full)
         .Messages(m => m.Placeholder("Ask the AI..."))
         .Events(e => e.SendMessage("onSendMessage"))
         )
@@ -54,5 +54,4 @@
         }
     }
 </script>
-
 

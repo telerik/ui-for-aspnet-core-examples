@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Telerik.Web.PDF;
+using Telerik.Pdf.Web;
 
 namespace Telerik.Examples.RazorPages.Pages.PDFViewer
 {

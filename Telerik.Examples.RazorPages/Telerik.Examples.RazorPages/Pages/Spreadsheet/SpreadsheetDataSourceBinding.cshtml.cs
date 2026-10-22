@@ -12,13 +12,13 @@ namespace Telerik.Examples.RazorPages.Pages.Spreadsheet
 {
     public class SpreadsheetDataSourceBindingModel : PageModel
     {
-		public static IList<Product> SpreadData;
+		public static IList<Models.Product> SpreadData;
 
 		public void OnGet()
 		{
             if (SpreadData == null)
             {
-				SpreadData = Enumerable.Range(1, 50).Select(x => new Product() { 
+				SpreadData = Enumerable.Range(1, 50).Select(x => new Models.Product() { 
 					ProductID = x,
                     CategoryID = x % 7,
                     ProductName = "Product " + x
@@ -35,9 +35,9 @@ namespace Telerik.Examples.RazorPages.Pages.Spreadsheet
         {
             var result = new SpreadsheetSubmitViewModel()
             {
-                Created = new List<Product>(),
-                Updated = new List<Product>(),
-                Destroyed = new List<Product>()
+                Created = new List<Models.Product>(),
+                Updated = new List<Models.Product>(),
+                Destroyed = new List<Models.Product>()
             };
 
             if ((model.Created != null || model.Updated != null || model.Destroyed != null) && ModelState.IsValid)

@@ -15,7 +15,7 @@ namespace Telerik.Examples.RazorPages.Pages.Loader
         public LoaderThemeColor ThemeColor { get; set; }
         public void OnGet()
         {
-            ThemeColor = LoaderThemeColor.Success;
+            ThemeColor = LoaderThemeColor.Primary;
             Size = LoaderSize.Large;
         }
     }

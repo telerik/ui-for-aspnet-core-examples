@@ -7,7 +7,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="9.0.*" />
-    <PackageReference Include="Telerik.Licensing" Version="1.6.36" />
+    <PackageReference Include="Telerik.Licensing" Version="1.9.2" />
     <PackageReference Include="Telerik.UI.for.AspNet.Core" Version="2026.3.1015" />
   </ItemGroup>
 
