@@ -44,6 +44,7 @@ namespace Telerik.Examples.Mvc.Models
         public int? RecurrenceID { get; set; }
         public string RecurrenceException { get; set; }
         public bool IsAllDay { get; set; }
+        public bool IsReadonly { get; set; }
         public int? RoomID { get; set; }
         public int? CityId { get; set; }
         public IEnumerable<int> Attendees { get; set; }

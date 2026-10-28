@@ -5,19 +5,20 @@ using System.Collections.Generic;
 using Kendo.Mvc.UI;
 using Kendo.Mvc.Extensions;
 using Telerik.Examples.Mvc.Models;
+using ProductModel = Telerik.Examples.Mvc.Models.Product;
 
 namespace Telerik.Examples.Mvc.Controllers.Grid
 {
     public class Hierarchy_Persist_Expanded_ChildrenController : Controller
     {
-        private static ICollection<Product> products;
+        private static ICollection<ProductModel> products;
         private static ICollection<Person> people;
         public IActionResult Hierarchy_Persist_Expanded_Children()
         {
             if (products == null)
             {
                 var random = new Random();
-                products = Enumerable.Range(1, 4).Select(i => new Product
+                products = Enumerable.Range(1, 4).Select(i => new ProductModel
                 {
                     Discontinued = i % 2 == 1,
                     ProductID = i,
@@ -46,14 +47,14 @@ namespace Telerik.Examples.Mvc.Controllers.Grid
         }
 
         [AcceptVerbs("Post")]
-        public ActionResult Create_Products([DataSourceRequest] DataSourceRequest request, Product product)
+        public ActionResult Create_Products([DataSourceRequest] DataSourceRequest request, ProductModel product)
         {
             //save item to database
             return Json(new[] { product }.ToDataSourceResult(request, ModelState));
         }
 
         [AcceptVerbs("Post")]
-        public ActionResult Update_Products([DataSourceRequest] DataSourceRequest request, Product product)
+        public ActionResult Update_Products([DataSourceRequest] DataSourceRequest request, ProductModel product)
         {
             //save item to database
             products.Add(product);

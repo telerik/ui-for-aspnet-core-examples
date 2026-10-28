@@ -4,18 +4,19 @@ using System.Linq;
 using System.Threading.Tasks;
 using Telerik.Examples.Mvc.Models;
 using Microsoft.AspNetCore.Mvc;
+using ProductModel = Telerik.Examples.Mvc.Models.Product;
 
 namespace Telerik.Examples.Mvc.Controllers.Grid
 {
     public class CustomDataSourceController : Controller
     {
-        private static ICollection<Product> products;
+        private static ICollection<ProductModel> products;
         public CustomDataSourceController()
         {
             if (products == null)
             {
                 var random = new Random();
-                products = Enumerable.Range(1, 100).Select(x => new Product
+                products = Enumerable.Range(1, 100).Select(x => new ProductModel
                 {
                     Discontinued = x % 2 == 1,
                     ProductID = x,

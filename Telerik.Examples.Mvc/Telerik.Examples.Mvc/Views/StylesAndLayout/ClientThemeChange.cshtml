@@ -1,8 +1,40 @@
-﻿@{
+﻿@using System.Collections.Generic
+@{
     var specialThemes = new string[] { "nova", "bootstrap", "fiori", "material", "materialblack", "office365" };
     var sassThemes = new string[] { "default-v2", "bootstrap-v4", "material-v2" };
     var commonThemeName = "common";
-    var mainHref = "https://kendo.cdn.telerik.com/2019.3.917/styles/kendo.";
+    var mainHref = "https://cdn.jsdelivr.net/npm/@progress/kendo-ui@2019.3.917/css/web/kendo.";
+    var themeIntegrities = new Dictionary<string, string>
+    {
+        ["default-v2"] = "sha256-8pnNc1IM6fwY2KySWsSDUgu7xa1b19pRt+vWjND8ito=",
+        ["bootstrap-v4"] = "sha256-ATYSpdRhxtcqD4TaWUQbfuYcmglrIRVH0M3NKFmGX9g=",
+        ["material-v2"] = "sha256-qv8g8kh5xYi/z87ntBbmZJC6z+oBd2Dez4Jj5cQMo9M=",
+        ["default"] = "sha256-ldD0ll65BqtzW02XKRQd544pXotjpuxE6hpEu9jJnVk=",
+        ["material"] = "sha256-vQ7GD7g6snjurkZ3wXscULdTmgsDQhszTxmYrmF+MPI=",
+        ["moonlight"] = "sha256-TDEdDm1Rc4aKsu4lKL2aKHRby3GBdPm9VEVfYbp7PVU=",
+        ["uniform"] = "sha256-8XxoL7j4Vh38bm6AGy7UZcqljKEtOBLHUZoRzssW0qo=",
+        ["bootstrap"] = "sha256-sMoedUNlzPXWgwmKLMWkpIv3A829Hq241JVAQQ9ikUw=",
+        ["highcontrast"] = "sha256-VAR8LMzNjiZwH7lLtY+ijWo8357YmnvycQvVR1gz/io=",
+        ["metroblack"] = "sha256-8JEad473TvwLgOKcxjXm11uEGoDWV0G8H2BG3lJ/kds=",
+        ["silver"] = "sha256-OotLV1Z6SAgxG4pABnCoQZNuEMmIZMUP0524IBPaJ28=",
+        ["blueopal"] = "sha256-GH3Mr4jShtjxoajG+/ykg6om4OWryu8D0e10pEvMnnc=",
+        ["flat"] = "sha256-mVuuqLEvnAIx7RSSRyQQF7XqVIUiQEpsUQYG0JeGBHA=",
+        ["metro"] = "sha256-53XM5Ym5EIVevC9bO7Wq/SPXwXDzQrGtNuJK7zx6pUk=",
+        ["office365"] = "sha256-9oNqDlR2tLSGbgeb/7bqwR9efnKDNfmfPROyDMQ6LcA=",
+        ["black"] = "sha256-mNC9DNVK1Q2/hAEIw74rYNrhYpwN72D+wxmCzszzXlg=",
+        ["fiori"] = "sha256-EDAsa93UlFsEaVCQn69GP3JlFqMiAeGclpxijRlkmbk=",
+        ["materialblack"] = "sha256-2AQIYV2EPMxYvo0/CqYQkJ/eNtYBOWXJjHU6g5agp7Y=",
+        ["nova"] = "sha256-ddBy9oOgFw41NUluFl8jNHPtINIeb2JnOwsVthTs/pI="
+    };
+    var commonThemeIntegrities = new Dictionary<string, string>
+    {
+        ["common"] = "sha256-5/dGsVoCZx8/yH5K7oCFWeSUc6ZBDde+gSZnKSrCLE8=",
+        ["common-nova"] = "sha256-C6opqBLwYsURs9Zp8PJrrXMgIbyRjrbmHHVC6TZOoAw=",
+        ["common-bootstrap"] = "sha256-slGcTJVyDppgDLt+Q0haroVcbVYP4yCDhhSsBCPtxXE=",
+        ["common-fiori"] = "sha256-41Jez7OAPhniXC1itSfDqUU2wSZQUru9dhw5RifEkrI=",
+        ["common-material"] = "sha256-Q4GlfCsnV+a66RN7SrzfdBv7YiYK+gBwtrAhiY51FaA=",
+        ["common-office365"] = "sha256-mm39cupXWw/9KfX8nsJBkOg+ptrN91vyCy8sUbhEBJ0="
+    };
     var isThemeSelected = Context.Request.Cookies.TryGetValue("theme", out string selectedTheme);
 
     if (!isThemeSelected)
@@ -10,21 +42,26 @@
         selectedTheme = "default";
     }
 
+    if (!themeIntegrities.ContainsKey(selectedTheme))
+    {
+        selectedTheme = "default";
+    }
+
     var themeHref = mainHref + selectedTheme + ".min.css";
-    var commonThemeHref = mainHref + commonThemeName + ".min.css";
     if (specialThemes.Any(x => x == selectedTheme))
     {
         commonThemeName += "-" + selectedTheme.Replace("materialblack", "material");
     }
+    var commonThemeHref = mainHref + commonThemeName + ".min.css";
 
     if (sassThemes.Contains(selectedTheme))
     {
-        <link href=@themeHref rel="stylesheet" type="text/css" />
+        <link href="@themeHref" integrity="@themeIntegrities[selectedTheme]" crossorigin="anonymous" rel="stylesheet" type="text/css" />
     }
     else
     {
-        <link href=@commonThemeHref rel="stylesheet" type="text/css" />
-        <link href=@themeHref rel="stylesheet" type="text/css" />
+        <link href="@commonThemeHref" integrity="@commonThemeIntegrities[commonThemeName]" crossorigin="anonymous" rel="stylesheet" type="text/css" />
+        <link href="@themeHref" integrity="@themeIntegrities[selectedTheme]" crossorigin="anonymous" rel="stylesheet" type="text/css" />
     }
 }
 

@@ -21,21 +21,21 @@ namespace Telerik.Examples.RazorPages.Pages.Menu
                     {
                         CategoryID = 1,
                         CategoryName = "Clothes",
-                        Products = new List<Product>()
+                        Products = new List<Models.Product>()
                         {
-                            new Product(){ ProductID = 10, ProductName = "Dresses", CategoryID = 1},
-                            new Product(){ ProductID = 11, ProductName = "T-shirts", CategoryID = 1}
+                            new Models.Product(){ ProductID = 10, ProductName = "Dresses", CategoryID = 1},
+                            new Models.Product(){ ProductID = 11, ProductName = "T-shirts", CategoryID = 1}
                         }
                     },
                     new Category()
                     {
                         CategoryID = 2,
                         CategoryName = "Furniture",
-                        Products = new List<Product>()
+                        Products = new List<Models.Product>()
                         {
-                            new Product(){ ProductID = 12, ProductName = "Sofas", CategoryID = 2},
-                            new Product(){ ProductID = 13, ProductName = "Accessories", CategoryID = 2},
-                            new Product(){ ProductID = 14, ProductName = "Tables", CategoryID = 2}
+                            new Models.Product(){ ProductID = 12, ProductName = "Sofas", CategoryID = 2},
+                            new Models.Product(){ ProductID = 13, ProductName = "Accessories", CategoryID = 2},
+                            new Models.Product(){ ProductID = 14, ProductName = "Tables", CategoryID = 2}
                         }
                     }
                 };
