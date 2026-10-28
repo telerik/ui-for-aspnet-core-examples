@@ -8,16 +8,19 @@
 
     @{
         var kendoVersion = "2026.3.1015";
-        var themeVersion = "12.0.0";
+        var themeVersion = "14.6.1";
+        var themeHref = String.Format("https://cdn.jsdelivr.net/npm/@progress/kendo-theme-default@{0}/dist/default-ocean-blue.css", themeVersion);
+        var kendoAllSrc = String.Format("https://cdn.jsdelivr.net/npm/@progress/kendo-ui@{0}/umd/kendo.all.min.js", kendoVersion);
+        var kendoAspnetmvcSrc = String.Format("https://cdn.jsdelivr.net/npm/@progress/kendo-ui@{0}/umd/kendo.aspnetmvc.min.js", kendoVersion);
     }
-    <link href="https://cdn.jsdelivr.net/npm/@@progress/kendo-theme-default@@@themeVersion/dist/default-ocean-blue.css" integrity="sha256-AE9A8gLyrM0OhrSHm+jsj5vl2zVM5030vR80q5jIhDs=" crossorigin="anonymous" rel="stylesheet" type="text/css" />
+    <link href="@themeHref" rel="stylesheet" type="text/css" />
 
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"
             integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g="
             crossorigin="anonymous"></script>
     <script src="https://unpkg.com/jszip/dist/jszip.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@@progress/kendo-ui@@@kendoVersion/umd/kendo.all.min.js" integrity="sha256-e9W9Kscg9GPWuWSgI3uOxAWsq0R0CqlowtEQuwmsKG8=" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@@progress/kendo-ui@@@kendoVersion/umd/kendo.aspnetmvc.min.js" integrity="sha256-vyGK1w64H2GlT+oueup7Q67n5GEEbeuz9p1OI0jLmOI=" crossorigin="anonymous"></script>
+    <script src="@kendoAllSrc" ></script>
+    <script src="@kendoAspnetmvcSrc" ></script>
 
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
