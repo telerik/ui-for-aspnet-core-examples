@@ -7,7 +7,10 @@
     <title>@ViewData["Title"] - Kendo.FormFilling.ServerProcessing</title>
     @{
         var kendoVersion = "2026.3.1015";
-        var themeVersion = "13.0.0";
+        var themeVersion = "14.6.1";
+        var themeHref = String.Format("https://cdn.jsdelivr.net/npm/@progress/kendo-theme-default@{0}/dist/default-ocean-blue.css", themeVersion);
+        var kendoAllSrc = String.Format("https://cdn.jsdelivr.net/npm/@progress/kendo-ui@{0}/umd/kendo.all.min.js", kendoVersion);
+        var kendoAspnetmvcSrc = String.Format("https://cdn.jsdelivr.net/npm/@progress/kendo-ui@{0}/umd/kendo.aspnetmvc.min.js", kendoVersion);
     }
 
 
@@ -21,13 +24,13 @@
     </environment>
     @*Core Content Start*@
 
-    <link href="https://cdn.jsdelivr.net/npm/@@progress/kendo-theme-default@@@themeVersion/dist/default-ocean-blue.css" integrity="sha256-82zmjhyftqBm3WB6npFa1YMDMRrELHZdn2EBnGdeUf8=" crossorigin="anonymous" rel="stylesheet" type="text/css" />
+    <link href="@themeHref" rel="stylesheet" type="text/css" />
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 	<script src="https://unpkg.com/jszip/dist/jszip.min.js"></script>
     <script src="~/js/pdfjs.min.js"></script>
     <script src="~/js/pdfjs.worker.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@@progress/kendo-ui@@@kendoVersion/umd/kendo.all.min.js" integrity="sha256-e9W9Kscg9GPWuWSgI3uOxAWsq0R0CqlowtEQuwmsKG8=" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@@progress/kendo-ui@@@kendoVersion/umd/kendo.aspnetmvc.min.js" integrity="sha256-vyGK1w64H2GlT+oueup7Q67n5GEEbeuz9p1OI0jLmOI=" crossorigin="anonymous"></script>
+    <script src="@kendoAllSrc" ></script>
+    <script src="@kendoAspnetmvcSrc" crossorigin="anonymous"></script>
 @*Core Content End*@
 </head>
 <body class="k-content">
