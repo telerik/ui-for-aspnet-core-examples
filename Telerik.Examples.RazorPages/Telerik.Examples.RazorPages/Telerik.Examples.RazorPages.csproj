@@ -1,23 +1,23 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+<Project Sdk="Microsoft.NET.Sdk.Web">
 
 	<PropertyGroup>
-		<TargetFramework>net9.0</TargetFramework>
+		<TargetFramework>net10.0</TargetFramework>
 	</PropertyGroup>
 
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.AspNetCore.Http" Version="2.3.0" />
-		<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="9.0.8" />
-		<PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="9.0.2" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.2" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.2">
+		<PackageReference Include="Microsoft.AspNetCore.Http" Version="2.3.13" />
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="10.0.14" />
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="10.0.14" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="10.0.14" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="10.0.14">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
-		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.2" />
-		<PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="9.0.0" />
-		<PackageReference Include="System.Drawing.Common" Version="9.0.2" />
-		<PackageReference Include="System.Security.Cryptography.Xml" Version="9.0.2" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="10.0.14" />
+		<PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="10.0.2" />
+		<PackageReference Include="System.Drawing.Common" Version="10.0.14" />
+		<PackageReference Include="System.Security.Cryptography.Xml" Version="10.0.14" />
 		<PackageReference Include="System.Text.RegularExpressions" Version="4.3.1" />
 		<PackageReference Include="Telerik.UI.for.AspNet.Core" Version="2025.3.825" />
 		<PackageReference Include="Telerik.Web.Captcha" Version="2.0.3" />

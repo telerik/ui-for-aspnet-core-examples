@@ -1,12 +1,12 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web" ToolsVersion="15.0">
+<Project Sdk="Microsoft.NET.Sdk.Web" ToolsVersion="15.0">
 <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
     <Nullable>disable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="9.0.*" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="10.0.14" />
     <PackageReference Include="Telerik.Licensing" Version="1.6.36" />
     <PackageReference Include="Telerik.UI.for.AspNet.Core" Version="2025.4.1321" />
   </ItemGroup>
