@@ -1,0 +1,67 @@
+name: .NET Version Update
+
+on:
+  workflow_dispatch:
+    inputs:
+      branch-examples:
+        description: 'Open PR to: '
+        required: true
+        default: 'master'
+        type: string
+
+      net-version:
+        description: 'The .NET version to use. Just the version number. For NET 10 - type 10.'
+        required: true
+        default: '10'
+        type: string
+
+      sdk-version:
+        description: 'The SDK version to use'
+        required: true
+        default: '10.0.100'
+        type: string
+
+      target-framework:
+        description: 'The target framework to use (e.g. net10.0) This is used to update the TargetFramework tag in the project files.'
+        required: true
+        default: 'net10.0'
+        type: string
+jobs:
+  dotnet-version-update:
+    runs-on: ubuntu-latest
+
+    permissions:
+        contents: write
+        pull-requests: write
+
+    env:
+      BRANCH_EXAMPLES: ${{ github.event.inputs.branch-examples }}
+      NEW_NET_VERSION: ${{ github.event.inputs.net-version }}
+      NEW_SDK_VERSION: ${{ github.event.inputs.sdk-version }}
+      TARGET_FRAMEWORK: ${{ github.event.inputs.target-framework }}
+
+    steps:
+
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Update .NET version
+        shell: pwsh
+        run: |
+           ./build/update-dotnet-version.ps1 -newDotnetVersion "$env:NEW_NET_VERSION" -sdkVersion "$env:NEW_SDK_VERSION" -targetFramework "$env:TARGET_FRAMEWORK"
+      
+      - name: Commit new .NET version and SDK version
+        shell: bash
+        run: |
+          git config user.name "kendo-bot"
+          git config user.email "kendo-bot@progress.com"
+          git checkout -b update-dotnet-version-${NEW_NET_VERSION}-sdk-${NEW_SDK_VERSION}
+          git add .
+          git commit -m "chore(update): update dotnet version"
+          git push --set-upstream origin update-dotnet-version-${NEW_NET_VERSION}-sdk-${NEW_SDK_VERSION}
+      - name: Open Pull Request
+        run: gh pr create --base ${BRANCH_EXAMPLES} --head "update-dotnet-version-${NEW_NET_VERSION}-sdk-${NEW_SDK_VERSION}" --title "Automatic Update .NET Version" --body "Automatic .NET version update, make sure to compile and build each of the solution files and test the examples accordingly."
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
