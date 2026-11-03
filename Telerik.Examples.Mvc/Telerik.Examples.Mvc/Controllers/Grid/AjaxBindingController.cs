@@ -6,12 +6,13 @@ using Telerik.Examples.Mvc.Models;
 using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
 using Microsoft.AspNetCore.Mvc;
+using ProductModel = Telerik.Examples.Mvc.Models.Product;
 
 namespace Telerik.Examples.Mvc.Controllers.Grid
 {
     public class AjaxBindingController : Controller
     {
-        private static ICollection<Product> products;
+        private static ICollection<ProductModel> products;
         public IActionResult AjaxBinding()
         {
             return View();
@@ -21,7 +22,7 @@ namespace Telerik.Examples.Mvc.Controllers.Grid
             if (products == null)
             {
                 var random = new Random();
-                products = Enumerable.Range(1, 100).Select(x => new Product
+                products = Enumerable.Range(1, 100).Select(x => new ProductModel
                 {
                     Discontinued = x % 2 == 1,
                     ProductID = x,

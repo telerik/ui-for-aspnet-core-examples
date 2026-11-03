@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System;
 using Telerik.Examples.Mvc.Models;
-using Product = Telerik.Examples.Mvc.Models.Product;
+using ProductModel = Telerik.Examples.Mvc.Models.Product;
 
 namespace Telerik.Examples.Mvc.Hubs
 {
@@ -28,8 +28,8 @@ namespace Telerik.Examples.Mvc.Hubs
             return base.OnDisconnectedAsync(e);
         }
 
-        public IEnumerable<Product> Read()
-         => Enumerable.Range(1, 2).Select(i => new Product
+        public IEnumerable<ProductModel> Read()
+         => Enumerable.Range(1, 2).Select(i => new ProductModel
             {
                 Discontinued = i % 2 == 1,
                 ProductID = i,
@@ -39,16 +39,16 @@ namespace Telerik.Examples.Mvc.Hubs
                 UnitsOnOrder = _randomHelper.Next(1, 1000)
             }).ToList();
 
-        public Product Create(Product product)
+        public ProductModel Create(ProductModel product)
         {
             Clients.OthersInGroup(GetGroupName()).SendAsync("create", product);
             return product;
         }
 
-        public void Update(Product product)
+        public void Update(ProductModel product)
            => Clients.OthersInGroup(GetGroupName()).SendAsync("update", product);
 
-        public void Destroy(Product product)
+        public void Destroy(ProductModel product)
            => Clients.OthersInGroup(GetGroupName()).SendAsync("destroy", product);
 
         public string GetGroupName()

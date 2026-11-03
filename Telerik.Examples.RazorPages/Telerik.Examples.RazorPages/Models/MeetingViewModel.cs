@@ -54,6 +54,7 @@ namespace Telerik.Examples.RazorPages.Models
         public int? RecurrenceID { get; set; }
         public string RecurrenceException { get; set; }
         public bool IsAllDay { get; set; }
+        public bool IsReadonly { get; set; }
         public string Timezone { get; set; }
         public int? RoomID { get; set; }
         public IEnumerable<int> Attendees { get; set; }
